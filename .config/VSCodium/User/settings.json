@@ -1,0 +1,108 @@
+{
+    "window.zoomLevel": 4,
+    "editor.fontSize": 20,
+    "git.enableSmartCommit": true,
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "workbench.navigationControl.enabled": false,
+    "redhat.telemetry.enabled": false,
+    "editor.minimap.size": "fill",
+    "github.copilot.advanced": {},
+    "github.copilot.selectedCompletionModel": "gpt-4o-copilot",
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
+    "workbench.layoutControl.enabled": false,
+    "window.commandCenter": false,
+    "window.menuBarVisibility": "classic",
+    "basedpyright.analysis.typeCheckingMode": "recommended",
+    "basedpyright.analysis.diagnosticSeverityOverrides": {
+        "reportUnknownArgumentType": "none",
+        "reportMissingParameterType": "none",
+        "reportUnknownParameterType": "none",
+        "reportUnknownVariableType": "none",
+        "reportUnknownMemberType": "none",
+        "reportAny": "none",
+        "reportUnusedCallResult": "none",
+        "reportUnannotatedClassAttribute": "none"
+    },
+    "settings.cycle": [
+        {
+            "id": "custom_profiles",
+            "overrideWorkspaceSettings": true,
+            "values": [
+                {
+                    "workbench.statusBar.visible": true,
+                    "workbench.editor.showTabs": true,
+                    "workbench.activityBar.location": "default",
+                },
+                {
+                    "workbench.statusBar.visible": false,
+                    "workbench.editor.showTabs": true,
+                    "workbench.activityBar.location": "default",
+                },
+                {
+                    "workbench.statusBar.visible": false,
+                    "workbench.editor.showTabs": true,
+                    "workbench.activityBar.location": "hidden",
+                },
+                {
+                    "workbench.statusBar.visible": false,
+                    "workbench.editor.showTabs": false,
+                    "workbench.activityBar.location": "hidden",
+                }
+            ]
+        }
+    ],
+    "workbench.statusBar.visible": true,
+    "workbench.editor.showTabs": "multiple",
+    "workbench.activityBar.location": "default",
+
+
+    "editor.scrollbar.vertical": "hidden",
+    "editor.hideCursorInOverviewRuler": true,
+    "editor.overviewRulerBorder": false,
+    "workbench.colorCustomizations": {
+        "editorOverviewRuler.addedForeground": "#0000",
+        "editorOverviewRuler.bracketMatchForeground": "#0000",
+        "editorOverviewRuler.commentForeground": "#0000",
+        "editorOverviewRuler.commentUnresolvedForeground": "#0000",
+        "editorOverviewRuler.commonContentForeground": "#0000",
+        "editorOverviewRuler.currentContentForeground": "#0000",
+        "editorOverviewRuler.deletedForeground": "#0000",
+        "editorOverviewRuler.errorForeground": "#0000",
+        "editorOverviewRuler.findMatchForeground": "#0000",
+        "editorOverviewRuler.incomingContentForeground": "#0000",
+        "editorOverviewRuler.infoForeground": "#0000",
+        "editorOverviewRuler.inlineChatInserted": "#0000",
+        "editorOverviewRuler.inlineChatRemoved": "#0000",
+        "editorOverviewRuler.modifiedForeground": "#0000",
+        "editorOverviewRuler.rangeHighlightForeground": "#0000",
+        "editorOverviewRuler.selectionHighlightForeground": "#0000",
+        "editorOverviewRuler.warningForeground": "#0000",
+        "editorOverviewRuler.wordHighlightForeground": "#0000",
+        "editorOverviewRuler.wordHighlightStrongForeground": "#0000",
+        "editorOverviewRuler.wordHighlightTextForeground": "#0000"
+    },
+    "editor.minimap.autohide": true,
+    "breadcrumbs.enabled": false,
+    "workbench.editor.labelFormat": "short",
+    "diffEditor.ignoreTrimWhitespace": true,
+    "basedpyright.analysis.stubPath": "/home/alexander/SyncedObsidian/.obsidian/plugins/obsidian-pyright/Pyright/customStubs",
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "keyboard.dispatch": "keyCode",
+    "editor.lineNumbers": "relative",
+    "workbench.editorAssociations": {
+        "*.copilotmd": "vscode.markdown.preview.editor",
+        "*.pdf": "default"
+    },
+    "python.createEnvironment.trigger": "off",
+    "basedpyright.analysis.inlayHints.callArgumentNames": false,
+    "basedpyright.analysis.inlayHints.functionReturnTypes": false,
+    "basedpyright.analysis.inlayHints.variableTypes": false
+}

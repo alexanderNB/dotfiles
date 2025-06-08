@@ -1,0 +1,19 @@
+
+
+[pyprland]
+# Enable desired features
+
+plugins = [
+  "expose",
+  "fetch_client_menu",
+  # "lost_windows",
+  "magnify",
+  "scratchpads",
+  # "shift_monitors",
+  # "toggle_special",
+  # "workspaces_follow_focus",
+]
+
+# Example variable definitions (optional)
+# [pyprland.variables]
+# term_classed = "kitty --class"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pc="laptop"
+pc="desktop"
 if [[ $pc == "laptop" ]]; then
     if [ "$(pgrep -x "waybar")" ]; then
         pkill -x waybar

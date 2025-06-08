@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pc="laptop"
+pc="desktop"
 
 command="$1"
 workspace="$2"

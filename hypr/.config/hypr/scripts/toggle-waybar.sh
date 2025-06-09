@@ -1,1 +1,1 @@
-/home/alexander/.config/system_specific/hypr/scripts/toggle-waybar.sh
+../../../../../.config/system_specific/hypr/scripts/toggle-waybar.sh

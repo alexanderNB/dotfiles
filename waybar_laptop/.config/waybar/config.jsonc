@@ -24,17 +24,19 @@
         "custom/r_end2"
     ],
     "modules-right": [
-        // "group/system-levels",
+        "custom/l_end",
+        "group/system-levels",
+        "custom/r_end",
         "custom/l_end",
         // "idle_inhibitor",
         "clock",
-        "custom/r_end"
+        "custom/r_end",
         // "custom/l_end",
         // "hyprland/language",
         // "custom/r_end",
-        // "custom/l_end",
-        // "group/control-panel",
-        // "custom/r_end"
+        "custom/l_end",
+        "group/control-panel",
+        "custom/r_end"
     ],
     "group/system-info": {
         "orientation": "horizontal",
@@ -47,9 +49,11 @@
     "group/system-levels": {
         "orientation": "horizontal",
         "modules": [
-            "custom/brightness",
+            // "custom/brightness",
+            "backlight",
             "custom/battery",
-            "custom/volume",
+            // "custom/volume",
+            "pulseaudio",
             "custom/microphone"
         ]
     },
@@ -59,15 +63,15 @@
             "custom/system-update",
             "custom/do-not-disturb",
             // "custom/vpn",
-            // "custom/bluetooth",
-            // "custom/networkmanager",
+            "bluetooth",
+            "network",
             "custom/power"
         ]
     },
     //==> Left Modules
     ///////////////////////////////////////////////////////////////
     "tray": {
-        "icon-size": 18,
+        "icon-size": 28,
         "rotate": 0,
         "spacing": 5
     },
@@ -196,7 +200,7 @@
         }
     },
     "custom/battery": {
-        "exec": "sh ~/bin/battery.sh --status --discharged-color \"#f38ba8\" --charged-color \"#a6e3a1\" | cat",
+        "exec": "sh ~/bin/battery.sh --status",
         "return-type": "raw",
         "format": "{}  ",
         "interval": 3,
@@ -205,7 +209,7 @@
         "tooltip": false
     },
     "custom/brightness": {
-        "exec": "sh ~/bin/brightness.sh --status --color \"#61afef\" | cat",
+        "exec": "sh ~/bin/brightness.sh --status",
         "return-type": "raw",
         "format": "{}  ",
         "interval": 1,
@@ -217,7 +221,7 @@
         "tooltip": false
     },
     "custom/volume": {
-        "exec": "sh ~/bin/volume.sh --device output --status --disabled-color \"#f38ba8\" --enabled-color \"#a6e3a1\" | cat",
+        "exec": "sh ~/bin/volume.sh --device output --status",
         "return-type": "raw",
         "format": "{}  ",
         "interval": 1,
@@ -229,7 +233,7 @@
         "tooltip": false
     },
     "custom/microphone": {
-        "exec": "sh ~/bin/volume.sh --device input --status --disabled-color \"#f38ba8\" --enabled-color \"#a6e3a1\" | cat",
+        "exec": "sh ~/bin/volume.sh --device input --status",
         "return-type": "raw",
         "format": "{}",
         "interval": 1,
@@ -326,5 +330,96 @@
         "format": "  ",
         "interval": "once",
         "tooltip": false
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{icon} {volume}%  ",
+        "format-bluetooth": "{volume}% {icon} {volume}%  ",
+        "format-bluetooth-muted": " {icon} {volume}%  ",
+        "format-muted": "  {volume}%  ",
+        // "format-source": "{volume}% ",
+        // "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [
+                "",
+                " ",
+                " "
+            ]
+        },
+        "on-click": "amixer -q sset Master toggle",
+        "on-click-right": "pwvucontrol",
+        "tooltip": false
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{icon} {percent}%  ",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "on-click": "brightnessctl -c backlight set 100%",
+        "on-click-right": "brightnessctl -c backlight set 1%",
+        "on-scroll-down": "brightnessctl -c backlight set 1%-",
+        // "on-scroll-down": "light -A 5 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob",
+        "on-scroll-up": "brightnessctl -c backlight set +1%",
+        // "on-scroll-up": "light -U 5 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob"
+        "tooltip": false
+    },
+    "bluetooth": {
+        // "controller": "controller1", // specify the alias of the controller if there are more than 1 on the system
+        // "format": "󰂯 {status}",
+        // format-* handles every state, so default format is not necessary.
+        "format-on": "󰂯 ",
+        "format-off": "󰂲 ",
+        "format-disabled": "", // an empty format will hide the module
+        "format-connected": "󰂱 {num_connections} ",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        // "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+        "tooltip-format-connected": "{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "on-click": "sh ~/rofi-bluetooth/rofi-bluetooth"
+    },
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        // "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-wifi": "{icon}  ",
+        "format-icons": [
+            "󰤯",
+            "󰤟",
+            "󰤢",
+            "󰤥",
+            "󰤨"
+        ],
+        // "format-ethernet": "{ipaddr}/{cidr} 󰈀",
+        "format-ethernet": "󰈀",
+        "format-linked": "{ifname} 󰈀",
+        "format-disconnected": "󰤫",
+        // "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "on-click": "sh ~/.config/rofi/rofi-wifi-menu/rofi-wifi-menu.sh"
     }
 }

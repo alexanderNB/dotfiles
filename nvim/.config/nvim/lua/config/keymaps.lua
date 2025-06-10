@@ -29,6 +29,14 @@ vim.keymap.set("n", "<localleader>mA", runner.run_all, { desc = "run all cells",
 vim.keymap.set("n", "<localleader>ml", runner.run_line, { desc = "run line", silent = true })
 vim.keymap.set("v", "<Localleader>m", runner.run_range, { desc = "run visual range", silent = true })
 
+vim.keymap.set("n", "H", "<C-w>h", { desc = "Go to left window" })
+vim.keymap.set("n", "J", "<C-w>j", { desc = "Go to lower window" })
+vim.keymap.set("n", "K", "<C-w>k", { desc = "Go to upper window" })
+vim.keymap.set("n", "L", "<C-w>l", { desc = "Go to right window" })
+
+-- vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
+-- vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
+
 require("nvim-treesitter.configs").setup({
     ...,
     textobjects = {

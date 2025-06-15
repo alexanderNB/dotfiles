@@ -48,3 +48,6 @@ vim.opt.tabstop = 8
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.smarttab = true
+
+-- require("config.snacks")
+-- require("config.ui")

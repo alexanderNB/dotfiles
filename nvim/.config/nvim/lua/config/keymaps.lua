@@ -29,10 +29,29 @@ vim.keymap.set("n", "<localleader>mA", runner.run_all, { desc = "run all cells",
 vim.keymap.set("n", "<localleader>ml", runner.run_line, { desc = "run line", silent = true })
 vim.keymap.set("v", "<Localleader>m", runner.run_range, { desc = "run visual range", silent = true })
 
-vim.keymap.set("n", "H", "<C-w>h", { desc = "Go to left window" })
-vim.keymap.set("n", "J", "<C-w>j", { desc = "Go to lower window" })
-vim.keymap.set("n", "K", "<C-w>k", { desc = "Go to upper window" })
-vim.keymap.set("n", "L", "<C-w>l", { desc = "Go to right window" })
+vim.keymap.set("n", "H", "<C-o>", { desc = "Previous jump" })
+vim.keymap.set("n", "J", ":bprevious<CR>", { desc = "Previous buffer" })
+vim.keymap.set("n", "K", ":bnext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "L", "<C-i>", { desc = "Next jump" })
+
+vim.keymap.set("i", "<Esc>", "<Esc>m`")
+
+local function jump_with_mark(key)
+    return function()
+        local count = vim.v.count
+        if count > 0 then
+            -- Feed both "m'" and the counted motion, e.g. "m'5j"
+            local keys = "m'" .. count .. key
+            -- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), "n", false)
+            vim.api.nvim_feedkeys(keys, "n", true)
+            return "" -- nothing more to process
+        end
+        return key -- no count, just do normal motion
+    end
+end
+
+vim.keymap.set("n", "j", jump_with_mark("j"), { expr = true, desc = "Smart j with jump" })
+vim.keymap.set("n", "k", jump_with_mark("k"), { expr = true, desc = "Smart k with jump" })
 
 -- vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
 -- vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })

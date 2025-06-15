@@ -43,4 +43,11 @@
 # resize-overlay-duration = 4s 200ms
 font-family = "Droid Sans Mono"
 # font-feature = -calt, -liga, -dlig
+resize-overlay = "never"
+confirm-close-surface = "false"
+background = "#1F1F1F"
+
+
+
+
 

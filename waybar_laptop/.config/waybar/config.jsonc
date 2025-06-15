@@ -417,7 +417,7 @@
         // "format-ethernet": "{ipaddr}/{cidr} 󰈀",
         "format-ethernet": "󰈀",
         "format-linked": "{ifname} 󰈀",
-        "format-disconnected": "󰤫",
+        "format-disconnected": "󰤫  ",
         // "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "tooltip-format": "{ifname} via {gwaddr}",
         "on-click": "sh ~/.config/rofi/rofi-wifi-menu/rofi-wifi-menu.sh"

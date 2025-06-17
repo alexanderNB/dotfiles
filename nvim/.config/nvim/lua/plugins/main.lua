@@ -27,6 +27,11 @@ return {
         enabled = false,
     },
     {
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.8",
+        dependencies = { "nvim-lua/plenary.nvim" },
+    },
+    {
         "benlubas/molten-nvim",
         version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
         build = ":UpdateRemotePlugins",

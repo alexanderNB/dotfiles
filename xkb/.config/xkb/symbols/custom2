@@ -1,0 +1,85 @@
+//KeyboardlayoutsfortheUnitedStatesofAmerica.
+
+default partial alphanumeric_keys // modifier_keys
+xkb_symbols "basic" {
+
+    name[Group1]= "English(US)";
+
+    // numberrow
+    // key <TLDE>  {[ grave,asciitilde]};
+    // key <AE01>  {[ ]};
+    // key <AE02>  {[ 2,bracketleft,bracketright,quotedbl]};
+    // key <AE03>  {[ 3,braceleft,braceright,numbersign]};
+    // key <AE04>  {[ 4,quotedbl,apostrophe,dollar]};
+    // key <AE05>  {[ 5,exclam,percent,percent]};
+    // key <AE06>  {[ 6,numbersign,ampersand,ampersand]};
+    // key <AE07>  {[ 7,ampersand,braceleft,slash]};
+    // key <AE08>  {[ 8,asterisk,bracketleft,parenleft]};
+    // key <AE09>  {[ 9,percent,bracketright,parenright]};
+    // key <AE10>  {[ 0,at,braceright,equal]};
+    // key <AE11>  {[ minus,underscore,plus,question]};
+    // key <AE12>  {[ equal,plus,bar,grave]};
+    // numberrowend
+
+    key <TAB>   {[ Tab,         Tab,            less]};
+    key <AD01>  {[ q,           Q,              greater]};
+    key <AD02>  {[ w,           W,              7]};
+    key <AD03>  {[ e,           E,              8]};
+    key <AD04>  {[ r,           R,              9]};
+    key <AD05>  {[ t,           T,              numbersign]};
+
+    key <AD06>  {[ parenleft,   parenright,     asterisk]};
+    key <AD07>  {[ y,           Y,              quotedbl]};
+    key <AD08>  {[ u,           U,              apostrophe]};
+    key <AD09>  {[ i,           I,              grave]};
+    key <AD10>  {[ o,           O,              percent]};
+    key <AD11>  {[ p,           P,              bar]};
+
+
+    // key <CAPS>  {[ Escape,      Escape,         exclam]};
+    key <CAPS>  {[ Escape,      Escape,         exclam]};
+    key <AC01>  {[ a,           A,              0]};
+    key <AC02>  {[ s,           S,              4]};
+    key <AC03>  {[ d,           D,              5]};
+    key <AC04>  {[ f,           F,              6]};
+    key <AC05>  {[ g,           G,              question]};
+
+    key <AC06>  {[ bracketleft, bracketright,   slash]};
+    key <AC07>  {[ h,           H,              semicolon]};
+    key <AC08>  {[ j,           J,              colon]};
+    key <AC09>  {[ k,           K,              minus]};
+    key <AC10>  {[ l,           L,              plus]};
+    key <AC11>  {[ Return,      Return,         backslash]};
+
+
+    key <LFSH>  {[ BackSpace,   Delete,         ampersand]};
+    key <LSGT>  {[ BackSpace,   Delete,         ampersand]};
+    key <AB01>  {[ z,           Z,              at]};
+    key <AB02>  {[ x,           X,              1]};
+    key <AB03>  {[ c,           C,              2]};
+    key <AB04>  {[ v,           V,              3]};
+    key <AB05>  {[ b,           B,              asciicircum]};
+
+    key <AB06>  {[ braceleft,   braceright,     dollar]};
+    key <AB07>  {[ n,           N,              comma]};
+    key <AB08>  {[ m,           M,              period]};
+    key <AB09>  {[ ae,          AE,             underscore]};
+    key <AB10>  {[ oslash,      Oslash,         equal]};
+    key <RTSH>  {[ aring,       Aring,          asciitilde]};
+
+    key <LCTL>  {[ Shift_L, Shift_L, Shift_L, Shift_L  ]};
+    key <MENU>  {[ ISO_Level3_Shift, ISO_Level3_Shift, ISO_Level3_Shift, ISO_Level3_Shift ]};
+    key <LALT>  {[ Control_L, Control_L, Control_L, Control_L ]};
+    key <LWIN>  {[ Alt_L, Alt_L, Alt_L, Alt_L ]};
+    key <RALT>  {[ Super_L, Super_L, Super_L, Super_L ]};
+
+    //
+    // key <BKSL>  {[ backslash,           bar]};
+    //
+    //
+    // key <AD11>  {[ backslash,bar,aring,Aring]};
+    // key <AD12>  {[ asciicircum,diaeresis,asciitilde,asciicircum]};
+    //
+    // include"level3(ralt_switch)"
+
+};

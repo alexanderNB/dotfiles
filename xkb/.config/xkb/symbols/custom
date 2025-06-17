@@ -7,8 +7,8 @@ xkb_symbols "basic" {
 
     key <TLDE>	{[   grave,	 asciitilde	]};
     key <AE01>	{[	 1,	 parenleft, parenright, exclam  ]}; 
-    key <AE02>	{[	 2,	 braceleft, braceright, quotedbl		]};
-    key <AE03>	{[	 3,	 bracketleft, bracketright, numbersign	]};
+    key <AE02>	{[	 2,	 bracketleft, bracketright, quotedbl		]};
+    key <AE03>	{[	 3,	 braceleft, braceright, numbersign	]};
     key <AE04>	{[	 4,	 quotedbl, apostrophe, dollar  ]};
     key <AE05>	{[	 5,	 exclam, percent, percent	]};
     key <AE06>	{[	 6,	 numbersign, ampersand, ampersand	]};

@@ -69,11 +69,11 @@ xkb_symbols "basic" {
 
     key <LCTL>  {[ Shift_L, Shift_L, Shift_L, Shift_L  ]};
     key <MENU>  {[ ISO_Level3_Shift, ISO_Level3_Shift, ISO_Level3_Shift, ISO_Level3_Shift ]};
+    key <LEFT>  {[ ISO_Level3_Shift, ISO_Level3_Shift, ISO_Level3_Shift, ISO_Level3_Shift ]};
     key <LALT>  {[ Control_L, Control_L, Control_L, Control_L ]};
     key <LWIN>  {[ Alt_L, Alt_L, Alt_L, Alt_L ]};
     key <RALT>  {[ Super_L, Super_L, Super_L, Super_L ]};
-
-    //
+             
     // key <BKSL>  {[ backslash,           bar]};
     //
     //
@@ -81,5 +81,14 @@ xkb_symbols "basic" {
     // key <AD12>  {[ asciicircum,diaeresis,asciitilde,asciicircum]};
     //
     // include"level3(ralt_switch)"
-
+    key <AE01> {[ 1 ]};
+    key <AE02> {[ 2 ]};
+    key <AE03> {[ 3 ]};
+    key <AE04> {[ 4 ]};
+    key <AE05> {[ 5 ]};
+    key <AE06> {[ 6 ]};
+    key <AE07> {[ 7 ]};
+    key <AE08> {[ 8 ]};
+    key <AE09> {[ 9 ]};
+    key <AE10> {[ 0 ]};
 };

@@ -380,6 +380,11 @@
             "",
             "",
             ""
+            // "\u26A5",
+            // "\u26A4",
+            // "\u26A3",
+            // " \u26A2",
+            // "\u26A1"
         ],
         "on-click": "brightnessctl -c backlight set 100%",
         "on-click-right": "brightnessctl -c backlight set 1%",

@@ -73,22 +73,22 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+vim.keymap.set("n", "<C-n>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+vim.keymap.set("n", "<C-e>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+vim.keymap.set("n", "<C-i>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+vim.keymap.set("n", "<C-o>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 vim.keymap.set({ "n", "x" }, "s", "<Nop>")
 vim.keymap.set({ "n", "x" }, "S", "<Nop>")
 
 vim.keymap.set({ "n", "i" }, "<C-s>", "<cmd>w<CR>")
 
-vim.keymap.set({ "x" }, "ig", "gg0oG$")
+-- vim.keymap.set({ "x" }, "ig", "gg0oG$")
 
-vim.keymap.set("n", "H", "<C-o>", { desc = "Previous jump" })
+vim.keymap.set("n", "N", "<C-o>", { desc = "Previous jump" })
 -- vim.keymap.set("n", "J", ":bprevious<CR>", { desc = "Previous buffer" })
 -- vim.keymap.set("n", "K", ":bnext<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "L", "<C-i>", { desc = "Next jump" })
+vim.keymap.set("n", "O", "<C-i>", { desc = "Next jump" })
 
 vim.keymap.set("i", "<Esc>", "<Esc>m`")
 vim.keymap.set("v", ">", ">gv")
@@ -104,7 +104,18 @@ vim.keymap.set("n", "<localleader>md", ":MoltenDelete<CR>", { desc = "delete Mol
 
 vim.keymap.set("n", "<localleader>ms", ":noautocmd MoltenEnterOutput<CR>", { desc = "open output window", silent = true })
 vim.keymap.set("n", "<localleader>mh", ":MoltenHideOutput<CR>", { desc = "close output window", silent = true })
-
+vim.keymap.set({ "n", "x", "o" }, "n", "h")
+vim.keymap.set({ "n", "x", "o" }, "e", "j")
+vim.keymap.set({ "n", "x", "o" }, "i", "k")
+vim.keymap.set({ "n", "x", "o" }, "o", "l")
+vim.keymap.set({ "n", "x", "o" }, "h", "i")
+vim.keymap.set({ "n", "x", "o" }, "j", "e")
+vim.keymap.set({ "n", "x", "o" }, "k", "n")
+vim.keymap.set({ "n", "x", "o" }, "l", "o")
+vim.keymap.set({ "n", "x", "o" }, "H", "I")
+vim.keymap.set({ "n", "x", "o" }, "J", "E")
+vim.keymap.set({ "n", "x", "o" }, "K", "N")
+vim.keymap.set({ "n", "x", "o" }, "L", "O")
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -303,3 +314,5 @@ vim.keymap.set("n", "<localleader>ma", runner.run_below, { desc = "run cell and 
 vim.keymap.set("n", "<localleader>mA", runner.run_all, { desc = "run all cells", silent = true })
 vim.keymap.set("n", "<localleader>ml", runner.run_line, { desc = "run line", silent = true })
 vim.keymap.set("v", "<Localleader>m", runner.run_range, { desc = "run visual range", silent = true })
+
+vim.keymap.set({ "n", "x" }, "i", "k")

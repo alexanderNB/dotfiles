@@ -11,7 +11,7 @@ return {
             -- refer to the configuration section below
             bigfile = { enabled = true },
             dashboard = {
-                enabled = true,
+                enabled = false,
                 preset = {
                     pick = function(cmd, opts)
                         return LazyVim.pick(cmd, opts)()
@@ -45,7 +45,7 @@ return {
             picker = { enabled = false },
             notifier = { enabled = true },
             quickfile = { enabled = true },
-            scope = { enabled = true },
+            scope = { enabled = false },
             scroll = { enabled = true },
             statuscolumn = { enabled = true },
             words = { enabled = false },

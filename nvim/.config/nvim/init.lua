@@ -116,6 +116,13 @@ vim.keymap.set({ "n", "x", "o" }, "H", "I")
 vim.keymap.set({ "n", "x", "o" }, "J", "E")
 vim.keymap.set({ "n", "x", "o" }, "K", "N")
 vim.keymap.set({ "n", "x", "o" }, "L", "O")
+
+vim.keymap.set({ "n" }, "<M-n>", "J")
+vim.keymap.set({ "n" }, "<M-e>", "<cmd>m+<CR>==")
+vim.keymap.set({ "n" }, "<M-i>", "<cmd>m-2<CR>==")
+-- vim.keymap.set({ "x" }, "<M-e>", "<cmd>'<,'>m 10<CR>")
+-- vim.keymap.set({ "x" }, "<M-i>", "<cmd>'<,'>m 20<CR>")
+vim.keymap.set({ "n" }, "<M-o>", "gJ")
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 

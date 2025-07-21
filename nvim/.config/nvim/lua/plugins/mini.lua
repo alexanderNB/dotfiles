@@ -9,11 +9,6 @@ return { -- Collection of various small independent plugins/modules
         --  - ci'  - [C]hange [I]nside [']quote
         require("mini.ai").setup {
             n_lines = 500,
-            mappings = {
-                inside = "h",
-                inside_next = "hn",
-                inside_last = "hl",
-            },
         }
 
         -- Add/delete/replace surroundings (brackets, quotes, etc.)

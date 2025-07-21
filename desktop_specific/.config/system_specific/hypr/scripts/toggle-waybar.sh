@@ -3,7 +3,7 @@
 cursorpos="$(hyprctl cursorpos)"
 cursorpos="${cursorpos%%,*}"
 
-if ((cursorpos < 1920)); then
+if ((cursorpos > 2560)); then
     if [ "$(pgrep -f "waybar.*--log-level=2")" ]; then
         pkill -f "waybar.*--log-level=2"
     else

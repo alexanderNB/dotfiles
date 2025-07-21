@@ -106,16 +106,24 @@ vim.keymap.set("n", "<localleader>ms", ":noautocmd MoltenEnterOutput<CR>", { des
 vim.keymap.set("n", "<localleader>mh", ":MoltenHideOutput<CR>", { desc = "close output window", silent = true })
 vim.keymap.set({ "n", "x", "o" }, "n", "h")
 vim.keymap.set({ "n", "x", "o" }, "e", "j")
-vim.keymap.set({ "n", "x", "o" }, "i", "k")
+vim.keymap.set({ "n", "x", "o" }, "r", "k")
 vim.keymap.set({ "n", "x", "o" }, "o", "l")
-vim.keymap.set({ "n", "x", "o" }, "h", "i")
+vim.keymap.set({ "n", "x", "o" }, "h", "n")
 vim.keymap.set({ "n", "x", "o" }, "j", "e")
-vim.keymap.set({ "n", "x", "o" }, "k", "n")
+vim.keymap.set({ "n", "x", "o" }, "k", "r")
 vim.keymap.set({ "n", "x", "o" }, "l", "o")
-vim.keymap.set({ "n", "x", "o" }, "H", "I")
+vim.keymap.set({ "n", "x", "o" }, "H", "N")
 vim.keymap.set({ "n", "x", "o" }, "J", "E")
-vim.keymap.set({ "n", "x", "o" }, "K", "N")
+vim.keymap.set({ "n", "x", "o" }, "K", "R")
 vim.keymap.set({ "n", "x", "o" }, "L", "O")
+
+-- Normal mode: swap insert and left
+-- vim.keymap.set("n", "h", "i", { desc = "h enters insert mode" })
+-- vim.keymap.set("n", "i", "h", { desc = "i moves left" })
+
+-- Operator-pending and visual: swap inner text object prefix
+-- vim.keymap.set({ "o", "x" }, "h", "i", { remap = true, desc = "h as text object inner" })
+-- vim.keymap.set({ "o", "x" }, "i", "h", { remap = true, desc = "i as previous h" })
 
 vim.keymap.set({ "n" }, "<M-n>", "J")
 vim.keymap.set({ "n" }, "<M-e>", "<cmd>m+<CR>==")
@@ -245,7 +253,7 @@ require("lazy").setup({
         keys = {
           { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
           { "gs", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-          { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+          -- { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
           { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
           { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
         },
@@ -322,4 +330,8 @@ vim.keymap.set("n", "<localleader>mA", runner.run_all, { desc = "run all cells",
 vim.keymap.set("n", "<localleader>ml", runner.run_line, { desc = "run line", silent = true })
 vim.keymap.set("v", "<Localleader>m", runner.run_range, { desc = "run visual range", silent = true })
 
-vim.keymap.set({ "n", "x" }, "i", "k")
+-- vim.keymap.set({ "n", "x" }, "i", "k")
+-- vim.keymap.set({ "n", "x", "o" }, "h", "i", { remap = true })
+-- vim.keymap.set({ "n", "x", "o" }, "j", "e", { remap = true })
+-- vim.keymap.set({ "n", "x", "o" }, "k", "n", { remap = true })
+-- vim.keymap.set({ "n", "x", "o" }, "l", "o", { remap = true })

@@ -154,7 +154,8 @@
       // "foot": "", // Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
       // "code": "󰨞",
       // "title<.* - (.*) - VSCodium>": "codium $1" // captures part of the window title and formats it into output
-    }
+    },
+    "ignore-workspaces": ["\\D+"]
   },
   //==> Right Modules
   ///////////////////////////////////////////////////////////////

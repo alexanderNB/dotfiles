@@ -73,15 +73,15 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set("n", "<C-n>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<C-e>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-vim.keymap.set("n", "<C-i>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<C-o>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+vim.keymap.set("n", "<Left>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+vim.keymap.set("n", "<Down>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+vim.keymap.set("n", "<Up>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+vim.keymap.set("n", "<Right>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 
 vim.keymap.set({ "n", "x" }, "s", "<Nop>")
 vim.keymap.set({ "n", "x" }, "S", "<Nop>")
 
-vim.keymap.set({ "n", "i" }, "<C-s>", "<cmd>w<CR>")
+vim.keymap.set({ "n" }, "<C-s>", "<cmd>w<CR>")
 
 -- vim.keymap.set({ "x" }, "ig", "gg0oG$")
 
@@ -127,10 +127,17 @@ vim.keymap.set({ "n", "x", "o" }, "L", "O")
 
 vim.keymap.set({ "n" }, "<M-n>", "J")
 vim.keymap.set({ "n" }, "<M-e>", "<cmd>m+<CR>==")
-vim.keymap.set({ "n" }, "<M-i>", "<cmd>m-2<CR>==")
--- vim.keymap.set({ "x" }, "<M-e>", "<cmd>'<,'>m 10<CR>")
--- vim.keymap.set({ "x" }, "<M-i>", "<cmd>'<,'>m 20<CR>")
+vim.keymap.set({ "n" }, "<M-r>", "<cmd>m-2<CR>==")
 vim.keymap.set({ "n" }, "<M-o>", "gJ")
+
+vim.keymap.set({ "n", "x", "o" }, "-", "^")
+vim.keymap.set({ "n", "x", "o" }, "^", "-")
+vim.keymap.set({ "n", "x", "o" }, "+", "$")
+vim.keymap.set({ "n", "x", "o" }, "$", "+")
+
+vim.keymap.set("n", "<leader>ct", "<cmd>close<CR>", { desc = "[c]lose [t]his window", silent = true })
+vim.keymap.set("n", "<leader>co", "<cmd>only<CR>", { desc = "[c]lose [t]his window", silent = true })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -251,11 +258,12 @@ require("lazy").setup({
         opts = {},
         -- stylua: ignore
         keys = {
-          { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+          { "<S-Space>", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+
           { "gs", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
           -- { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
           { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-          { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+          -- { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
         },
     },
     { "p00f/nvim-ts-rainbow" },

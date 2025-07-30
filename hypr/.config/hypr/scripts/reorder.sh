@@ -1,1 +1,1 @@
-/home/alexander/.config/system_specific/hypr/scripts/reorder.sh
+/home/archnb/.config/system_specific/hypr/scripts/reorder.sh

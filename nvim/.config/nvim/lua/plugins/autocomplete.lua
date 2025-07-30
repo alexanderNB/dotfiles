@@ -67,6 +67,7 @@ return {
                     --  the definition of its *type*, not where it was *defined*.
                     map("grt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
 
+                    map("<C-space>", vim.lsp.buf.hover, "LSP Hover")
                     -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
                     ---@param client vim.lsp.Client
                     ---@param method vim.lsp.protocol.Method
@@ -285,6 +286,12 @@ return {
                 --
                 -- See :h blink-cmp-config-keymap for defining your own keymap
                 preset = "default",
+                ["<Up>"] = false,
+                ["<Down>"] = false,
+                ["<C-a>"] = { "hide" },
+                ["<C-i>"] = { "select_next" },
+                ["<C-s>"] = { "select_prev" },
+                ["<C-t>"] = { "accept" },
 
                 -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
                 --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -337,7 +344,27 @@ return {
         settings = {
             basedpyright = {
                 analysis = {
-                    typeCheckingMode = "standard",
+                    typeCheckingMode = "recommended",
+                    diagnosticSeverityOverrides = {
+                        reportUnreachable = "hint",
+                        reportUnknownParameterType = "hint",
+                        reportUnknownArgumentType = "hint",
+                        reportUnknownLambdaType = "hint",
+                        reportUnknownVariableType = "hint",
+                        reportUnknownMemberType = "hint",
+                        reportMissingParameterType = "hint",
+
+                        reportConstantRedefinition = "hint",
+                        reportOptionalSubscript = "hint",
+                        reportOptionalMemberAccess = "hint",
+                        reportArgumentType = "hint",
+                        reportOptionalOperand = "hint",
+                        reportUnannotatedClassAttribute = "hint",
+                        reportOptionalCall = "hint",
+                        reportUnusedCallResult = "hint",
+                        reportImplicitOverride = "hint",
+                    },
+                    stubPath = "~/SyncedObsidian/.obsidian/plugins/obsidian-pyright/Pyright/customStubs",
                 },
             },
         },

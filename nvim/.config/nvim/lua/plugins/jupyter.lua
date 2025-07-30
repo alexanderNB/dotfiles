@@ -37,7 +37,7 @@ return {
     },
     {
         "benlubas/molten-nvim",
-        version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
+        -- version = "^2.0.0", -- use version <2.0.0 to avoid breaking changes
         build = ":UpdateRemotePlugins",
         init = function()
             -- this is an example, not a default. Please see the readme for more configuration options
@@ -49,7 +49,7 @@ return {
 
             -- this guide will be using image.nvim
             -- Don't forget to setup and install the plugin if you want to view image outputs
-            vim.g.molten_image_provider = "image.nvim"
+            vim.g.molten_image_provider = "none"
 
             -- optional, I like wrapping. works for virt text and the output window
             vim.g.molten_wrap_output = true

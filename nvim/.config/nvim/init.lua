@@ -183,7 +183,7 @@ require("lazy").setup({
     --        end,
     --    }
     --
-    -- "NMAC427/guess-indent.nvim", -- Detect tabstop and shiftwidth automatically
+    "NMAC427/guess-indent.nvim", -- Detect tabstop and shiftwidth automatically
 
     -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
     --

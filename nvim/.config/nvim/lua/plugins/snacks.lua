@@ -2,7 +2,14 @@ return {
     {
         "folke/snacks.nvim",
         priority = 1000,
-        -- lazy = false,
+        lazy = false,
+        keys = {
+            {
+                "<S-Esc>",
+                "<cmd>lua Snacks.explorer()<CR>",
+                desc = "Open explorer",
+            },
+        },
         opts = {
 
             --- @type snacks.Config
@@ -39,10 +46,61 @@ return {
                     },
                 },
             },
-            explorer = { enabled = true },
+            explorer = {
+                enabled = true,
+            },
             indent = { enabled = true },
             input = { enabled = false },
-            picker = { enabled = false },
+            picker = {
+                enabled = false,
+                win = {
+                    input = {
+                        keys = {
+                            ["j"] = "",
+                            ["k"] = "",
+                            ["e"] = "list_down",
+                            ["r"] = "list_up",
+                        },
+                    },
+                    keys = {
+                        ["j"] = "",
+                        ["k"] = "",
+                        ["e"] = "list_down",
+                        ["r"] = "list_up",
+                    },
+                },
+                sources = {
+                    explorer = {
+                        layout = {
+                            layout = {
+                                position = "right",
+                            },
+                        },
+                        hidden = true,
+                        follow_file = true,
+                        auto_close = false,
+                        focus = "list",
+                        enter = false,
+                        win = {
+                            list = {
+                                keys = {
+                                    ["<BS>"] = "explorer_up",
+                                    ["<CR>"] = "explorer_open",
+                                    ["o"] = "confirm",
+                                    ["n"] = "explorer_close", -- close directory
+                                    ["c"] = "explorer_rename",
+                                    ["r"] = "list_up",
+                                    ["q"] = "",
+                                },
+                            },
+                        },
+                        jump = {
+                            -- reuse_win = true,
+                            close = false,
+                        },
+                    },
+                },
+            },
             notifier = { enabled = true },
             quickfile = { enabled = true },
             scope = { enabled = false },
@@ -104,9 +162,6 @@ return {
                     },
                 },
             },
-            -- keys = {
-            --     {},
-            -- },
         },
     },
 }

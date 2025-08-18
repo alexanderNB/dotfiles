@@ -1,0 +1,46 @@
+{
+    "bar": {
+        "battery": {
+            "low": 20
+        },
+        "edge": "top",
+        "height": 34,
+        "horizontalGap": 0,
+        "verticalGap": 0,
+        "weather": true,
+        "weatherLocation": "None",
+        "workspaces": {
+            "activeIndicatorWidthMultiplier": 2,
+            "shown": 10,
+            "style": 1
+        }
+    },
+    "fonts": {
+        "basePointSize": 12,
+        "useNativeRendering": true
+    },
+    "misc": {
+        "dateFormat": 0
+    },
+    "osd": {
+        "timeoutDuration": 700
+    },
+    "panels": {
+        "baseOpacity": 0.8,
+        "borders": false,
+        "compactEnabled": true,
+        "excludedMonitors": [
+            "DP-7",
+            "HDMI-A-4"
+        ],
+        "includedMonitors": [
+            "0, DP-1, eDP-1, HDMI-A-1"
+        ],
+        "monitorChoiceMode": 0,
+        "radius": 0,
+        "transparent": true
+    },
+    "tray": {
+        "monochromeIcons": false
+    }
+}

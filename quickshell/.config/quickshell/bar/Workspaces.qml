@@ -94,6 +94,27 @@ OffsetMouseWrapper {
                                 root.windows[workspace].value += "󰈹";
                             }
                             break;
+                        case "zen":
+                            if (/.*github.*/i.test(title)) {
+                                root.windows[workspace].value += "";
+                            } else if (/.*youtube.*/i.test(title)) {
+                                root.windows[workspace].value += "";
+                            } else if (/.*nvim.*/i.test(title)) {
+                                root.windows[workspace].value += "";
+                            } else if (/.*neovim.*/i.test(title)) {
+                                root.windows[workspace].value += "";
+                            } else if (/.*overleaf.*/i.test(title)) {
+                                root.windows[workspace].value += "\u0082";
+                            } else if (/.*dtu.*/i.test(title)) {
+                                root.windows[workspace].value += "󰑴";
+                            } else if (/.*studie.*/i.test(title)) {
+                                root.windows[workspace].value += "󰑴";
+                            } else if (/.*42620.*/i.test(title)) {
+                                root.windows[workspace].value += "󰑴";
+                            } else {
+                                root.windows[workspace].value += "󰈹";
+                            }
+                            break;
                         case "com.mitchellh.ghostty":
                             if (/.*nvim.*/i.test(title)) {
                                 root.windows[workspace].value += "";

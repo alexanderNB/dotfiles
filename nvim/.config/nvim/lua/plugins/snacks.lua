@@ -107,73 +107,99 @@ return {
             scroll = { enabled = true },
             statuscolumn = { enabled = true },
             words = { enabled = false },
+            terminal = { enabled = true },
             image = {
-                resolve = function(path, src)
-                    if require("obsidian.api").path_is_note(path) then
-                        return require("obsidian.api").resolve_image_path(src)
-                    end
-                end,
+                image = {
+                    enabled = false,
+                    doc = {
+                        enabled = true,
+                        inline = false,
+                        max_width = 100,
+                        max_height = 100,
+                    },
+                    resolve = function(path, src)
+                        if require("obsidian.api").path_is_note(path) then
+                            return require("obsidian.api").resolve_image_path(src)
+                        end
+                    end,
+                    ---@class snacks.image.convert.Config
+                    convert = {
+                        notify = true, -- show a notification on error
+                        ---@type snacks.image.args
+                        mermaid = function()
+                            local theme = vim.o.background == "light" and "neutral" or "dark"
+                            return { "-i", "{src}", "-o", "{file}", "-b", "transparent", "-t", theme, "-s", "{scale}" }
+                        end,
+                        ---@type table<string,snacks.image.args>
+                        magick = {
+                            default = { "{src}[0]", "-scale", "1920x1080>" }, -- default for raster images
+                            vector = { "-density", 192, "{src}[0]" }, -- used by vector images like svg
+                            math = { "-density", 192, "{src}[0]", "-trim" },
+                            pdf = { "-density", 192, "{src}[0]", "-background", "white", "-alpha", "remove", "-trim" },
+                        },
+                    },
+                    math = {
+                        enabled = true, -- enable math expression rendering
+                        -- in the templates below, `${header}` comes from any section in your document,
+                        -- between a start/end header comment. Comment syntax is language-specific.
+                        -- * start comment: `// snacks: header start`
+                        -- * end comment:   `// snacks: header end`
+                        typst = {
+                            tpl = [[
+            #set page(width: auto, height: auto, margin: (x: 2pt, y: 2pt))
+            #show math.equation.where(block: false): set text(top-edge: "bounds", bottom-edge: "bounds")
+            #set text(size: 12pt, fill: rgb("${color}"))
+            ${header}
+            ${content}]],
+                        },
+                        latex = {
+                            font_size = "Large", -- see https://www.sascha-frank.com/latex-font-size.html
+                            -- for latex documents, the doc packages are included automatically,
+                            -- but you can add more packages here. Useful for markdown documents.
+                            packages = { "amsmath", "amssymb", "amsfonts", "amscd", "mathtools" },
+                            tpl = [[
+            \documentclass[preview,border=0pt,varwidth,12pt]{standalone}
+            \usepackage{${packages}}
+            \begin{document}
+            ${header}
+            { \${font_size} \selectfont
+              \color[HTML]{${color}}
+            ${content}}
+            \end{document}]],
+                        },
+                    },
+                },
             },
-            --     image = {
-            --         enabled = false,
-            --         doc = {
-            --             enabled = true,
-            --             inline = false,
-            --             max_width = 100,
-            --             max_height = 100,
-            --         },
-            --         resolve = function(path, src)
-            --             if require("obsidian.api").path_is_note(path) then
-            --                 return require("obsidian.api").resolve_image_path(src)
-            --             end
-            --         end,
-            --         ---@class snacks.image.convert.Config
-            --         convert = {
-            --             notify = true, -- show a notification on error
-            --             ---@type snacks.image.args
-            --             mermaid = function()
-            --                 local theme = vim.o.background == "light" and "neutral" or "dark"
-            --                 return { "-i", "{src}", "-o", "{file}", "-b", "transparent", "-t", theme, "-s", "{scale}" }
-            --             end,
-            --             ---@type table<string,snacks.image.args>
-            --             magick = {
-            --                 default = { "{src}[0]", "-scale", "1920x1080>" }, -- default for raster images
-            --                 vector = { "-density", 192, "{src}[0]" }, -- used by vector images like svg
-            --                 math = { "-density", 192, "{src}[0]", "-trim" },
-            --                 pdf = { "-density", 192, "{src}[0]", "-background", "white", "-alpha", "remove", "-trim" },
-            --             },
-            --         },
-            --         math = {
-            --             enabled = true, -- enable math expression rendering
-            --             -- in the templates below, `${header}` comes from any section in your document,
-            --             -- between a start/end header comment. Comment syntax is language-specific.
-            --             -- * start comment: `// snacks: header start`
-            --             -- * end comment:   `// snacks: header end`
-            --             typst = {
-            --                 tpl = [[
-            -- #set page(width: auto, height: auto, margin: (x: 2pt, y: 2pt))
-            -- #show math.equation.where(block: false): set text(top-edge: "bounds", bottom-edge: "bounds")
-            -- #set text(size: 12pt, fill: rgb("${color}"))
-            -- ${header}
-            -- ${content}]],
-            --             },
-            --             latex = {
-            --                 font_size = "Large", -- see https://www.sascha-frank.com/latex-font-size.html
-            --                 -- for latex documents, the doc packages are included automatically,
-            --                 -- but you can add more packages here. Useful for markdown documents.
-            --                 packages = { "amsmath", "amssymb", "amsfonts", "amscd", "mathtools" },
-            --                 tpl = [[
-            -- \documentclass[preview,border=0pt,varwidth,12pt]{standalone}
-            -- \usepackage{${packages}}
-            -- \begin{document}
-            -- ${header}
-            -- { \${font_size} \selectfont
-            --   \color[HTML]{${color}}
-            -- ${content}}
-            -- \end{document}]],
-            --             },
-            --         },
-            --     },
+            styles = {
+                terminal = {
+                    "terminal",
+                    bo = {
+                        filetype = "snacks_terminal",
+                    },
+                    wo = {},
+                    keys = {
+                        q = "hide",
+                        gf = function(self)
+                            local f = vim.fn.findfile(vim.fn.expand "<cfile>", "**")
+                            if f == "" then
+                                Snacks.notify.warn "No file under cursor"
+                            else
+                                self:hide()
+                                vim.schedule(function()
+                                    vim.cmd("e " .. f)
+                                end)
+                            end
+                        end,
+                        term_normal = {
+                            "<esc>",
+                            "<C-\\><C-n>",
+                            mode = "t",
+                            -- expr = true,
+                            desc = "Escape to normal mode",
+                        },
+                    },
+                },
+            },
         },
     },
 }

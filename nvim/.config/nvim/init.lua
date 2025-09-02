@@ -70,7 +70,7 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 -- WARN: likely want to change this
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+-- vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 --  See `:help wincmd` for a list of all window commands
 vim.keymap.set("n", "<Left>", "<C-w><C-h>", { desc = "Move focus to the left window" })
@@ -137,6 +137,8 @@ vim.keymap.set({ "n", "x", "o" }, "$", "+")
 
 vim.keymap.set("n", "<leader>ct", "<cmd>close<CR>", { desc = "[c]lose [t]his window", silent = true })
 vim.keymap.set("n", "<leader>co", "<cmd>only<CR>", { desc = "[c]lose [t]his window", silent = true })
+
+vim.keymap.set("n", "<leader>tt", "<cmd>lua Snacks.terminal.toggle()<CR>", { desc = "[t]oggle [t]erminal", silent = true })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -266,7 +268,7 @@ require("lazy").setup({
           -- { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
         },
     },
-    { "p00f/nvim-ts-rainbow" },
+    -- { "p00f/nvim-ts-rainbow" },
     { -- Highlight, edit, and navigate code
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
@@ -285,14 +287,6 @@ require("lazy").setup({
                 additional_vim_regex_highlighting = { "ruby" },
             },
             indent = { enable = true, disable = { "ruby" } },
-            -- rainbow = {
-            --     enable = true,
-            --     -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-            --     extended_mode = false, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-            --     max_file_lines = 10000, -- Do not enable for files with more than n lines, int
-            --     -- colors = { "#FF0000", "#00FF00", "#0000FF" }, -- table of hex strings
-            --     -- termcolors = {} -- table of colour name strings
-            -- },
         },
         -- There are additional nvim-treesitter modules that you can use to interact
         -- with nvim-treesitter. You should go explore a few and see what interests you:

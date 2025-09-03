@@ -8,15 +8,10 @@
         "horizontalGap": 0,
         "verticalGap": 0,
         "weather": true,
-        "weatherLocation": "None",
-        "workspaces": {
-            "activeIndicatorWidthMultiplier": 2,
-            "shown": 10,
-            "style": 1
-        }
+        "weatherLocation": "None"
     },
     "fonts": {
-        "basePointSize": 12,
+        "basePointSize": 14,
         "useNativeRendering": true
     },
     "misc": {

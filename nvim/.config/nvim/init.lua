@@ -78,6 +78,11 @@ vim.keymap.set("n", "<Down>", "<C-w><C-j>", { desc = "Move focus to the lower wi
 vim.keymap.set("n", "<Up>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 vim.keymap.set("n", "<Right>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 
+vim.keymap.set({ "n", "x", "o" }, "<leader>n", "<C-w>v<C-w><C-h>")
+vim.keymap.set({ "n", "x", "o" }, "<leader>e", "<C-w>s")
+vim.keymap.set({ "n", "x", "o" }, "<leader>r", "<C-w>s<C-w><C-k>")
+vim.keymap.set({ "n", "x", "o" }, "<leader>o", "<C-w>v")
+
 vim.keymap.set({ "n", "x" }, "s", "<Nop>")
 vim.keymap.set({ "n", "x" }, "S", "<Nop>")
 
@@ -94,10 +99,17 @@ vim.keymap.set("i", "<Esc>", "<Esc>m`")
 vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "<", "<gv")
 
-vim.keymap.set("n", "<leader>n", "<cmd>lua Snacks.picker.notifications()<CR>", { desc = "Notification History" })
+-- vim.keymap.set("n", "<leader>n", "<cmd>lua Snacks.picker.notifications()<CR>", { desc = "Notification History" })
 -- vim.keymap.set("n", "<leader>n", function()
 --     Snacks.picker.notifications()
 -- end, { desc = "Notification History" })
+
+-- vim.keymap.set({ "n", "i" }, "<C-i>", function()
+--     vim.api.nvim_err_writeln "hello"
+-- end)
+-- vim.keymap.set({ "n", "i" }, "<Tab>", function()
+--     vim.api.nvim_err_writeln "hi"
+-- end)
 
 vim.keymap.set("n", "<localleader>mi", ":MoltenInit<CR>", { silent = true, desc = "Initialize the plugin" })
 vim.keymap.set("n", "<localleader>md", ":MoltenDelete<CR>", { desc = "delete Molten cell", silent = true })
@@ -229,7 +241,7 @@ require("lazy").setup({
                 -- Disable "format_on_save lsp_fallback" for languages that don't
                 -- have a well standardized coding style. You can add additional
                 -- languages here or re-enable it for the disabled ones.
-                local disable_filetypes = { c = true, cpp = true }
+                local disable_filetypes = { c = true, cpp = true, fsharp = true }
                 if disable_filetypes[vim.bo[bufnr].filetype] then
                     return nil
                 else

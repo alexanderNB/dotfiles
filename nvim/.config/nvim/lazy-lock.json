@@ -21,7 +21,6 @@
   "molten-nvim": { "branch": "main", "commit": "a286aa914d9a154bc359131aab788b5a077a5a99" },
   "nvim-lspconfig": { "branch": "master", "commit": "dbdb80d3bd311989d21029c63918d67a786d5013" },
   "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
-  "nvim-ts-rainbow": { "branch": "master", "commit": "ef95c15a935f97c65a80e48e12fe72d49aacf9b9" },
   "nvim-web-devicons": { "branch": "master", "commit": "a1366758b3a232036dc97be8ca41184aa3f50506" },
   "obsidian.nvim": { "branch": "main", "commit": "705cc9b4f66eca1e54040ac819102e80a32896d3" },
   "otter.nvim": { "branch": "main", "commit": "f3a401851c25c64220dcf2470252a1adc28308d5" },

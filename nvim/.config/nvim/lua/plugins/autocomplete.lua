@@ -1,4 +1,5 @@
 return {
+
     -- LSP Plugins
     {
         -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
@@ -170,6 +171,7 @@ return {
                 -- clangd = {},
                 -- gopls = {},
                 basedpyright = {},
+                fsautocomplete = {},
 
                 -- rust_analyzer = {},
                 -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -235,6 +237,7 @@ return {
     },
     { -- Autocompletion
         "saghen/blink.cmp",
+        enabled = true,
         event = "VimEnter",
         version = "1.*",
         dependencies = {
@@ -291,7 +294,7 @@ return {
                 ["<Up>"] = false,
                 ["<Down>"] = false,
                 ["<C-a>"] = { "hide" },
-                ["<C-i>"] = { "select_next" },
+                ["<C-i>"] = { "select_next", "fallback" },
                 ["<C-s>"] = { "select_prev" },
                 ["<C-t>"] = { "accept" },
 
@@ -309,6 +312,7 @@ return {
             },
 
             sources = {
+                -- default = { },
                 default = { "lsp", "path", "snippets", "lazydev" },
                 providers = {
                     lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
@@ -326,7 +330,10 @@ return {
                 },
             },
 
-            snippets = { preset = "luasnip" },
+            snippets = {
+                enabled = false,
+                preset = "luasnip",
+            },
 
             -- Blink.cmp includes an optional, recommended rust fuzzy matcher,
             -- which automatically downloads a prebuilt binary when enabled.

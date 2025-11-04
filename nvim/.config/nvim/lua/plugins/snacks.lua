@@ -3,11 +3,129 @@ return {
         "folke/snacks.nvim",
         priority = 1000,
         lazy = false,
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+        },
         keys = {
             {
                 "<S-Esc>",
-                "<cmd>lua Snacks.explorer()<CR>",
+                function()
+                    Snacks.explorer()
+                end,
                 desc = "Open explorer",
+            },
+            {
+                "<leader>st",
+                function()
+                    Snacks.picker.smart()
+                end,
+                desc = "Smart Find Files",
+            },
+            {
+                "<leader>sg",
+                function()
+                    Snacks.picker.grep()
+                end,
+                desc = "Grep",
+            },
+            {
+                "<leader><leader>",
+                function()
+                    Snacks.picker.buffers()
+                end,
+                desc = "Buffers",
+            },
+            {
+                "<leader>s:",
+                function()
+                    Snacks.picker.command_history()
+                end,
+                desc = "Command History",
+            },
+            {
+                "<leader>sN",
+                function()
+                    Snacks.picker.notifications()
+                end,
+                desc = "[S]earch [N]otifications",
+            },
+
+            {
+                "<leader>sh",
+                function()
+                    Snacks.picker.help()
+                end,
+                desc = "[S]earch [H]elp",
+            },
+            {
+                "<leader>sk",
+                function()
+                    Snacks.picker.keymaps()
+                end,
+                desc = "[S]earch [K]eymaps",
+            },
+            {
+                "<leader>ss",
+                function()
+                    Snacks.picker.pick()
+                end,
+                desc = "[S]earch [S]earch",
+            },
+            {
+                "<leader>sw",
+                function()
+                    Snacks.picker.grep_word()
+                end,
+                desc = "[S]earch [W]ord",
+            },
+            -- {
+            --     "<leader>s/",
+            --     function()
+            --         Snacks.picker.
+            --     end,
+            --     desc = "[S]earch current buffer",
+            -- },
+            {
+                "<leader>se",
+                function()
+                    Snacks.picker.diagnostics_buffer()
+                end,
+                desc = "[S]earch [e]rrors in current file",
+            },
+            {
+                "<leader>sE",
+                function()
+                    Snacks.picker.diagnostics()
+                end,
+                desc = "[S]earch [E]rrors",
+            },
+            {
+                "<leader>sr",
+                function()
+                    Snacks.picker.resume()
+                end,
+                desc = "[S]earch [R]esume",
+            },
+            {
+                "<leader>s.",
+                function()
+                    Snacks.picker.recent()
+                end,
+                desc = "[S]earch recent files",
+            },
+            {
+                "<leader>sd",
+                function()
+                    Snacks.picker.smart { cwd = "~/dotfiles/" }
+                end,
+                desc = "[S]earch [D]otfiles",
+            },
+            {
+                "<leader>sn",
+                function()
+                    Snacks.picker.smart { cwd = "~/.config/nvim/" }
+                end,
+                desc = "[S]earch [N]eovim files",
             },
         },
         opts = {
@@ -17,38 +135,8 @@ return {
             -- or leave it empty to use the default settings
             -- refer to the configuration section below
             bigfile = { enabled = true },
-            dashboard = {
-                enabled = false,
-                preset = {
-                    pick = function(cmd, opts)
-                        return LazyVim.pick(cmd, opts)()
-                    end,
-                    -- stylua: ignore
-                    header = [[
-███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
-████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
-██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
-██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
-██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
-╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
-]],
-                    ---@type snacks.dashboard.Item[]
-                    keys = {
-                        { icon = " ", key = "f", desc = "Find File", action = ":Telescope find_files" },
-                        { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-                        { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-                        { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-                        { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-                        { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-                        { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
-                        { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
-                        { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-                    },
-                },
-            },
-            explorer = {
-                enabled = true,
-            },
+            dashboard = { enabled = false },
+            explorer = { enabled = false },
             indent = { enabled = true },
             input = { enabled = false },
             picker = {
@@ -60,6 +148,11 @@ return {
                             ["k"] = "",
                             ["e"] = "list_down",
                             ["r"] = "list_up",
+                            -- ["<a-p>"] = "",
+                            ["<a-p>"] = { "", mode = { "i", "n" } },
+                            ["<c-p>"] = { "toggle_preview", mode = { "i", "n" } },
+                            ["<c-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
+                            ["<c-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
                         },
                     },
                     keys = {
@@ -67,6 +160,8 @@ return {
                         ["k"] = "",
                         ["e"] = "list_down",
                         ["r"] = "list_up",
+                        ["<a-p>"] = "",
+                        ["<c-p>"] = "toggle_preview",
                     },
                 },
                 sources = {
@@ -98,6 +193,33 @@ return {
                             -- reuse_win = true,
                             close = false,
                         },
+                    },
+                    smart = {
+                        multi = { "files" },
+                        hidden = true,
+                        exclude = { "Steam", "Games" },
+                        supports_live = true,
+                        icon = true,
+                    },
+                },
+
+                layouts = {
+                    ["default"] = {
+                        layout = {
+                            box = "horizontal",
+                            width = 0.95,
+                            min_width = 120,
+                            height = 0.93,
+                            {
+                                box = "vertical",
+                                border = true,
+                                title = "{title} {live} {flags}",
+                                { win = "input", height = 1, border = "bottom" },
+                                { win = "list", border = "none" },
+                            },
+                            { win = "preview", title = "{preview}", border = true, width = 0.5 },
+                        },
+                        icon = true,
                     },
                 },
             },

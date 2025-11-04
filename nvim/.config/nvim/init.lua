@@ -151,6 +151,9 @@ vim.keymap.set("n", "<leader>ct", "<cmd>close<CR>", { desc = "[c]lose [t]his win
 vim.keymap.set("n", "<leader>co", "<cmd>only<CR>", { desc = "[c]lose [t]his window", silent = true })
 
 vim.keymap.set("n", "<leader>tt", "<cmd>lua Snacks.terminal.toggle()<CR>", { desc = "[t]oggle [t]erminal", silent = true })
+vim.keymap.set("n", "<leader>d", '"_d', { desc = "Delete without yanking" })
+vim.keymap.set("n", "<leader>c", '"_c', { desc = "Change without yanking" })
+vim.keymap.set("x", "<leader>p", "P", { desc = "Paste without yanking" })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`

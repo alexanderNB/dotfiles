@@ -1,8 +1,13 @@
 return {
     "nvim-telescope/telescope.nvim",
+    enabled = false,
     event = "VimEnter",
     dependencies = {
         "nvim-lua/plenary.nvim", -- This line is interpreted as { 'nvim-lua/plenary.nvim' }, by lua
+        "nvim-lua/popup.nvim",
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim",
+        "nvim-telescope/telescope-media-files.nvim",
         { -- If encountering errors, see telescope-fzf-native README for installation instructions
             "nvim-telescope/telescope-fzf-native.nvim",
 
@@ -64,12 +69,20 @@ return {
                 ["ui-select"] = {
                     require("telescope.themes").get_dropdown(),
                 },
+                ["media_files"] = {
+                    -- filetypes whitelist
+                    -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+                    filetypes = { "png", "webp", "jpg", "jpeg" },
+                    -- find command (defaults to `fd`)
+                    find_cmd = "rg",
+                },
             },
         }
 
         -- Enable Telescope extensions if they are installed
         pcall(require("telescope").load_extension, "fzf")
         pcall(require("telescope").load_extension, "ui-select")
+        pcall(require("telescope").load_extension, "media_files")
 
         -- See `:help telescope.builtin`
         local builtin = require "telescope.builtin"

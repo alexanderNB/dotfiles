@@ -10,6 +10,8 @@ return {
             library = {
                 -- Load luvit types when the `vim.uv` word is found
                 { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                { path = "snacks.nvim", words = { "Snacks" } },
+                { path = "lazy.nvim", words = { "LazyVim" } },
             },
         },
     },
@@ -49,24 +51,36 @@ return {
 
                     map("gra", vim.lsp.buf.code_action, "[G]oto Code [A]ction", { "n", "x" })
 
-                    map("grr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+                    map("grr", function()
+                        Snacks.picker.lsp_references()
+                    end, "[G]oto [R]references")
 
-                    map("gri", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+                    map("gri", function()
+                        Snacks.picker.lsp_implementations()
+                    end, "[G]oto [I]mplementation")
 
-                    --  To jump back, press <C-t>.
-                    map("grd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+                    map("grd", function()
+                        Snacks.picker.lsp_definitions()
+                    end, "[G]oto [D]efinition")
 
-                    -- WARN: This is not Goto Definition, this is Goto Declaration.
-                    --  For example, in C this would take you to the header.
                     map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
-                    map("gO", require("telescope.builtin").lsp_document_symbols, "Open Document Symbols")
+                    map("grs", function()
+                        Snacks.picker.lsp_symbols()
+                    end, "Open Document Symbols")
 
-                    map("gW", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
+                    map("grS", function()
+                        Snacks.picker.lsp_workspace_symbols()
+                    end, "Open Document Symbols")
+
+                    -- idk what this is
+                    -- map("gW", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
 
                     --  Useful when you're not sure what type a variable is and you want to see
                     --  the definition of its *type*, not where it was *defined*.
-                    map("grt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
+                    map("grt", function()
+                        Snacks.picker.lsp_type_definitions()
+                    end, "[G]oto [T]ype Definition")
 
                     map("<C-space>", vim.lsp.buf.hover, "LSP Hover")
                     -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)

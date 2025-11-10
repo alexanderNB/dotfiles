@@ -9,6 +9,7 @@ vim.g.have_nerd_font = true
 
 vim.o.number = true
 vim.o.relativenumber = true
+vim.o.commentstring = "// %s"
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = "a"
@@ -34,6 +35,8 @@ vim.o.smartcase = true
 vim.o.signcolumn = "yes"
 -- Decrease update time
 vim.o.updatetime = 250
+
+vim.o.timeout = true
 vim.o.timeoutlen = 10000
 
 vim.o.splitright = true
@@ -85,6 +88,13 @@ vim.keymap.set({ "n", "x", "o" }, "<leader>o", "<C-w>v")
 
 vim.keymap.set({ "n", "x" }, "s", "<Nop>")
 vim.keymap.set({ "n", "x" }, "S", "<Nop>")
+
+-- vim.keymap.del({ "n" }, "gd")
+-- vim.keymap.del({ "n" }, "grr")
+-- vim.keymap.del({ "n", "x" }, "gra")
+-- vim.keymap.del({ "n" }, "gri")
+-- vim.keymap.del({ "n" }, "grt")
+-- vim.keymap.del({ "n" }, "grn")
 
 vim.keymap.set({ "n" }, "<C-s>", "<cmd>w<CR>")
 
@@ -200,7 +210,7 @@ require("lazy").setup({
     --        end,
     --    }
     --
-    "NMAC427/guess-indent.nvim", -- Detect tabstop and shiftwidth automatically
+    { "NMAC427/guess-indent.nvim", enabled = false }, -- Detect tabstop and shiftwidth automatically
 
     -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
     --
@@ -277,7 +287,7 @@ require("lazy").setup({
         keys = {
           { "<S-Space>", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
 
-          { "gs", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+          -- { "gs", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
           -- { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
           { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
           -- { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },

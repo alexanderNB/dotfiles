@@ -217,7 +217,7 @@ return {
                                 { win = "input", height = 1, border = "bottom" },
                                 { win = "list", border = "none" },
                             },
-                            { win = "preview", title = "{preview}", border = true, width = 0.5 },
+                            { win = "preview", title = "{preview}", border = true, width = 0.6 },
                         },
                         icon = true,
                     },

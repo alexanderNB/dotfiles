@@ -100,14 +100,15 @@ vim.keymap.set({ "n" }, "<C-s>", "<cmd>w<CR>")
 
 -- vim.keymap.set({ "x" }, "ig", "gg0oG$")
 
-vim.keymap.set("n", "N", "<C-o>", { desc = "Previous jump" })
--- vim.keymap.set("n", "J", ":bprevious<CR>", { desc = "Previous buffer" })
--- vim.keymap.set("n", "K", ":bnext<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "O", "<C-i>", { desc = "Next jump" })
-
 vim.keymap.set("i", "<Esc>", "<Esc>m`")
 vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "<", "<gv")
+
+vim.keymap.set("n", "<M-n>", "2<C-w><")
+vim.keymap.set("n", "<M-e>", "2<C-w>-")
+vim.keymap.set("n", "<M-r>", "2<C-w>+")
+vim.keymap.set("n", "<M-o>", "2<C-w>>")
+vim.keymap.set("n", "<leader>=", "<C-w>=")
 
 -- vim.keymap.set("n", "<leader>n", "<cmd>lua Snacks.picker.notifications()<CR>", { desc = "Notification History" })
 -- vim.keymap.set("n", "<leader>n", function()
@@ -126,6 +127,12 @@ vim.keymap.set("n", "<localleader>md", ":MoltenDelete<CR>", { desc = "delete Mol
 
 vim.keymap.set("n", "<localleader>ms", ":noautocmd MoltenEnterOutput<CR>", { desc = "open output window", silent = true })
 vim.keymap.set("n", "<localleader>mh", ":MoltenHideOutput<CR>", { desc = "close output window", silent = true })
+
+vim.keymap.set("n", "N", "<C-o>", { desc = "Previous jump" })
+-- vim.keymap.set("n", "J", ":bprevious<CR>", { desc = "Previous buffer" })
+-- vim.keymap.set("n", "K", ":bnext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "O", "<C-i>", { desc = "Next jump" })
+
 vim.keymap.set({ "n", "x", "o" }, "n", "h")
 vim.keymap.set({ "n", "x", "o" }, "e", "j")
 vim.keymap.set({ "n", "x", "o" }, "r", "k")
@@ -139,6 +146,38 @@ vim.keymap.set({ "n", "x", "o" }, "J", "E")
 vim.keymap.set({ "n", "x", "o" }, "K", "R")
 vim.keymap.set({ "n", "x", "o" }, "L", "O")
 
+vim.g.split_keyboard = true
+vim.keymap.set("n", "<leader>tk", function()
+    vim.g.split_keyboard = not vim.g.split_keyboard
+    if vim.g.split_keyboard then
+        vim.keymap.set({ "n", "x", "o" }, "n", "h")
+        vim.keymap.set({ "n", "x", "o" }, "e", "j")
+        vim.keymap.set({ "n", "x", "o" }, "r", "k")
+        vim.keymap.set({ "n", "x", "o" }, "o", "l")
+        vim.keymap.set({ "n", "x", "o" }, "h", "n")
+        vim.keymap.set({ "n", "x", "o" }, "j", "e")
+        vim.keymap.set({ "n", "x", "o" }, "k", "r")
+        vim.keymap.set({ "n", "x", "o" }, "l", "o")
+        vim.keymap.set({ "n", "x", "o" }, "H", "N")
+        vim.keymap.set({ "n", "x", "o" }, "J", "E")
+        vim.keymap.set({ "n", "x", "o" }, "K", "R")
+        vim.keymap.set({ "n", "x", "o" }, "L", "O")
+    else
+        vim.keymap.del({ "n", "x", "o" }, "n")
+        vim.keymap.del({ "n", "x", "o" }, "e")
+        vim.keymap.del({ "n", "x", "o" }, "r")
+        vim.keymap.del({ "n", "x", "o" }, "o")
+        vim.keymap.del({ "n", "x", "o" }, "h")
+        vim.keymap.del({ "n", "x", "o" }, "j")
+        vim.keymap.del({ "n", "x", "o" }, "k")
+        vim.keymap.del({ "n", "x", "o" }, "l")
+        vim.keymap.del({ "n", "x", "o" }, "H")
+        vim.keymap.del({ "n", "x", "o" }, "J")
+        vim.keymap.del({ "n", "x", "o" }, "K")
+        vim.keymap.del({ "n", "x", "o" }, "L")
+    end
+end)
+
 -- Normal mode: swap insert and left
 -- vim.keymap.set("n", "h", "i", { desc = "h enters insert mode" })
 -- vim.keymap.set("n", "i", "h", { desc = "i moves left" })
@@ -147,10 +186,10 @@ vim.keymap.set({ "n", "x", "o" }, "L", "O")
 -- vim.keymap.set({ "o", "x" }, "h", "i", { remap = true, desc = "h as text object inner" })
 -- vim.keymap.set({ "o", "x" }, "i", "h", { remap = true, desc = "i as previous h" })
 
-vim.keymap.set({ "n" }, "<M-n>", "J")
-vim.keymap.set({ "n" }, "<M-e>", "<cmd>m+<CR>==")
-vim.keymap.set({ "n" }, "<M-r>", "<cmd>m-2<CR>==")
-vim.keymap.set({ "n" }, "<M-o>", "gJ")
+-- vim.keymap.set({ "n" }, "<M-n>", "J")
+-- vim.keymap.set({ "n" }, "<M-e>", "<cmd>m+<CR>==")
+-- vim.keymap.set({ "n" }, "<M-r>", "<cmd>m-2<CR>==")
+-- vim.keymap.set({ "n" }, "<M-o>", "gJ")
 
 vim.keymap.set({ "n", "x", "o" }, "-", "^")
 vim.keymap.set({ "n", "x", "o" }, "^", "-")

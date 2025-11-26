@@ -186,6 +186,7 @@ return {
                 -- gopls = {},
                 basedpyright = {},
                 fsautocomplete = {},
+                copilot = {},
                 -- scala = {},
 
                 -- rust_analyzer = {},

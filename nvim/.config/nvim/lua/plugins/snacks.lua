@@ -195,11 +195,16 @@ return {
                         },
                     },
                     smart = {
-                        multi = { "files" },
                         hidden = true,
                         exclude = { "Steam", "Games" },
                         supports_live = true,
                         icon = true,
+                    },
+                    grep = {
+                        hidden = true,
+                        exclude = { "Steam", "Games" },
+                        -- supports_live = true,
+                        -- icon = true,
                     },
                 },
 

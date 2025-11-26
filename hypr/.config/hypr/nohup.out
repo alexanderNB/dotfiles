@@ -1,0 +1,36 @@
+2025/11/11 21:07:14 INFO elephant config="using default config"
+2025/11/11 21:07:14 INFO config "runprefix autodetect"="uwsm-app --"
+2025/11/11 21:07:14 INFO menus config="using default config"
+2025/11/11 21:07:14 INFO elephant startup=108.854545ms
+2025/11/11 21:07:14 INFO comm listen=starting
+2025/11/11 21:07:21 INFO comm connection=new
+2025/11/11 21:07:21 INFO comm connection=new
+2025/11/11 21:07:21 INFO subscription new=menus
+2025/11/11 21:07:21 INFO providers p=desktopapplications results=0 time=189.016µs
+2025/11/11 21:07:22 INFO providers p=desktopapplications,calc,runner,websearch results=0 time=111.214µs
+2025/11/11 21:07:23 INFO providers p=desktopapplications results=0 time=110.055µs
+2025/11/11 21:10:18 INFO comm connection=new
+2025/11/11 21:10:18 INFO comm connection=new
+2025/11/11 21:10:18 INFO subscription new=menus
+2025/11/11 21:10:18 INFO providers p=desktopapplications results=0 time=27.252µs
+2025/11/11 21:10:18 INFO providers p=desktopapplications,calc,runner,websearch results=0 time=97.191µs
+2025/11/11 21:10:24 INFO comm connection=new
+2025/11/11 21:10:24 INFO comm connection=new
+2025/11/11 21:10:24 INFO subscription new=menus
+2025/11/11 21:10:24 INFO providers p=desktopapplications results=0 time=174.536µs
+2025/11/11 21:10:54 INFO comm connection=new
+2025/11/11 21:10:54 INFO comm connection=new
+2025/11/11 21:10:54 INFO subscription new=menus
+2025/11/11 21:10:54 INFO providers p=desktopapplications results=0 time=46.837µs
+2025/11/11 21:11:16 INFO comm connection=new
+2025/11/11 21:11:16 INFO comm connection=new
+2025/11/11 21:11:16 INFO subscription new=menus
+2025/11/11 21:11:16 INFO providers p=desktopapplications results=0 time=41.884µs
+panic: runtime error: invalid memory address or nil pointer dereference
+[signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0xe988bd]
+
+goroutine 58 [running]:
+github.com/abenz1267/elephant/v2/internal/comm/handlers.(*StateRequest).Handle(0x9f6100?, 0x0, 0xc0?, {0x1267378, 0xc0001221a8}, {0xc000212270, 0x15, 0x15})
+	github.com/abenz1267/elephant/v2/internal/comm/handlers/staterequesthandler.go:42 +0x29d
+created by github.com/abenz1267/elephant/v2/internal/comm.handle in goroutine 120
+	github.com/abenz1267/elephant/v2/internal/comm/comm.go:127 +0x606

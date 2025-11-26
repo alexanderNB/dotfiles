@@ -143,3 +143,6 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
 fi
 
 
+
+# Created by `pipx` on 2025-11-11 12:00:27
+export PATH="$PATH:/home/alexander/.local/bin"

@@ -139,7 +139,7 @@ export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude Steam --exclude Games
 eval "$(fzf --zsh)"
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-    Hyprland
+    start-hyprland
 fi
 
 

@@ -303,11 +303,12 @@ OffsetMouseWrapper {
                         // text: C.Config.settings.bar.workspaces.style == 1 ? "" + modelData.index : C.Config.romanize(modelData.index)
                         anchors {
                             top: parent.top
-                            bottom: parent.bottom
+                            bottom: parent.top
                         }
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
                         font.pointSize: C.Config.fontSize.normal
+                        // font.pointSize: 18
                         color: delegate.modelData.workspace?.active ? C.Config.theme.on_surface : delegate.modelData.workspace ? Qt.darker(C.Config.theme.outline, 1.4) : Qt.lighter(C.Config.theme.outline, 1.4)
 
                         Behavior on color {

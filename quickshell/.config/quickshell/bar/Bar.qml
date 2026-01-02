@@ -5,18 +5,25 @@ import Quickshell
 import Quickshell.Services.UPower
 import Quickshell.Wayland
 import Quickshell.Hyprland
+import Quickshell.Io
 
 PanelWindow {
     id: root
-    visible: (Hyprland.monitorFor(screen).activeWorkspace.id == Hyprland.monitorFor(screen).activeWorkspace.name) ? true : false
+    // visible: (Hyprland.monitorFor(screen).activeWorkspace.id == Hyprland.monitorFor(screen).activeWorkspace.name) ? true : false
+    visible: _visible
+    // visible: true
+    property bool _visible: false
     property bool compact: false
     property real barRadius: C.Config.settings.panels.radius
-    property real barHeight: C.Config.settings.bar.height
+    // property real barHeight: C.Config.settings.bar.height
+    property real barHeight: 45
     property real gapsHorz: C.Config.settings.bar.horizontalGap
     property real gapsVert: C.Config.settings.bar.verticalGap
     property real innerPadHorz: 8
-    property real compactHeight: barHeight
-    property real standardHeight: barHeight + gapsVert
+    // property real compactHeight: barHeight
+    property real compactHeight: 0
+    // property real standardHeight: barHeight + gapsVert
+    property real standardHeight: 0
     readonly property real borderMargin: C.Config.settings.panels.borders ? 1 : 0
     readonly property real topContentMargin: borderMargin + (C.Config.edge == C.Config.BarEdge.Top ? uncompactState : compactState) * gapsVert
     readonly property real bottomContentMargin: borderMargin + (C.Config.edge == C.Config.BarEdge.Bottom ? uncompactState : compactState) * gapsVert
@@ -29,17 +36,54 @@ PanelWindow {
     exclusiveZone: compact ? compactHeight : standardHeight
     WlrLayershell.namespace: "hyprland-shell:bar"
     WlrLayershell.layer: WlrLayer.Top
-    implicitHeight: standardHeight
+    implicitHeight: barHeight * 1.5 + gapsVert
 
+    IpcHandler {
+        target: "bar"
+
+        function toggle() {
+            root._visible = !root._visible;
+        }
+        function close() {
+            root._visible = false;
+        }
+        function open() {
+            root._visible = true;
+        }
+    }
     // Background
     Rectangle {
         id: barBackground
-        visible: false
+        visible: true
 
         radius: root.uncompactState * root.barRadius
-        color: C.Config.applyBaseOpacity(C.Config.theme.background)
+        // color: C.Config.applyBaseOpacity(C.Config.theme.background)
+        // color: "#FFFFFF"
+        // color: "#1F1F1F"
         border.width: C.Config.settings.panels.borders ? root.uncompactState * root.borderMargin : 0
+        // border.width: 0
+        // border.bottom.width: 5
+
         border.color: C.Config.applyBaseOpacity(C.Config.theme.outline_variant)
+        // border.color: "#FFFFFF"
+        gradient: Gradient {
+            GradientStop {
+                position: 0.0
+                // color: "#1A1B26"
+                color: "#1F1F1F"
+            }
+            GradientStop {
+                position: 0.4
+                color: "#F01F1F1F"
+                // color: "#1F1F1F"
+            }
+            GradientStop {
+                position: 1
+                color: "transparent"
+                // color: "#00FFFFFF"
+                // color: "#1F1F1F"
+            }
+        }
 
         anchors {
             fill: parent
@@ -76,6 +120,7 @@ PanelWindow {
 
     RowLayout {
         // Left side
+        visible: false
         spacing: 10
 
         anchors {
@@ -125,14 +170,14 @@ PanelWindow {
 
         anchors {
             top: parent.top
-            bottom: parent.bottom
+            bottom: parent.top
             right: parent.right
         }
 
         Weather {
             opacity: C.Config.settings.bar.weather ? 1 : 0
             visible: opacity != 0
-            Layout.topMargin: root.topContentMargin
+            Layout.topMargin: root.topContentMargin + 5
             Layout.bottomMargin: root.bottomContentMargin
 
             Behavior on opacity {

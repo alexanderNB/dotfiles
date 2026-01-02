@@ -227,6 +227,15 @@ return {
                         icon = true,
                     },
                 },
+
+                actions = {
+                    explorer_up = function(picker)
+                        vim.cmd("cd " .. vim.fs.dirname(picker:cwd()) .. "/")
+                    end,
+                    explorer_focus = function(picker)
+                        vim.cmd("cd " .. picker:dir() .. "/")
+                    end,
+                },
             },
             notifier = { enabled = true },
             quickfile = { enabled = true },

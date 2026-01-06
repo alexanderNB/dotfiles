@@ -10,7 +10,7 @@ import Quickshell.Io
 PanelWindow {
     id: root
     // visible: (Hyprland.monitorFor(screen).activeWorkspace.id == Hyprland.monitorFor(screen).activeWorkspace.name) ? true : false
-    visible: _visible
+    visible: _visible || Hyprland.monitorFor(screen).id == 1
     // visible: true
     property bool _visible: false
     property bool compact: false
@@ -23,7 +23,46 @@ PanelWindow {
     // property real compactHeight: barHeight
     property real compactHeight: 0
     // property real standardHeight: barHeight + gapsVert
-    property real standardHeight: 0
+    property real standardHeight: Hyprland.monitorFor(screen).id == 1 ? 30 : 0
+
+    property Gradient gradietMain: Gradient {
+        GradientStop {
+            position: 0.0
+            // color: "#1A1B26"
+            color: "#1F1F1F"
+        }
+        GradientStop {
+            position: 0.4
+            color: "#F01F1F1F"
+            // color: "#1F1F1F"
+        }
+        GradientStop {
+            position: 1
+            color: "transparent"
+            // color: "#00FFFFFF"
+            // color: "#1F1F1F"
+        }
+    }
+
+    property Gradient gradietSecond: Gradient {
+        GradientStop {
+            position: 0.0
+            // color: "#1A1B26"
+            color: "#1F1F1F"
+        }
+        GradientStop {
+            position: 0.45
+            color: "#1F1F1F"
+            // color: "#1F1F1F"
+        }
+        GradientStop {
+            position: 0.451
+            color: "transparent"
+            // color: "#00FFFFFF"
+            // color: "#1F1F1F"
+        }
+    }
+
     readonly property real borderMargin: C.Config.settings.panels.borders ? 1 : 0
     readonly property real topContentMargin: borderMargin + (C.Config.edge == C.Config.BarEdge.Top ? uncompactState : compactState) * gapsVert
     readonly property real bottomContentMargin: borderMargin + (C.Config.edge == C.Config.BarEdge.Bottom ? uncompactState : compactState) * gapsVert
@@ -49,6 +88,7 @@ PanelWindow {
         }
         function open() {
             root._visible = true;
+            print(Hyprland.monitorFor(screen).id);
         }
     }
     // Background
@@ -66,25 +106,8 @@ PanelWindow {
 
         border.color: C.Config.applyBaseOpacity(C.Config.theme.outline_variant)
         // border.color: "#FFFFFF"
-        gradient: Gradient {
-            GradientStop {
-                position: 0.0
-                // color: "#1A1B26"
-                color: "#1F1F1F"
-            }
-            GradientStop {
-                position: 0.4
-                color: "#F01F1F1F"
-                // color: "#1F1F1F"
-            }
-            GradientStop {
-                position: 1
-                color: "transparent"
-                // color: "#00FFFFFF"
-                // color: "#1F1F1F"
-            }
-        }
 
+        gradient: Hyprland.monitorFor(screen).id == 0 ? root.gradietMain : root.gradietSecond
         anchors {
             fill: parent
             leftMargin: root.uncompactState * root.gapsHorz

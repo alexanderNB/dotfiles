@@ -1,0 +1,1 @@
+/home/archnb/.config/system_specific/hypr/scripts/wallpaperswitcher.py

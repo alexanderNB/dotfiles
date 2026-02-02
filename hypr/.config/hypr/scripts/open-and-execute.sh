@@ -13,7 +13,7 @@ CURRENTWORKSPACE="$(hyprctl activeworkspace -j | jq -r '.name')"
 hyprctl dispatch focusworkspaceoncurrentmonitor name:$name
 if [ "$exec" == "messenger" ]; then
     if [ "$(hyprctl clients -j | jq -r '.[].initialClass' | grep "$to_find")" == "" ]; then
-        sh -c 'XAPP_FORCE_GTKWINDOW_ICON="/home/archnb/.local/share/ice/icons/Messenger.png" firefox --class WebApp-Messenger4463 --name WebApp-Messenger4463 --profile /home/archnb/.local/share/ice/firefox/Messenger4463 --no-remote "https://www.messenger.com"'
+        sh -c 'XAPP_FORCE_GTKWINDOW_ICON="~/.local/share/ice/icons/Messenger.png" firefox --class WebApp-Messenger4463 --name WebApp-Messenger4463 --profile ~/.local/share/ice/firefox/Messenger4463 --no-remote "https://www.messenger.com"'
     fi
 else
     if [ "$(hyprctl clients -j | jq -r '.[].initialTitle' | grep "$to_find")" == "" ]; then

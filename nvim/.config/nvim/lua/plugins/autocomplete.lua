@@ -187,6 +187,7 @@ return {
                 basedpyright = {},
                 fsautocomplete = {},
                 copilot = {},
+                jdtls = {},
                 -- scala = {},
 
                 -- rust_analyzer = {},

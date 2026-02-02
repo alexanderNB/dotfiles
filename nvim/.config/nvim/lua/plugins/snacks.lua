@@ -127,6 +127,13 @@ return {
                 end,
                 desc = "[S]earch [N]eovim files",
             },
+            {
+                "<leader>sT",
+                function()
+                    Snacks.picker.todo_comments()
+                end,
+                desc = "[S]earch [T]odo",
+            },
         },
         opts = {
 
@@ -195,6 +202,7 @@ return {
                         },
                     },
                     smart = {
+                        multi = { "buffers", "files" },
                         hidden = true,
                         exclude = { "Steam", "Games" },
                         supports_live = true,

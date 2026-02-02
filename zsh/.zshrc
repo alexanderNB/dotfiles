@@ -126,6 +126,9 @@ alias nchome='$IDE ~'
 alias battery='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
 alias debug='~/.config/hypr/scripts/debug.sh'
 
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519gitlab
+clear
 
 
 

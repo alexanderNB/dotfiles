@@ -210,6 +210,15 @@ vim.keymap.set("x", "<leader>p", "P", { desc = "Paste without yanking" })
 vim.cmd "autocmd BufEnter * set formatoptions-=o"
 vim.cmd "autocmd BufEnter * setlocal formatoptions-=o"
 
+-- vim.api.nvim_create_autocmd("BufLeave", {
+--     desc = "Some desc",
+--     group = vim.api.nvim_create_augroup("save-on-buf-leave", { clear = true }),
+--     callback = function()
+--         vim.notify "test"
+--         -- vim.keymap.set({ "n" }, "<C-s>", "<cmd>w<CR>")
+--     end,
+-- })
+
 --  See `:help vim.hl.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Highlight when yanking (copying) text",

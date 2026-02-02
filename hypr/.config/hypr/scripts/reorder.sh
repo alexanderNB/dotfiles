@@ -1,1 +1,1 @@
-/home/archnb/.config/system_specific/hypr/scripts/reorder.sh
+../../../../laptop_specific/.config/system_specific/hypr/scripts/reorder.sh

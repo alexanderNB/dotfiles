@@ -1,1 +1,1 @@
-/home/archnb/.config/system_specific/hypr/scripts/wallpaperswitcher.py
+../../../../laptop_specific/.config/system_specific/hypr/scripts/wallpaperswitcher.py

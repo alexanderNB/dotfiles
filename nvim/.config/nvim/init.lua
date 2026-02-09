@@ -1,3 +1,7 @@
+-- vim.g.python_host_prog = vim.fn.expand "/usr/bin/python"
+-- vim.g.python_host_prog = "/home/alexander/.local/bin/pynvim-python"
+-- vim.g.python3_host_prog = vim.fn.expand "/usr/bin/python3"
+vim.g.python3_host_prog = vim.fn.expand "~/.virtualenvs/neovim/bin/python3"
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 

@@ -1,6 +1,5 @@
 return {
     {
-
         "quarto-dev/quarto-nvim",
         ft = { "quarto", "markdown" },
         dependencies = {
@@ -37,7 +36,9 @@ return {
     },
     {
         "benlubas/molten-nvim",
-        -- version = "^2.0.0", -- use version <2.0.0 to avoid breaking changes
+        -- enabled = false,
+        version = "^2.0.0", -- use version <2.0.0 to avoid breaking changes
+        -- version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
         build = ":UpdateRemotePlugins",
         init = function()
             -- this is an example, not a default. Please see the readme for more configuration options
@@ -66,7 +67,7 @@ return {
     },
     {
         "GCBallesteros/jupytext.nvim",
-        -- config = true,
+        config = true,
         -- Depending on your nvim distro or config you may need to make the loading not lazy
         lazy = false,
 
@@ -77,7 +78,7 @@ return {
         },
         -- config = function()
         --     require("jupytext").setup {
-        --         -- custom_language_formatting = {},
+        --         custom_language_formatting = {},
         --     }
         -- end,
     },

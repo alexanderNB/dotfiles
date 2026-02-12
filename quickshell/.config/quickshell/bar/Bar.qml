@@ -10,7 +10,7 @@ import Quickshell.Io
 PanelWindow {
     id: root
     // visible: (Hyprland.monitorFor(screen).activeWorkspace.id == Hyprland.monitorFor(screen).activeWorkspace.name) ? true : false
-    visible: _visible || Hyprland.monitorFor(screen).id == 1 || UPower.displayDevice.percentage < 0.15
+    visible: _visible || Hyprland.monitorFor(screen).id == 1 || (UPower.displayDevice.percentage <= 0.15 && (UPower.displayDevice.state === UPowerDeviceState.Discharging))
     // visible: true
     property bool _visible: false
     property bool compact: false

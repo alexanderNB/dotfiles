@@ -1,1 +1,1 @@
-../../../../laptop_specific/.config/system_specific/hypr/scripts/wallpaperswitcher.py
+../../../../../.config/system_specific/hypr/scripts/wallpaperswitcher.py

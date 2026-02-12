@@ -1,1 +1,1 @@
-../../../../laptop_specific/.config/system_specific/hypr/scripts/reorder.sh
+../../../../../.config/system_specific/hypr/scripts/reorder.sh

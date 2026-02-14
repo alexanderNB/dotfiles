@@ -10,9 +10,11 @@ import Quickshell.Io
 PanelWindow {
     id: root
     // visible: (Hyprland.monitorFor(screen).activeWorkspace.id == Hyprland.monitorFor(screen).activeWorkspace.name) ? true : false
-    visible: _visible || Hyprland.monitorFor(screen).id == 1 || (UPower.displayDevice.percentage <= 0.15 && (UPower.displayDevice.state === UPowerDeviceState.Discharging))
+
+    visible: _visible || sticky
     // visible: true
     property bool _visible: false
+    property bool sticky: Hyprland.monitorFor(screen).id == 1 || Hyprland.focusedWorkspace?.name === "overview" || (UPower.displayDevice.percentage <= 0.15 && (UPower.displayDevice.state === UPowerDeviceState.Discharging))
     property bool compact: false
     property real barRadius: C.Config.settings.panels.radius
     // property real barHeight: C.Config.settings.bar.height
@@ -23,7 +25,7 @@ PanelWindow {
     // property real compactHeight: barHeight
     property real compactHeight: 0
     // property real standardHeight: barHeight + gapsVert
-    property real standardHeight: Hyprland.monitorFor(screen).id == 1 ? 30 : 0
+    property real standardHeight: sticky ? 30 : 0
 
     property Gradient gradietMain: Gradient {
         GradientStop {
@@ -70,7 +72,10 @@ PanelWindow {
     property real compactState: compact ? 1 : 0
     property real uncompactState: 1 - compactState
 
-    anchors: C.Config.barAnchors
+    anchors.left: true
+    anchors.top: true
+    anchors.right: true
+    // anchors: C.Config.barAnchors
     color: "transparent"
     exclusiveZone: compact ? compactHeight : standardHeight
     WlrLayershell.namespace: "hyprland-shell:bar"
@@ -89,6 +94,7 @@ PanelWindow {
         function open() {
             root._visible = true;
             print(Hyprland.monitorFor(screen).id);
+            print(Hyprland.focusedWorkspace.name);
         }
     }
     // Background
@@ -107,7 +113,7 @@ PanelWindow {
         border.color: C.Config.applyBaseOpacity(C.Config.theme.outline_variant)
         // border.color: "#FFFFFF"
 
-        gradient: Hyprland.monitorFor(screen).id == 0 ? root.gradietMain : root.gradietSecond
+        gradient: root.sticky ? root.gradietSecond : root.gradietMain
         anchors {
             fill: parent
             leftMargin: root.uncompactState * root.gapsHorz
@@ -152,13 +158,13 @@ PanelWindow {
             left: parent.left
         }
 
-        LeftMenuButton {
-            leftMargin: barBackground.anchors.leftMargin + root.borderMargin
-            topMargin: root.topContentMargin
-            bottomMargin: root.bottomContentMargin
-            topLeftRadius: barBackground.radius - root.borderMargin
-            bottomLeftRadius: topLeftRadius
-        }
+        // LeftMenuButton {
+        //     leftMargin: barBackground.anchors.leftMargin + root.borderMargin
+        //     topMargin: root.topContentMargin
+        //     bottomMargin: root.bottomContentMargin
+        //     topLeftRadius: barBackground.radius - root.borderMargin
+        //     bottomLeftRadius: topLeftRadius
+        // }
 
         // BarSeparator {
         //     Layout.topMargin: root.topContentMargin
@@ -244,19 +250,19 @@ PanelWindow {
             Layout.bottomMargin: root.bottomContentMargin
         }
 
-        BarSeparator {
-            Layout.topMargin: root.topContentMargin
-            Layout.bottomMargin: root.bottomContentMargin
-        }
+        // BarSeparator {
+        //     Layout.topMargin: root.topContentMargin
+        //     Layout.bottomMargin: root.bottomContentMargin
+        // }
 
-        RightMenuButton {
-            topMargin: root.topContentMargin
-            bottomMargin: root.bottomContentMargin
-            rightMargin: barBackground.anchors.rightMargin + root.borderMargin
-            topRightRadius: barBackground.radius - root.borderMargin
-            bottomRightRadius: topRightRadius
-            Layout.leftMargin: -6
-        }
+        // RightMenuButton {
+        //     topMargin: root.topContentMargin
+        //     bottomMargin: root.bottomContentMargin
+        //     rightMargin: barBackground.anchors.rightMargin + root.borderMargin
+        //     topRightRadius: barBackground.radius - root.borderMargin
+        //     bottomRightRadius: topRightRadius
+        //     Layout.leftMargin: -6
+        // }
     }
 
     Behavior on compactState {

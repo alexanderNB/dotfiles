@@ -11,59 +11,62 @@ import Quickshell // for ShellRoot and PanelWindow
 import Quickshell.Wayland
 import Quickshell.Widgets
 import Quickshell.Services.Notifications
+import Quickshell.Hyprland
 
 WlrLayershell {
-  id: root
+    id: root
 
-  // wrapper height check avoids qt crashes
-  visible: wrapper.implicitHeight != 0 || S.NotificationState.notifOverlayOpen
-  color: "transparent"
-  namespace: "hyprland-shell:notifs"
-  layer: WlrLayer.Top
-  implicitWidth: notifWidth + rightMargin
-  exclusiveZone: 0
+    // wrapper height check avoids qt crashes
+    visible: wrapper.implicitHeight != 0 || S.NotificationState.notifOverlayOpen
+    // visible: false
+    // visible: Hyprland.focusedWorkspace.name === "overview"
+    color: "transparent"
+    namespace: "hyprland-shell:notifs"
+    layer: WlrLayer.Top
+    implicitWidth: notifWidth + rightMargin
+    exclusiveZone: 0
 
-  property real notifWidth: 360
-  property real rightMargin: C.Config.settings.bar.horizontalGap
+    property real notifWidth: 360
+    property real rightMargin: C.Config.settings.bar.horizontalGap
 
-  anchors {
-    right: true
-    top: true
-    bottom: true
-  }
-
-  mask: Region {
-    item: wrapper
-  }
-
-  Item {
-    id: wrapper
-    implicitWidth: root.width
-    implicitHeight: Math.min(list.contentHeight, root.height)
-
-    HoverHandler {
-      onHoveredChanged: {
-        S.NotificationState.pauseRefs += (hovered ? 1 : -1);
-      }
+    anchors {
+        right: true
+        top: true
+        bottom: true
     }
 
-    ListView {
-      id: list
-      implicitWidth: root.width
-      implicitHeight: root.height
-      topMargin: 5
-
-      model: ScriptModel {
-        values: S.NotificationState.overlayNotifs
-      }
-
-      delegate: NotificationBox {
-        required property TrackedNotification modelData
-        trackedNotif: modelData
-        entryFactor: trackedNotif.overlayEntryFactor
-        contentWidth: root.notifWidth
-        rightMargin: root.rightMargin
-      }
+    mask: Region {
+        item: wrapper
     }
-  }
+
+    Item {
+        id: wrapper
+        implicitWidth: root.width
+        implicitHeight: Math.min(list.contentHeight, root.height)
+
+        HoverHandler {
+            onHoveredChanged: {
+                S.NotificationState.pauseRefs += (hovered ? 1 : -1);
+            }
+        }
+
+        ListView {
+            id: list
+            implicitWidth: root.width
+            implicitHeight: root.height
+            topMargin: 5
+
+            model: ScriptModel {
+                values: S.NotificationState.overlayNotifs
+            }
+
+            delegate: NotificationBox {
+                required property TrackedNotification modelData
+                trackedNotif: modelData
+                entryFactor: trackedNotif.overlayEntryFactor
+                contentWidth: root.notifWidth
+                rightMargin: root.rightMargin
+            }
+        }
+    }
 }

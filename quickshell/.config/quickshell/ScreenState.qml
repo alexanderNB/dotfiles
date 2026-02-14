@@ -6,8 +6,9 @@ import "keybinds" as K
 import "notifs" as N
 import "osd" as O
 import "config" as C
+import "overview" as OV
 
-Scope {
+Item {
     id: root
 
     property ShellScreen screen
@@ -26,4 +27,6 @@ Scope {
         screen: root.screen
     }
 
+    // screen: root.screen
+    OV.Overview {}
 }

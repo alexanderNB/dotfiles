@@ -10,55 +10,61 @@ import Quickshell.Services.Notifications
 import qs.notifs
 
 Singleton {
-  id: root
+    id: root
 
-  property var trackedNotifs: []
-  property var overlayNotifs: trackedNotifs.filter(n => n.showInOverlay)
-  property bool notifOverlayOpen: overlayNotifs.length != 0
-  property var defaultNotifTimeout: 5000
-  property int pauseRefs: 0
-  property bool dndEnabled: false
+    property var trackedNotifs: []
+    property var overlayNotifs: trackedNotifs.filter(n => n.showInOverlay)
+    property bool notifOverlayOpen: overlayNotifs.length != 0
+    property var defaultNotifTimeout: 5000
+    property int pauseRefs: 0
+    property bool dndEnabled: false
 
-  IpcHandler {
-    target: "notification"
+    IpcHandler {
+        target: "notification"
 
-    function clear() {
-      root.trackedNotifs = [];
+        function clear() {
+            root.trackedNotifs = [];
+        }
+
+        function debug() {
+            print(root.dndEnabled);
+            print(root.trackedNotifs.length);
+        }
     }
-  }
 
-  Component {
-    id: notifComponent
+    Component {
+        id: notifComponent
 
-    TrackedNotification {
-      defaultTimeout: root.defaultNotifTimeout
-      paused: root.pauseRefs != 0
-      onRemoved: {
-        root.trackedNotifs = root.trackedNotifs.filter(n => n != this);
-        destroy();
-      }
+        TrackedNotification {
+            defaultTimeout: root.defaultNotifTimeout
+            paused: root.pauseRefs != 0
+            onRemoved: {
+                root.trackedNotifs = root.trackedNotifs.filter(n => n != this);
+                destroy();
+            }
+        }
     }
-  }
 
-  NotificationServer {
-    id: notifServer
-    persistenceSupported: true
-    bodySupported: true
-    bodyMarkupSupported: true
-    bodyHyperlinksSupported: false
-    bodyImagesSupported: false
-    actionsSupported: false
-    actionIconsSupported: false
-    imageSupported: true
+    NotificationServer {
+        id: notifServer
+        persistenceSupported: true
+        bodySupported: true
+        bodyMarkupSupported: true
+        bodyHyperlinksSupported: false
+        bodyImagesSupported: false
+        actionsSupported: false
+        actionIconsSupported: false
+        imageSupported: true
 
-    onNotification: notif => {
-      notif.tracked = true;
+        onNotification: notif => {
+            notif.tracked = true;
+            print(notif);
 
-      const newNotif = notifComponent.createObject(root, {
-        notif
-      });
+            const newNotif = notifComponent.createObject(root, {
+                notif
+            });
 
-      root.trackedNotifs = [newNotif, ...root.trackedNotifs];
+            root.trackedNotifs = [newNotif, ...root.trackedNotifs];
+        }
     }
-  }
 }

@@ -40,7 +40,7 @@ Rectangle {
 
         ListView {
             id: view
-            visible: model.length != 0
+            visible: root.model?.length != 0
             Layout.fillWidth: true
             Layout.fillHeight: true
             spacing: 5
@@ -54,7 +54,7 @@ Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-            visible: model.length == 0
+            visible: root.model?.length == 0
 
             Item {
                 Layout.fillHeight: true

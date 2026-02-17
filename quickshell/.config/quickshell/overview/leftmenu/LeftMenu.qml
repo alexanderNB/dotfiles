@@ -7,7 +7,8 @@ Item {
     id: root
     PanelWindow {
         visible: root.visible
-        color: "#1F1F1F"
+        // color: "#1F1F1F"
+        color: "#000000"
         anchors.left: true
         anchors.top: true
         anchors.bottom: true

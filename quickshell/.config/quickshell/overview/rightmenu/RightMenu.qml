@@ -28,7 +28,8 @@ Item {
         //     right: 10
         // }
         implicitWidth: 500
-        color: "#1F1F1F"
+        // color: "#1F1F1F"
+        color: "#000000"
         // color: "transparent"
 
         Item {
@@ -85,12 +86,6 @@ Item {
                     }
                 }
 
-                WarningBar {
-                    text: "Your monitor configuration prevents the display of the bar by not matching any connected display."
-                    Layout.fillWidth: true
-                    visible: S.ErrorState.monitorError
-                }
-
                 Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
@@ -102,9 +97,11 @@ Item {
                         anchors.fill: parent
                         clip: true
 
-                        model: ScriptModel {
-                            values: S.NotificationState.trackedNotifs
-                        }
+                        // model: ScriptModel {
+                        //     values: S.NotificationState.trackedNotifs
+                        // }
+
+                        model: S.NotificationState.trackedNotifs
 
                         delegate: N.NotificationBox {
                             required property N.TrackedNotification modelData
@@ -190,68 +187,6 @@ Item {
                         easing.type: Easing.BezierSpline
                         easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
                     }
-                }
-            }
-
-            RowLayout {
-                opacity: 1
-
-                // TODO: REMOVE
-                // Behavior on opacity {
-                //     NumberAnimation {
-                //         duration: 300
-                //         easing.type: Easing.BezierSpline
-                //         easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
-                //     }
-                // }
-
-                visible: opacity != 0
-                z: 2
-
-                anchors {
-                    right: parent.right
-                    bottom: parent.bottom
-                    left: parent.left
-                    rightMargin: 0
-                    bottomMargin: 0
-                }
-
-                implicitHeight: 20
-
-                // FIX: Remove or fix
-                WrapperMouseArea {
-                    id: wallpaperMa
-                    visible: false
-                    implicitHeight: 20
-                    implicitWidth: 20
-                    hoverEnabled: true
-                    onPressed: () => {
-                        Quickshell.execDetached(["bash", "-c", "~/.config/hyprland-de/scripts/pickWallpaper.sh"]);
-                        Quickshell.execDetached(["hyprctl", "dispatch", "global", "hyprland-shell:rightMenuToggle"]); // FIXME: this sucks!!!!
-                    }
-
-                    Rectangle {
-                        anchors.fill: parent
-                        radius: 4
-                        color: C.Config.applySecondaryOpacity(wallpaperMa.containsMouse ? Qt.lighter(C.Config.theme.surface_container, 3) : C.Config.theme.surface_container)
-
-                        CW.FontIcon {
-                            anchors.centerIn: parent
-                            text: "wallpaper"
-                        }
-
-                        Behavior on color {
-                            ColorAnimation {
-                                duration: 400
-                                easing.type: Easing.BezierSpline
-                                easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
-                            }
-                        }
-                    }
-                }
-
-                Item {
-                    Layout.fillWidth: true
                 }
             }
         }

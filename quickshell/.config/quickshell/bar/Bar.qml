@@ -14,7 +14,7 @@ PanelWindow {
     visible: _visible || sticky
     // visible: true
     property bool _visible: false
-    property bool sticky: Hyprland.monitorFor(screen).id == 1 || Hyprland.focusedWorkspace?.name === "overview" || (UPower.displayDevice.percentage <= 0.15 && (UPower.displayDevice.state === UPowerDeviceState.Discharging))
+    property bool sticky: Hyprland.monitorFor(screen).id == 1 || (UPower.displayDevice.percentage <= 0.15 && (UPower.displayDevice.state === UPowerDeviceState.Discharging))
     property bool compact: false
     property real barRadius: C.Config.settings.panels.radius
     // property real barHeight: C.Config.settings.bar.height
@@ -158,14 +158,6 @@ PanelWindow {
             left: parent.left
         }
 
-        // LeftMenuButton {
-        //     leftMargin: barBackground.anchors.leftMargin + root.borderMargin
-        //     topMargin: root.topContentMargin
-        //     bottomMargin: root.bottomContentMargin
-        //     topLeftRadius: barBackground.radius - root.borderMargin
-        //     bottomLeftRadius: topLeftRadius
-        // }
-
         // BarSeparator {
         //     Layout.topMargin: root.topContentMargin
         //     Layout.bottomMargin: root.bottomContentMargin
@@ -201,6 +193,7 @@ PanelWindow {
             top: parent.top
             bottom: parent.top
             right: parent.right
+            rightMargin: 10
         }
 
         Weather {
@@ -249,20 +242,6 @@ PanelWindow {
             Layout.topMargin: root.topContentMargin
             Layout.bottomMargin: root.bottomContentMargin
         }
-
-        // BarSeparator {
-        //     Layout.topMargin: root.topContentMargin
-        //     Layout.bottomMargin: root.bottomContentMargin
-        // }
-
-        // RightMenuButton {
-        //     topMargin: root.topContentMargin
-        //     bottomMargin: root.bottomContentMargin
-        //     rightMargin: barBackground.anchors.rightMargin + root.borderMargin
-        //     topRightRadius: barBackground.radius - root.borderMargin
-        //     bottomRightRadius: topRightRadius
-        //     Layout.leftMargin: -6
-        // }
     }
 
     Behavior on compactState {

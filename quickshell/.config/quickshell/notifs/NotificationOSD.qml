@@ -197,22 +197,22 @@ Item {
             }
         }
 
-        // ClippingRectangle {
-        //     anchors.fill: parent
-        //     radius: 16
-        //     color: "transparent"
-        //     visible: root.hasDismiss
-        //
-        //     Rectangle {
-        //         anchors {
-        //             bottom: parent.bottom
-        //             left: parent.left
-        //         }
-        //         width: parent.width * root.trackedNotif.timePercentage
-        //         height: 2
-        //         radius: 2
-        //         color: Qt.darker(C.Config.theme.primary, 1.9)
-        //     }
-        // }
+        ClippingRectangle {
+            anchors.fill: parent
+            radius: 16
+            color: "transparent"
+            visible: root.hasDismiss
+
+            Rectangle {
+                anchors {
+                    bottom: parent.bottom
+                    left: parent.left
+                }
+                width: parent.width * root.trackedNotif.timePercentage
+                height: 2
+                radius: 2
+                color: Qt.darker(C.Config.theme.primary, 1.9)
+            }
+        }
     }
 }

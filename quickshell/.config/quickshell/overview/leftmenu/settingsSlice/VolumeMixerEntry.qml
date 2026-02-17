@@ -35,7 +35,6 @@ Item {
                     elide: Text.ElideRight
                     text: {
                         const app = root.node.properties["application.name"] ?? (root.node.description != "" ? root.node.description : root.node.name);
-                        print(app);
                         const media = root.node.properties["media.name"];
                         for (var i = 0; i < root.excludedChannels.length; i++) {
                             if (app == root.excludedChannels[i]) {

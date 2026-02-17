@@ -2,7 +2,6 @@ import QtQuick
 import Quickshell
 import Quickshell.Hyprland
 import "bar" as B
-import "keybinds" as K
 import "notifs" as N
 import "osd" as O
 import "config" as C
@@ -23,9 +22,7 @@ Item {
         screen: root.screen
     }
 
-    O.OnScreenDisplay {
-        screen: root.screen
-    }
+    O.VolumeOSD {}
 
     // screen: root.screen
     OV.Overview {}

@@ -60,7 +60,7 @@ WlrLayershell {
                 values: S.NotificationState.overlayNotifs
             }
 
-            delegate: NotificationBox {
+            delegate: NotificationOSD {
                 required property TrackedNotification modelData
                 trackedNotif: modelData
                 entryFactor: trackedNotif.overlayEntryFactor

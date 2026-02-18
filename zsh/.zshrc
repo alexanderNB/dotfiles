@@ -16,6 +16,7 @@ ZSH_THEME="random"
 # awesomepanda
 # cloud
 # philips
+# wuffers
 
 ## Medium
 # dallas

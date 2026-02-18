@@ -9,13 +9,12 @@ RowLayout {
     id: root
     property real percentage: UPower.displayDevice.percentage
     property real charging: UPower.displayDevice.state === UPowerDeviceState.Charging
-    property color color: (!charging && percentage * 100 < C.Config.settings.bar.battery.low) ? C.Config.theme.error : C.Config.theme.on_background
-    spacing: 0
+    property color color: (!charging && percentage * 100 < C.Config.bar.lowBattery) ? C.Config.colors.red : C.Config.colors.fg
 
     CW.FontIcon {
         Layout.alignment: Qt.AlignVCenter
         color: root.color
-        iconSize: 20
+        iconSize: C.Config.fontSize.normalSymbol
         text: {
             const iconNumber = Math.round(root.percentage * 7);
             return root.charging ? "battery_android_bolt" : `battery_android_${iconNumber >= 7 ? "full" : iconNumber}`;
@@ -27,5 +26,6 @@ RowLayout {
         Layout.leftMargin: 2
         text: `${Math.round(percentage * 100)}%`
         color: root.color
+        fontSize: C.Config.fontSize.small
     }
 }

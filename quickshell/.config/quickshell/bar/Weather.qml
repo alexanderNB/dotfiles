@@ -11,11 +11,11 @@ RowLayout {
 
     CW.FontIcon {
         text: S.WeatherState.icon
-        font.pointSize: C.Config.fontSize.small
+        iconSize: C.Config.fontSize.smallSymbol
     }
 
     CW.StyledText {
         text: S.WeatherState.temp + ", " + S.WeatherState.location
-        color: C.Config.theme.on_surface
+        fontSize: C.Config.fontSize.small
     }
 }

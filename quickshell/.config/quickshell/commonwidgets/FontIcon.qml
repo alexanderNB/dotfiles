@@ -6,10 +6,11 @@ Text {
     id: root
     property real fill: 0
     property real iconSize: 18
-    color: C.Config.theme.on_surface
+    color: C.Config.colors.fg
     font {
-        family: C.Globals.isFedora ? "Material Icons Outlined" : "Material Symbols Outlined"
-        pixelSize: root.iconSize
+        family: C.Config.font.symbol
+        // TODO: make pixelSize consitant
+        pointSize: root.iconSize
         variableAxes: {
             "FILL": root.fill,
             "opsz": root.iconSize

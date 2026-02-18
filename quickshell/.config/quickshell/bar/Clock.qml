@@ -1,14 +1,15 @@
 import QtQuick
+import QtCore
 import Quickshell
 
 import "../commonwidgets" as CW
 import "../config" as C
 
 CW.StyledText {
-  SystemClock {
-    id: clock
-    precision: SystemClock.Minutes
-  }
+    SystemClock {
+        id: clock
+        precision: SystemClock.Minutes
+    }
 
-  text: C.Config.formatDateTime(clock.date)
+    text: Qt.formatDateTime(clock.date, C.Config.dateFormat)
 }

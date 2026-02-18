@@ -16,10 +16,7 @@ import Quickshell.Hyprland
 WlrLayershell {
     id: root
 
-    // wrapper height check avoids qt crashes
     visible: wrapper.implicitHeight != 0 || S.NotificationState.notifOverlayOpen
-    // visible: false
-    // visible: Hyprland.focusedWorkspace.name === "overview"
     color: "transparent"
     namespace: "hyprland-shell:notifs"
     layer: WlrLayer.Top
@@ -27,7 +24,7 @@ WlrLayershell {
     exclusiveZone: 0
 
     property real notifWidth: 360
-    property real rightMargin: C.Config.settings.bar.horizontalGap
+    property real rightMargin: 5
 
     anchors {
         right: true

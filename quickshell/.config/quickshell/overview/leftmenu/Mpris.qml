@@ -199,7 +199,8 @@ MouseArea {
                     }
 
                     CW.StyledText {
-                        visible: root.player?.trackArtist
+                        // TODO: Check if this visible should be here
+                        // visible: root.player?.trackArtist
                         Layout.fillWidth: true
                         color: Qt.darker(root.tintedColors.on_surface, 1.2)
                         text: root.player?.trackArtist || "Unknown Artist"
@@ -207,7 +208,8 @@ MouseArea {
                     }
 
                     CW.StyledText {
-                        visible: root.player?.trackAlbum
+                        // TODO: Check if this visible should be here
+                        // visible: root.player?.trackAlbum
                         Layout.topMargin: -4
                         Layout.fillWidth: true
                         color: Qt.darker(root.tintedColors.on_surface, 1.2)
@@ -239,6 +241,7 @@ MouseArea {
                         CW.FontIcon {
                             text: (root.player?.isPlaying ?? false) ? "pause" : "play_arrow"
                             color: root.tintedColors.on_primary
+                            // TODO: make pixelSize consitant
                             font.pixelSize: parent.height * 0.5
                             anchors.centerIn: parent
                         }
@@ -280,7 +283,7 @@ MouseArea {
                     colHighlight: root.tintedColors.primary
                     colTrough: root.tintedColors.secondary_container
 
-                    value: root.player.positionSupported ? (root.player.position / root.player.length) : 0
+                    value: root.player?.positionSupported ? (root.player.position / root.player.length) : 0
 
                     Timer {
                         running: root.player && root.player.playbackState == MprisPlaybackState.Playing

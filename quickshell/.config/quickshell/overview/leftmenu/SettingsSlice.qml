@@ -18,10 +18,7 @@ WrapperItem {
             visible: true
             z: 2
 
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
+            Layout.fillWidth: true
         }
         CW.HorizontalLine {}
 
@@ -30,10 +27,7 @@ WrapperItem {
 
             z: 2
 
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
+            Layout.fillWidth: true
 
             Behavior on opacity {
                 NumberAnimation {
@@ -44,47 +38,34 @@ WrapperItem {
             }
         }
 
-        SL.BrightnessSection {
-            id: brightnessSection
-            z: 2
-
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-        }
-
         SL.AudioSection {
             id: audioSection
 
             z: 2
 
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
+            Layout.fillWidth: true
         }
     }
 
-    component SectionButton: WrapperMouseArea {
-        id: button
-
-        required property var section
-        property alias icon: sb.icon
-
-        hoverEnabled: true
-        onPressed: {
-            if (root.activeSection == section)
-                root.activeSection = null;
-            else
-                root.activeSection = section;
-        }
-
-        SL.SectionButton {
-            id: sb
-
-            hovered: button.containsMouse
-            active: root.activeSection == button.section
-        }
-    }
+    // component SectionButton: WrapperMouseArea {
+    //     id: button
+    //
+    //     required property var section
+    //     property alias icon: sb.icon
+    //
+    //     hoverEnabled: true
+    //     onPressed: {
+    //         if (root.activeSection == section)
+    //             root.activeSection = null;
+    //         else
+    //             root.activeSection = section;
+    //     }
+    //
+    //     SL.SectionButton {
+    //         id: sb
+    //
+    //         hovered: button.containsMouse
+    //         active: root.activeSection == button.section
+    //     }
+    // }
 }

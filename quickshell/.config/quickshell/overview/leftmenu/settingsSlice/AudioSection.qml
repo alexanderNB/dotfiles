@@ -20,7 +20,7 @@ Rectangle {
         return 1;
     })
 
-    color: "#1A1B26"
+    color: C.Config.colors.bg
     radius: 8
     implicitHeight: 310
 
@@ -32,7 +32,7 @@ Rectangle {
             Layout.topMargin: 10
             text: "Volume mixer"
             horizontalAlignment: Text.AlignHCenter
-            font.pointSize: C.Config.fontSize.h2
+            font.pointSize: C.Config.fontSize.large
         }
 
         CW.HorizontalLine {
@@ -45,7 +45,7 @@ Rectangle {
             node: Pipewire.defaultAudioSink
             isDefault: true
             canBeDefault: true
-            isMuted: S.PipewireState.defaultSink.audio.muted == true
+            isMuted: S.PipewireState.defaultSink?.audio?.muted ?? false
             Layout.fillWidth: true
             Layout.leftMargin: 15
             Layout.rightMargin: 15

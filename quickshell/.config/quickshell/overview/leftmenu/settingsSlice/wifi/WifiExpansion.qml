@@ -15,7 +15,9 @@ Rectangle {
     property string ssid: ""
     property bool active: false
 
-    color: active ? Qt.darker(C.Config.theme.primary, 1.8) : C.Config.applySecondaryOpacity(Qt.lighter(C.Config.theme.surface_container, 1.8))
+    // color: active ? C.Config.colors.bg : C.Config.colors.red
+    color: C.Config.colors.bg_highlight
+    property int fontSize: C.Config.fontSize.small
     radius: 6
 
     implicitHeight: cl.implicitHeight
@@ -30,51 +32,55 @@ Rectangle {
             margins: 6
         }
 
-        CW.StyledText {
-            text: line1
-        }
+        // CW.StyledText {
+        //     text: line1
+        // }
         CW.StyledText {
             text: line2
-        }
-        CW.StyledText {
-            text: line3
+            fontSize: root.fontSize
         }
 
-        WrapperMouseArea {
-            id: ma
-
-            hoverEnabled: true
-
-            Layout.preferredWidth: 90
-            Layout.preferredHeight: 30
-            Layout.bottomMargin: 12
-
-            Layout.alignment: Qt.AlignRight
-
-            onClicked: {
-                if (active)
-                    S.WifiState.disconnect(root.ssid);
-                else
-                    S.WifiState.connect(root.ssid);
+        RowLayout {
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+            Layout.fillWidth: true
+            CW.StyledText {
+                Layout.alignment: Qt.AlignTop
+                Layout.topMargin: 2
+                fontSize: root.fontSize
+                text: line3
             }
 
             Rectangle {
-                anchors.fill: parent
+                color: ma.containsMouse ? Qt.lighter(C.Config.colors.bg) : C.Config.colors.bg
                 radius: 6
-
-                color: C.Config.applySecondaryOpacity(ma.containsMouse ? Qt.lighter(C.Config.theme.background, 1.5) : C.Config.theme.background)
-
-                Behavior on color {
-                    ColorAnimation {
-                        duration: 400
-                        easing.type: Easing.BezierSpline
-                        easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
-                    }
-                }
+                Layout.alignment: Qt.AlignRight
+                Layout.preferredWidth: connectText.width + 10
+                Layout.preferredHeight: connectText.height + 5
+                Layout.bottomMargin: 12
+                Layout.rightMargin: 0
 
                 CW.StyledText {
+                    id: connectText
                     anchors.centerIn: parent
                     text: root.active ? "Disconnect" : "Connect"
+                    fontSize: root.fontSize
+                }
+
+                WrapperMouseArea {
+                    id: ma
+
+                    hoverEnabled: true
+                    anchors.fill: parent
+
+                    onClicked: {
+                        if (active)
+                            S.WifiState.disconnect(root.ssid);
+                        else
+                            S.WifiState.connect(root.ssid);
+                    }
                 }
             }
         }

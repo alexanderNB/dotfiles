@@ -2,8 +2,6 @@ import "../../commonwidgets" as CW
 import "../../config" as C
 import "../../notifs" as N
 import "../../state" as S
-import "../../shortcuts" as SH
-// import "./settings" as ST
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -17,20 +15,13 @@ Item {
     implicitWidth: 360 // notifs are 360
 
     PanelWindow {
+        id: panelWindow
         visible: root.visible
         anchors.right: true
         anchors.top: true
         anchors.bottom: true
-        // margins {
-        //     left: 10
-        //     top: 10
-        //     bottom: 10
-        //     right: 10
-        // }
         implicitWidth: 500
-        // color: "#1F1F1F"
-        color: "#000000"
-        // color: "transparent"
+        color: "black"
 
         Item {
             anchors {
@@ -124,8 +115,10 @@ Item {
                         opacity: S.NotificationState.trackedNotifs.length === 0 ? 0 : 1
                         visible: opacity != 0
 
-                        implicitHeight: 20
-                        implicitWidth: 20
+                        implicitHeight: clearSymbol.width
+                        implicitWidth: clearSymbol.width
+                        // implicitHeight: 35
+                        // implicitWidth: 40
                         hoverEnabled: true
                         onPressed: () => {
                             S.NotificationState.trackedNotifs = [];
@@ -134,11 +127,16 @@ Item {
                         Rectangle {
                             anchors.fill: parent
                             radius: 4
-                            color: clearNotifMa.containsMouse ? Qt.lighter(C.Config.theme.surface_container, 3) : C.Config.theme.surface_container
+                            // visible: clearNotifMa.containsMouse
+                            color: clearNotifMa.containsMouse ? C.Config.colors.bg_highlight : panelWindow.color
 
                             CW.FontIcon {
+                                id: clearSymbol
+                                visible: true
                                 anchors.centerIn: parent
                                 text: "delete"
+                                color: C.Config.colors.red1
+                                iconSize: C.Config.fontSize.hugeSymbol
                             }
 
                             Behavior on color {

@@ -3,14 +3,17 @@ import QtQuick.Layouts
 import "../config" as C
 
 Text {
-    renderType: C.Config.settings.fonts.useNativeRendering ? Text.NativeRendering : Text.QtRendering
+    id: root
+    renderType: Text.NativeRendering
     verticalAlignment: Text.AlignVCenter
+    property real fontSize: C.Config.fontSize.normal
+
     font {
         hintingPreference: Font.PreferFullHinting
-        pointSize: C.Config.fontSize.normal
-        family: "JetBrainsMono Nerd Font"
+        pointSize: root.fontSize
+        family: C.Config.font.main
         bold: true
     }
-    color: C.Config.theme.on_surface
-    linkColor: C.Config.theme.primary_fixed
+    color: C.Config.colors.fg
+    linkColor: C.Config.colors.fg
 }

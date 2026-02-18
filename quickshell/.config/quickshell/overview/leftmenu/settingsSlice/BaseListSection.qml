@@ -18,7 +18,7 @@ Rectangle {
     property bool footerActive
     signal footerClicked
 
-    color: "#1A1B26"
+    color: C.Config.colors.bg
     radius: 8
     implicitHeight: 300
 
@@ -89,15 +89,16 @@ Rectangle {
 
         Rectangle {
             color: {
-                const base = root.footerActive ? C.Config.theme.surface_variant : C.Config.theme.surface_container;
+                // TODO: Make color less agreesive when active
+                const base = root.footerActive ? C.Config.colors.blue : C.Config.colors.blue7;
                 return footerBox.containsMouse ? Qt.lighter(base) : base;
             }
 
             Behavior on color {
                 ColorAnimation {
-                    duration: C.Globals.anim_NORMAL
+                    duration: C.Config.anim_MEDIUM
                     easing.type: Easing.BezierSpline
-                    easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
+                    easing.bezierCurve: C.Config.anim_CURVE_SMOOTH_SLIDE
                 }
             }
 

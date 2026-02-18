@@ -12,7 +12,8 @@ WrapperRectangle {
     required property BluetoothDevice device
     readonly property bool stateChanging: device.state === BluetoothDeviceState.Connecting || device.state == BluetoothDeviceState.Disconnecting
 
-    color: device.connected ? Qt.darker(C.Config.theme.primary, 1.8) : C.Config.applySecondaryOpacity(Qt.lighter(C.Config.theme.surface_container, 1.8))
+    color: C.Config.colors.bg_highlight
+    property int fontSize: C.Config.fontSize.small
     radius: 6
 
     ColumnLayout {
@@ -26,58 +27,37 @@ WrapperRectangle {
         }
 
         CW.StyledText {
-            text: `${root.device.deviceName}, ${root.device.address}`
+            text: root.device.deviceName + (root.device.batteryAvailable ? `, ${root.device.battery * 100}% Battery` : "")
+            fontSize: root.fontSize
         }
 
-        CW.StyledText {
-            text: {
-                let text = root.device.connected ? "Connected" : (root.device.paired ? "Paired" : "Not Connected");
-                if (root.device.batteryAvailable)
-                    text += `, ${root.device.battery * 100}% Battery`;
-                return text;
+        RowLayout {
+            anchors {
+                left: parent.left
+                right: parent.right
             }
-        }
+            Layout.fillWidth: true
 
-        WrapperMouseArea {
-            id: ma
-
-            hoverEnabled: true
-
-            Layout.preferredWidth: 100
-            Layout.preferredHeight: 30
-            Layout.bottomMargin: 12
-
-            Layout.alignment: Qt.AlignRight
-
-            onClicked: {
-                if (root.stateChanging)
-                    return;
-                else if (root.device.connected)
-                    root.device.disconnect();
-                else if (root.device.paired)
-                    root.device.connect();
-                else {
-                    root.device.pair();
-                    root.device.trusted = true;
-                }
+            CW.StyledText {
+                Layout.alignment: Qt.AlignTop
+                Layout.topMargin: 2
+                text: root.device.connected ? "Connected" : (root.device.paired ? "Paired" : "Not Connected")
+                fontSize: root.fontSize
             }
 
             Rectangle {
-                anchors.fill: parent
+                color: ma.containsMouse ? Qt.lighter(C.Config.colors.bg) : C.Config.colors.bg
                 radius: 6
-
-                color: C.Config.applySecondaryOpacity(ma.containsMouse ? Qt.lighter(C.Config.theme.background, 1.5) : C.Config.theme.background)
-
-                Behavior on color {
-                    ColorAnimation {
-                        duration: 400
-                        easing.type: Easing.BezierSpline
-                        easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
-                    }
-                }
+                Layout.alignment: Qt.AlignRight
+                Layout.preferredWidth: text.width + 10
+                Layout.preferredHeight: text.height + 5
+                Layout.bottomMargin: 12
+                Layout.rightMargin: 0
 
                 CW.StyledText {
+                    id: text
                     anchors.centerIn: parent
+                    fontSize: root.fontSize
                     text: {
                         switch (root.device.state) {
                         case BluetoothDeviceState.Disconnected:
@@ -88,6 +68,26 @@ WrapperRectangle {
                             return "Disconnect";
                         case BluetoothDeviceState.Disconnecting:
                             return "Disconnecting";
+                        }
+                    }
+                }
+
+                WrapperMouseArea {
+                    id: ma
+
+                    hoverEnabled: true
+                    anchors.fill: parent
+
+                    onClicked: {
+                        if (root.stateChanging)
+                            return;
+                        else if (root.device.connected)
+                            root.device.disconnect();
+                        else if (root.device.paired)
+                            root.device.connect();
+                        else {
+                            root.device.pair();
+                            root.device.trusted = true;
                         }
                     }
                 }

@@ -21,11 +21,11 @@ BaseListSection {
         Layout.rightMargin: 5
         label: "Bluetooth"
         bold: true
-        checked: root.adapter.enabled
+        checked: root.adapter?.enabled ?? false
         onToggled: root.adapter.enabled = checked
     }
 
-    model: adapter.devices
+    model: adapter?.devices
 
     delegate: B.BluetoothDeviceEntry {
         required property BluetoothDevice modelData
@@ -37,7 +37,7 @@ BaseListSection {
     }
 
     footerIcon: "bluetooth_searching"
-    footerActive: adapter.discovering
+    footerActive: adapter?.discovering ?? false
     onFooterClicked: {
         adapter.discoverable = !adapter.discovering;
         adapter.discovering = !adapter.discovering;

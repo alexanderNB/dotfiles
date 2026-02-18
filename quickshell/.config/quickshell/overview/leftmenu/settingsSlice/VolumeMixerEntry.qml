@@ -34,6 +34,9 @@ Item {
                     Layout.fillWidth: true
                     elide: Text.ElideRight
                     text: {
+                        if (!root.node) {
+                            return "";
+                        }
                         const app = root.node.properties["application.name"] ?? (root.node.description != "" ? root.node.description : root.node.name);
                         const media = root.node.properties["media.name"];
                         for (var i = 0; i < root.excludedChannels.length; i++) {
@@ -48,7 +51,7 @@ Item {
                 WrapperMouseArea {
                     id: muteMa
                     hoverEnabled: true
-                    visible: node.id > 0
+                    visible: node && node.id > 0
 
                     onPressed: {
                         if (node.id < 1)
@@ -60,28 +63,25 @@ Item {
                     }
 
                     Rectangle {
-                        implicitWidth: 15
-                        implicitHeight: 15
+                        implicitWidth: icon.width + 2
+                        implicitHeight: icon.height
 
                         radius: 4
-                        color: isMuted ? (muteMa.containsMouse ? Qt.lighter(C.Config.theme.primary, 1.1) : C.Config.theme.primary) : C.Config.applySecondaryOpacity(muteMa.containsMouse ? Qt.lighter(C.Config.theme.surface_container_high, 1.8) : C.Config.theme.surface_container_high)
+                        // color: muteMa.containsMouse ? Qt.lighter(C.Config.colors.bg) : C.Config.colors.bg
+                        color: muteMa.containsMouse ? C.Config.colors.bg_highlight : C.Config.colors.bg
 
                         CW.FontIcon {
+                            id: icon
                             text: isMuted ? "volume_off" : "volume_up"
                             anchors.centerIn: parent
-                            transform: Scale {
-                                xScale: 0.8
-                                yScale: 0.8
-                                origin.x: 15 / 2
-                                origin.y: 15 / 2
-                            }
-                            color: isMuted ? C.Config.theme.surface_container_high : C.Config.theme.on_surface
+                            color: isMuted ? C.Config.colors.red : C.Config.colors.fg
+                            iconSize: C.Config.fontSize.tinySymbol
 
                             Behavior on color {
                                 ColorAnimation {
                                     duration: 400
                                     easing.type: Easing.BezierSpline
-                                    easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
+                                    easing.bezierCurve: C.Config.anim_CURVE_SMOOTH_SLIDE
                                 }
                             }
                         }
@@ -90,71 +90,75 @@ Item {
                             ColorAnimation {
                                 duration: 400
                                 easing.type: Easing.BezierSpline
-                                easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
+                                easing.bezierCurve: C.Config.anim_CURVE_SMOOTH_SLIDE
                             }
                         }
                     }
                 }
-                WrapperMouseArea {
-                    id: defaultMa
-                    visible: canBeDefault
-                    hoverEnabled: true
-
-                    onPressed: {
-                        if (isDefault || node.id < 1)
-                            return;
-
-                        console.log("changing default sink to " + node.id + " with wpctl");
-
-                        Quickshell.execDetached(["wpctl", "set-default", node.id + ""]);
-                    }
-
-                    Rectangle {
-                        implicitWidth: 15
-                        implicitHeight: 15
-
-                        radius: 4
-                        color: isDefault ? (defaultMa.containsMouse ? Qt.lighter(C.Config.theme.primary, 1.1) : C.Config.theme.primary) : C.Config.applySecondaryOpacity(defaultMa.containsMouse ? Qt.lighter(C.Config.theme.surface_container_high, 1.8) : C.Config.theme.surface_container_high)
-
-                        CW.FontIcon {
-                            text: C.Globals.isFedora ? "check" : "check_small"
-                            anchors.centerIn: parent
-                            color: isDefault ? C.Config.theme.surface_container_high : C.Config.theme.on_surface
-                            transform: Scale {
-                                xScale: 0.9
-                                yScale: 0.9
-                                origin.x: 15 / 2
-                                origin.y: 15 / 2
-                            }
-
-                            Behavior on color {
-                                ColorAnimation {
-                                    duration: 400
-                                    easing.type: Easing.BezierSpline
-                                    easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
-                                }
-                            }
-                        }
-
-                        Behavior on color {
-                            ColorAnimation {
-                                duration: 400
-                                easing.type: Easing.BezierSpline
-                                easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
-                            }
-                        }
-                    }
-                }
+                // WrapperMouseArea {
+                //     id: defaultMa
+                //     visible: canBeDefault
+                //     hoverEnabled: true
+                //
+                //     onPressed: {
+                //         if (isDefault || node.id < 1)
+                //             return;
+                //
+                //         console.log("changing default sink to " + node.id + " with wpctl");
+                //
+                //         Quickshell.execDetached(["wpctl", "set-default", node.id + ""]);
+                //     }
+                //
+                //     Rectangle {
+                //         implicitWidth: 15
+                //         implicitHeight: 15
+                //
+                //         radius: 4
+                //         color: isDefault ? (defaultMa.containsMouse ? Qt.lighter(C.Config.theme.primary, 1.1) : C.Config.theme.primary) : C.Config.applySecondaryOpacity(defaultMa.containsMouse ? Qt.lighter(C.Config.theme.surface_container_high, 1.8) : C.Config.theme.surface_container_high)
+                //
+                //         CW.FontIcon {
+                //             text: C.Globals.isFedora ? "check" : "check_small"
+                //             anchors.centerIn: parent
+                //             color: isDefault ? C.Config.theme.surface_container_high : C.Config.theme.on_surface
+                //             transform: Scale {
+                //                 xScale: 0.9
+                //                 yScale: 0.9
+                //                 origin.x: 15 / 2
+                //                 origin.y: 15 / 2
+                //             }
+                //
+                //             Behavior on color {
+                //                 ColorAnimation {
+                //                     duration: 400
+                //                     easing.type: Easing.BezierSpline
+                //                     easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
+                //                 }
+                //             }
+                //         }
+                //
+                //         Behavior on color {
+                //             ColorAnimation {
+                //                 duration: 400
+                //                 easing.type: Easing.BezierSpline
+                //                 easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
+                //             }
+                //         }
+                //     }
+                // }
                 CW.StyledText {
-                    text: `${Math.round((root.node.audio?.volume ?? 0) * 100)}%`
+                    text: `${Math.round((root.node?.audio?.volume ?? 0) * 100)}%`
                 }
             }
             RowLayout {
                 CW.StyledSlider {
                     id: slider
                     Layout.fillWidth: true
-                    value: root.node.audio?.volume ?? 0
-                    onValueChanged: root.node.audio.volume = value
+                    value: root.node?.audio?.volume ?? 0
+                    onMoved: {
+                        if (root.node?.audio) {
+                            root.node.audio.volume = value;
+                        }
+                    }
                 }
             }
         }

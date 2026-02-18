@@ -7,15 +7,6 @@ import Quickshell.Io
 
 Singleton {
     id: root
-    property alias theme: themeJson
-    property alias account: accountJson
-    property alias settings: settingsJson
-    property alias misc: miscJson
-
-    enum BarEdge {
-        Top,
-        Bottom
-    }
 
     function epochSecondsToHuman(sec) {
         if (sec < 10)
@@ -34,42 +25,8 @@ Singleton {
         return Array(+digits.join("") + 1).join("M") + roman;
     }
 
-    function formatDateTime(dateTime) {
-        if (settings.misc.dateFormat == 5) /* vaxry */
-            return Qt.formatDateTime(dateTime, "d") + " " + romanize(parseInt(Qt.formatDateTime(dateTime, "M"))) + " " + Qt.formatDateTime(dateTime, "yyyy hh:mm");
-        return Qt.formatDateTime(dateTime, getConfigDateFormat());
-    }
-
     function formatDateTimeSplit(dateTime) {
-        if (settings.misc.dateFormat == 5) /* vaxry */
-            return [Qt.formatDateTime(dateTime, "d") + " " + romanize(parseInt(Qt.formatDateTime(dateTime, "M"))) + " " + Qt.formatDateTime(dateTime, "yyyy"), Qt.formatDateTime(dateTime, "hh:mm:ss")];
-        return [Qt.formatDateTime(dateTime, getSplitConfigDateFormat()[0]), Qt.formatDateTime(dateTime, getSplitConfigDateFormat()[1])];
-    }
-
-    function getSplitConfigDateFormat() {
-        if (settings.misc.dateFormat == 0)
-            return ["d MMM yyyy", "hh:mm:ss"];
-        if (settings.misc.dateFormat == 1)
-            return ["dd/MM/yyyy", "hh:mm:ss"];
-        if (settings.misc.dateFormat == 2)
-            return ["dd/MM/yyyy", "hh:mm:ss AP"];
-        if (settings.misc.dateFormat == 3)
-            return ["MM/dd/yyyy", "hh:mm:ss AP"];
-        if (settings.misc.dateFormat == 4)
-            return ["ddd, d MMM yyyy", "hh:mm:ss AP"];
-    }
-
-    function getConfigDateFormat() {
-        if (settings.misc.dateFormat == 0)
-            return "d MMM yyyy hh:mm";
-        if (settings.misc.dateFormat == 1)
-            return "dd/MM/yyyy hh:mm";
-        if (settings.misc.dateFormat == 2)
-            return "dd/MM/yyyy hh:mm AP";
-        if (settings.misc.dateFormat == 3)
-            return "MM/dd/yyyy hh:mm AP";
-        if (settings.misc.dateFormat == 4)
-            return "ddd, d MMM yyyy hh:mm AP";
+        return [Qt.formatDateTime(dateTime, root.splitDateFormat[0]), Qt.formatDateTime(dateTime, root.splitDateFormat[1])];
     }
 
     function secondsToRelative(sec) {
@@ -94,208 +51,105 @@ Singleton {
         return col;
     }
 
-    property int edge: {
-        switch (settings.bar.edge) {
-        case "top":
-            return Config.BarEdge.Top;
-        case "bottom":
-            return Config.BarEdge.Bottom;
-        default:
-            console.warn("Invalid bar edge in settings, defaulting to top.");
-            return Config.BarEdge.Top;
-        }
-    }
+    property var font: ({
+            main: "JetBrainsMono Nerd Font",
+            symbol: "Material Symbols Outlined"
+        })
 
-    property JsonObject fontSize: JsonObject {
-        property int base: root.settings.fonts.basePointSize
-        property int h1: base * 1.5
-        property int h2: base * 1.35
-        property int h3: base * 1.2
-        property int large: base * 1.1
-        property int normal: base
-        property int small: base * 0.9
-    }
+    property var fontSize: ({
+            tiny: 16,
+            small: 18,
+            normal: 20,
+            large: 22,
+            huge: 24,
+            tinySymbol: 23,
+            smallSymbol: 25,
+            normalSymbol: 27,
+            largeSymbol: 29,
+            hugeSymbol: 31
+        })
 
-    property panelAnchors barAnchors: {
-        switch (edge) {
-        case Config.BarEdge.Top:
-            return {
-                top: true,
-                left: true,
-                right: true
-            };
-        case Config.BarEdge.Bottom:
-            return {
-                bottom: true,
-                left: true,
-                right: true
-            };
-        }
-    }
+    property var bar: ({
+            lowBattery: 20,
+            height: 80,
+            color: root.colors.bg_dark,
+            centerFontSize: root.fontSize.normal,
+            sideFontSize: root.fontSize.normal,
+            centerTopMargin: 10,
+            sideTopMargin: 5,
+            sideSideMargin: 10,
+            seperatorSize: 12
+        })
 
-    property panelAnchors noAnchors: {
-        return {
-            top: false,
-            left: false,
-            right: false,
-            bottom: false
-        };
-    }
+    property string dateFormat: "d MMM yyyy hh:mm"
+    property var splitDateFormat: ["d MMM yyyy", "hh:mm:ss"]
 
-    FileView {
-        id: matugenFp
-        path: StandardPaths.writableLocation(StandardPaths.HomeLocation) + "/.config/quickshell/matugen.json"
+    property var anim_CURVE_SMOOTH_SLIDE: [0.23, 1, 0.32, 1, 1, 1]
+    property var anim_CURVE_ALMOST_LINEAR: [0.5, 0.5, 0.75, 1, 1, 1]
 
-        watchChanges: true
-        onFileChanged: reload()
-        onLoadFailed: error => {
-            if (error == FileViewError.FileNotFound) {
-                matugenFp.path = "matugen.json"; // FIXME: fox fix this, this doesn't work.
-                matugenFp.reload();
-            }
-        }
+    property int anim_FAST: 130
+    property int anim_MEDIUM: 240
+    property int anim_SLOW: 400
 
-        JsonAdapter {
-            id: themeJson
-            property color background: "#191113"
-            property color error: "#ffb4ab"
-            property color error_container: "#93000a"
-            property color inverse_on_surface: "#382e30"
-            property color inverse_primary: "#8d4a5c"
-            property color inverse_surface: "#efdee1"
-            property color on_background: "#efdee1"
-            property color on_error: "#690005"
-            property color on_error_container: "#ffdad6"
-            property color on_primary: "#551d2e"
-            property color on_primary_container: "#ffd9e0"
-            property color on_primary_fixed: "#3a071a"
-            property color on_primary_fixed_variant: "#efdee1"
-            property color on_secondary: "#efdee1"
-            property color on_secondary_container: "#efdee1"
-            property color on_secondary_fixed: "#efdee1"
-            property color on_secondary_fixed_variant: "#713344"
-            property color on_surface: "#efdee1"
-            property color on_surface_variant: "#efdee1"
-            property color on_tertiary: "#efdee1"
-            property color on_tertiary_container: "#efdee1"
-            property color on_tertiary_fixed: "#efdee1"
-            property color on_tertiary_fixed_variant: "#efdee1"
-            property color outline: "#efdee1"
-            property color outline_variant: "#efdee1"
-            property color primary: "#efdee1"
-            property color primary_container: "#efdee1"
-            property color primary_fixed: "#efdee1"
-            property color primary_fixed_dim: "#efdee1"
-            property color scrim: "#efdee1"
-            property color secondary: "#efdee1"
-            property color secondary_container: "#efdee1"
-            property color secondary_fixed: "#efdee1"
-            property color secondary_fixed_dim: "#efdee1"
-            property color shadow: "#efdee1"
-            property color surface: "#efdee1"
-            property color surface_bright: "#efdee1"
-            property color surface_container: "#ff0000"
-            property color surface_container_high: "#efdee1"
-            property color surface_container_highest: "#efdee1"
-            property color surface_container_low: "#efdee1"
-            property color surface_container_lowest: "#efdee1"
-            property color surface_dim: "#efdee1"
-            property color surface_tint: "#efdee1"
-            property color surface_variant: "#efdee1"
-            property color tertiary: "#efdee1"
-            property color tertiary_container: "#efdee1"
-            property color tertiary_fixed: "#efdee1"
-            property color tertiary_fixed_dim: "#efdee1"
-        }
-    }
+    // function getSplitConfigDateFormat() {
+    //     if (settings.misc.dateFormat == 0)
+    //         return ["d MMM yyyy", "hh:mm:ss"];
+    //     if (settings.misc.dateFormat == 1)
+    //         return ["dd/MM/yyyy", "hh:mm:ss"];
+    //     if (settings.misc.dateFormat == 2)
+    //         return ["dd/MM/yyyy", "hh:mm:ss AP"];
+    //     if (settings.misc.dateFormat == 3)
+    //         return ["MM/dd/yyyy", "hh:mm:ss AP"];
+    //     if (settings.misc.dateFormat == 4)
+    //         return ["ddd, d MMM yyyy", "hh:mm:ss AP"];
+    // }
+    //
+    // function getConfigDateFormat() {
+    //     if (settings.misc.dateFormat == 0)
+    //         return "d MMM yyyy hh:mm";
+    //     if (settings.misc.dateFormat == 1)
+    //         return "dd/MM/yyyy hh:mm";
+    //     if (settings.misc.dateFormat == 2)
+    //         return "dd/MM/yyyy hh:mm AP";
+    //     if (settings.misc.dateFormat == 3)
+    //         return "MM/dd/yyyy hh:mm AP";
+    //     if (settings.misc.dateFormat == 4)
+    //         return "ddd, d MMM yyyy hh:mm AP";
+    // }
 
-    FileView {
-        path: StandardPaths.writableLocation(StandardPaths.HomeLocation) + "/.config/quickshell/config/config.json"
+    property int osdTimeoutDuration: 700
+    property int notificationTimeoutDuration: 5000
 
-        watchChanges: true
-        onFileChanged: reload()
-        onAdapterUpdated: writeAdapter()
-        onLoadFailed: error => {
-            if (error == FileViewError.FileNotFound) {
-                writeAdapter();
-            }
-        }
-
-        JsonAdapter {
-            id: settingsJson
-            property JsonObject bar: JsonObject {
-                property string edge: "top"
-                property int verticalGap: 5
-                property int horizontalGap: 5
-                property int height: 30
-                property bool weather: false
-                property string weatherLocation: "None"
-
-                property JsonObject battery: JsonObject {
-                    property int low: 20
-                }
-            }
-            property JsonObject fonts: JsonObject {
-                property int basePointSize: 10
-                property bool useNativeRendering: false
-            }
-            property JsonObject osd: JsonObject {
-                property int timeoutDuration: 700
-            }
-            property JsonObject panels: JsonObject {
-                property int radius: 10
-                property bool borders: true
-                property bool transparent: true
-                property real baseOpacity: 0.8
-                property bool compactEnabled: true
-                property int monitorChoiceMode: 0 // 0 - exclude, 1 - include
-                property list<string> excludedMonitors: ["DP-7, HDMI-A-4"]
-                property list<string> includedMonitors: ["0, DP-1, eDP-1, HDMI-A-1"]
-            }
-            property JsonObject tray: JsonObject {
-                property bool monochromeIcons: false
-            }
-            property JsonObject misc: JsonObject {
-                property int dateFormat: 0
-            }
-        }
-    }
-
-    FileView {
-        path: StandardPaths.writableLocation(StandardPaths.HomeLocation) + "/.config/quickshell/config/account.json"
-
-        watchChanges: true
-        onFileChanged: reload()
-        onAdapterUpdated: writeAdapter()
-        onLoadFailed: error => {
-            if (error == FileViewError.FileNotFound) {
-                writeAdapter();
-            }
-        }
-
-        JsonAdapter {
-            id: accountJson
-            property string username: ""
-        }
-    }
-
-    FileView {
-        path: StandardPaths.writableLocation(StandardPaths.HomeLocation) + "/.config/quickshell/config/misc.json"
-
-        watchChanges: true
-        onFileChanged: reload()
-        onAdapterUpdated: writeAdapter()
-        onLoadFailed: error => {
-            if (error == FileViewError.FileNotFound) {
-                writeAdapter();
-            }
-        }
-
-        JsonAdapter {
-            id: miscJson
-            property bool nightLightEnabled: false
-            property real nightLightIntense: 50
-            property bool brightnessSplit: true
-        }
-    }
+    property var colors: ({
+            bg: "#1a1b26",
+            bg_dark: "#16161e",
+            bg_dark1: "#0C0E14",
+            bg_highlight: "#292e42",
+            blue: "#7aa2f7",
+            blue0: "#3d59a1",
+            blue1: "#2ac3de",
+            blue2: "#0db9d7",
+            blue5: "#89ddff",
+            blue6: "#b4f9f8",
+            blue7: "#394b70",
+            comment: "#565f89",
+            cyan: "#7dcfff",
+            dark3: "#545c7e",
+            dark5: "#737aa2",
+            fg: "#c0caf5",
+            fg_dark: "#a9b1d6",
+            fg_gutter: "#3b4261",
+            green: "#9ece6a",
+            green1: "#73daca",
+            green2: "#41a6b5",
+            magenta: "#bb9af7",
+            magenta2: "#ff007c",
+            orange: "#ff9e64",
+            purple: "#9d7cd8",
+            red: "#f7768e",
+            red1: "#db4b4b",
+            teal: "#1abc9c",
+            terminal_black: "#414868",
+            yellow: "#e0af68"
+        })
 }

@@ -9,78 +9,57 @@ import Quickshell.Io
 
 PanelWindow {
     id: root
-    // visible: (Hyprland.monitorFor(screen).activeWorkspace.id == Hyprland.monitorFor(screen).activeWorkspace.name) ? true : false
-
     visible: _visible || sticky
-    // visible: true
     property bool _visible: false
     property bool sticky: Hyprland.monitorFor(screen).id == 1 || (UPower.displayDevice.percentage <= 0.15 && (UPower.displayDevice.state === UPowerDeviceState.Discharging))
-    property bool compact: false
-    property real barRadius: C.Config.settings.panels.radius
-    // property real barHeight: C.Config.settings.bar.height
-    property real barHeight: 45
-    property real gapsHorz: C.Config.settings.bar.horizontalGap
-    property real gapsVert: C.Config.settings.bar.verticalGap
-    property real innerPadHorz: 8
-    // property real compactHeight: barHeight
-    property real compactHeight: 0
-    // property real standardHeight: barHeight + gapsVert
-    property real standardHeight: sticky ? 30 : 0
+    property real standardHeight: sticky ? C.Config.bar.height : 0
+    implicitHeight: C.Config.bar.height
 
-    property Gradient gradietMain: Gradient {
+    // TODO: Make gradients take C.Config.bar.color
+    property Gradient gradientMain: Gradient {
         GradientStop {
             position: 0.0
-            // color: "#1A1B26"
-            color: "#1F1F1F"
+            color: C.Config.bar.color
         }
         GradientStop {
-            position: 0.4
-            color: "#F01F1F1F"
-            // color: "#1F1F1F"
+            position: 0.5
+            color: {
+                var c = C.Config.bar.color;
+                c.a = 0.8;
+                return c;
+            }
         }
         GradientStop {
             position: 1
             color: "transparent"
-            // color: "#00FFFFFF"
-            // color: "#1F1F1F"
         }
     }
 
-    property Gradient gradietSecond: Gradient {
+    property Gradient gradientSticky: Gradient {
         GradientStop {
             position: 0.0
-            // color: "#1A1B26"
-            color: "#1F1F1F"
+            color: C.Config.bar.color
         }
         GradientStop {
             position: 0.45
-            color: "#1F1F1F"
-            // color: "#1F1F1F"
+            color: C.Config.bar.color
         }
         GradientStop {
             position: 0.451
             color: "transparent"
-            // color: "#00FFFFFF"
-            // color: "#1F1F1F"
         }
     }
 
-    readonly property real borderMargin: C.Config.settings.panels.borders ? 1 : 0
-    readonly property real topContentMargin: borderMargin + (C.Config.edge == C.Config.BarEdge.Top ? uncompactState : compactState) * gapsVert
-    readonly property real bottomContentMargin: borderMargin + (C.Config.edge == C.Config.BarEdge.Bottom ? uncompactState : compactState) * gapsVert
+    property Gradient gradient: sticky ? gradientSticky : gradientMain
     readonly property bool showBattery: UPower.displayDevice.isLaptopBattery
-    property real compactState: compact ? 1 : 0
-    property real uncompactState: 1 - compactState
-
     anchors.left: true
     anchors.top: true
     anchors.right: true
-    // anchors: C.Config.barAnchors
     color: "transparent"
-    exclusiveZone: compact ? compactHeight : standardHeight
+    exclusiveZone: standardHeight
+    // NOTE: What is this?
     WlrLayershell.namespace: "hyprland-shell:bar"
     WlrLayershell.layer: WlrLayer.Top
-    implicitHeight: barHeight * 1.5 + gapsVert
 
     IpcHandler {
         target: "bar"
@@ -93,8 +72,6 @@ PanelWindow {
         }
         function open() {
             root._visible = true;
-            print(Hyprland.monitorFor(screen).id);
-            print(Hyprland.focusedWorkspace.name);
         }
     }
     // Background
@@ -102,87 +79,19 @@ PanelWindow {
         id: barBackground
         visible: true
 
-        radius: root.uncompactState * root.barRadius
-        // color: C.Config.applyBaseOpacity(C.Config.theme.background)
-        // color: "#FFFFFF"
-        // color: "#1F1F1F"
-        border.width: C.Config.settings.panels.borders ? root.uncompactState * root.borderMargin : 0
-        // border.width: 0
-        // border.bottom.width: 5
-
-        border.color: C.Config.applyBaseOpacity(C.Config.theme.outline_variant)
-        // border.color: "#FFFFFF"
-
-        gradient: root.sticky ? root.gradietSecond : root.gradietMain
+        gradient: root.gradient
         anchors {
             fill: parent
-            leftMargin: root.uncompactState * root.gapsHorz
-            rightMargin: root.uncompactState * root.gapsHorz
-            topMargin: root.topContentMargin - root.borderMargin
-            bottomMargin: root.bottomContentMargin - root.borderMargin
         }
     }
 
-    // Title in the middle
-    WindowTitle {
-        id: barWindowTitle
-        visible: false
-
-        panelWindow: root
-        anchors.centerIn: barBackground
-
-        width: 500
-    }
     Workspaces {
         anchors {
             top: parent.top
             bottom: parent.bottom
-            // horiz: parent.left
-            // centerIn: barBackground
             horizontalCenter: parent.horizontalCenter
         }
-        topInset: root.topContentMargin - root.borderMargin
-        bottomInset: root.bottomContentMargin - root.borderMargin
-        // Layout.leftMargin: 8
-        // Layout.rightMargin: 8
-    }
-
-    RowLayout {
-        // Left side
-        visible: false
-        spacing: 10
-
-        anchors {
-            top: parent.top
-            bottom: parent.bottom
-            left: parent.left
-        }
-
-        // BarSeparator {
-        //     Layout.topMargin: root.topContentMargin
-        //     Layout.bottomMargin: root.bottomContentMargin
-        // }
-
-        // Workspaces {
-        //     topInset: root.topContentMargin - root.borderMargin
-        //     bottomInset: root.bottomContentMargin - root.borderMargin
-        //     Layout.leftMargin: 8
-        //     Layout.rightMargin: 8
-        // }
-
-        BarSeparator {
-            visible: barMpris.visible
-            Layout.topMargin: root.topContentMargin
-            Layout.bottomMargin: root.bottomContentMargin
-        }
-
-        Mpris {
-            id: barMpris
-
-            topMargin: root.topContentMargin
-            bottomMargin: root.bottomContentMargin
-            Layout.maximumWidth: 350
-        }
+        topMargin: C.Config.bar.centerTopMargin
     }
 
     RowLayout {
@@ -191,60 +100,46 @@ PanelWindow {
 
         anchors {
             top: parent.top
-            bottom: parent.top
             right: parent.right
-            rightMargin: 10
+            topMargin: C.Config.bar.sideTopMargin
+            rightMargin: C.Config.bar.sideSideMargin
         }
 
         Weather {
-            opacity: C.Config.settings.bar.weather ? 1 : 0
-            visible: opacity != 0
-            Layout.topMargin: root.topContentMargin + 5
-            Layout.bottomMargin: root.bottomContentMargin
 
             Behavior on opacity {
                 NumberAnimation {
-                    duration: C.Globals.anim_MEDIUM
+                    duration: C.Config.anim_MEDIUM
                     easing.type: Easing.BezierSpline
-                    easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
+                    easing.bezierCurve: C.Config.anim_CURVE_SMOOTH_SLIDE
                 }
             }
         }
 
         BarSeparator {
-            opacity: C.Config.settings.bar.weather ? 1 : 0
-            visible: opacity != 0
-            Layout.topMargin: root.topContentMargin
-            Layout.bottomMargin: root.bottomContentMargin
-
             Behavior on opacity {
                 NumberAnimation {
-                    duration: C.Globals.anim_MEDIUM
+                    duration: C.Config.anim_MEDIUM
                     easing.type: Easing.BezierSpline
-                    easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
+                    easing.bezierCurve: C.Config.anim_CURVE_SMOOTH_SLIDE
                 }
             }
         }
 
         Battery {
             visible: root.showBattery
-            Layout.topMargin: root.topContentMargin
-            Layout.bottomMargin: root.bottomContentMargin
         }
 
         BarSeparator {
             visible: root.showBattery
-            Layout.topMargin: root.topContentMargin
-            Layout.bottomMargin: root.bottomContentMargin
         }
 
         Clock {
-            Layout.topMargin: root.topContentMargin
-            Layout.bottomMargin: root.bottomContentMargin
+            fontSize: C.Config.fontSize.small
         }
     }
 
-    Behavior on compactState {
+    Behavior on sticky {
         SmoothedAnimation {
             velocity: 8
         }

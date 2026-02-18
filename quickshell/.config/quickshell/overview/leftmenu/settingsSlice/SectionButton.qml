@@ -12,7 +12,7 @@ Rectangle {
     property bool active: false
     property bool hovered: false
 
-    color: active ? (hovered ? Qt.lighter(C.Config.theme.primary, 1.1) : C.Config.theme.primary) : C.Config.applySecondaryOpacity(hovered ? Qt.lighter(C.Config.theme.surface_container_high, 1.8) : C.Config.theme.surface_container_high)
+    color: active ? (hovered ? Qt.lighter(C.Config.colors.orange) : C.Config.colors.orange) : (hovered ? Qt.lighter(C.Config.colors.bg_highlight) : C.Config.colors.bg_highlight)
     radius: 10
 
     implicitWidth: 40
@@ -21,14 +21,14 @@ Rectangle {
     CW.FontIcon {
         anchors.centerIn: parent
         text: icon
-        color: active ? C.Config.theme.on_primary : C.Config.theme.on_surface
+        color: root.color
     }
 
     Behavior on color {
         ColorAnimation {
-            duration: C.Globals.anim_MEDIUM
+            duration: C.Config.anim_MEDIUM
             easing.type: Easing.BezierSpline
-            easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
+            easing.bezierCurve: C.Config.anim_CURVE_SMOOTH_SLIDE
         }
     }
 }

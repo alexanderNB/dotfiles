@@ -1,7 +1,6 @@
 import "../config" as C
 import "leftmenu" as LM
 import "rightmenu" as RM
-import "../popup" as P
 import QtQuick
 import QtQuick.Layouts
 import Quickshell

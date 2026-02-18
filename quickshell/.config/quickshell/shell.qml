@@ -1,45 +1,46 @@
 //@ pragma UseQApplication
 //@ pragma IgnoreSystemSettings
-import "./config" as C
-import "./shortcuts" as SH
-import "./state" as S
 import QtQuick
 import Quickshell
 import Quickshell.Io
 import Quickshell.Hyprland
-import "config"
+import "state" as S
+import "bar" as B
+import "notifs" as N
+import "osd" as O
+import "overview" as OV
+import "config" as C
 
 Scope {
     Component.onCompleted: {
         console.log("Shell initialized");
-        S.BrightnessState.load();
+        console.log(C.Config.fontSize.normal);
     }
 
     Variants {
         model: {
-            let mons = Quickshell.screens.filter(m => {
-                if (Config.settings.panels.monitorChoiceMode == 0)
-                    return !Config.settings.panels.excludedMonitors.includes(m.name);
-                else
-                    return (Config.settings.panels.includedMonitors.includes(m.name) || Config.settings.panels.includedMonitors.includes("" + Quickshell.screens.indexOf(m)));
-            });
-
+            let mons = Quickshell.screens;
             if (mons.length == 0) {
-                S.ErrorState.monitorError = true;
                 return [Quickshell.screens[0]]; // prevent a softlock
             }
-            S.ErrorState.monitorError = false;
             return mons;
         }
 
-        ScreenState {
+        Item {
             required property ShellScreen modelData
 
-            screen: modelData
-        }
-    }
+            B.Bar {
+                screen: modelData
+            }
 
-    SH.ShortcutsPanel {
-        screen: Quickshell.screens.find(s => s.name === Hyprland.focusedMonitor?.name) ?? null
+            N.NotificationPanel {
+                screen: modelData
+            }
+
+            // TODO: Set up config
+            O.VolumeOSD {}
+            //
+            OV.Overview {}
+        }
     }
 }

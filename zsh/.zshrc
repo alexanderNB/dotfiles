@@ -23,6 +23,7 @@ ZSH_THEME="random"
 ## Maxi:
 # fino-time
 # rkj
+# jonathan
 
 
 # Set list of themes to pick from when loading at random

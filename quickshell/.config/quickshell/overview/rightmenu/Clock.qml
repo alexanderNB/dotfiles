@@ -10,7 +10,6 @@ ColumnLayout {
     id: root
 
     property var time: C.Config.formatDateTimeSplit(clock.date)
-
     SystemClock {
         id: clock
         precision: SystemClock.Seconds
@@ -23,8 +22,8 @@ ColumnLayout {
 
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        font.pointSize: 17
-        color: C.Config.theme.on_surface
+        font.pointSize: C.Config.fontSize.huge
+        color: C.Config.colors.fg
     }
 
     Text {
@@ -34,7 +33,7 @@ ColumnLayout {
 
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        font.pointSize: 10
-        color: C.Config.theme.on_surface
+        font.pointSize: C.Config.fontSize.small
+        color: C.Config.colors.fg
     }
 }

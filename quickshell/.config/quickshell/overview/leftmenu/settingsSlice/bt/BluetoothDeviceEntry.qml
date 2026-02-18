@@ -35,9 +35,9 @@ WrapperMouseArea {
 
             Behavior on Layout.preferredHeight {
                 NumberAnimation {
-                    duration: C.Globals.anim_NORMAL
+                    duration: C.Config.anim_MEDIUM
                     easing.type: Easing.BezierSpline
-                    easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
+                    easing.bezierCurve: C.Config.anim_CURVE_SMOOTH_SLIDE
                 }
             }
         }
@@ -51,17 +51,17 @@ WrapperMouseArea {
 
             Behavior on opacity {
                 NumberAnimation {
-                    duration: C.Globals.anim_NORMAL
+                    duration: C.Config.anim_MEDIUM
                     easing.type: Easing.BezierSpline
-                    easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
+                    easing.bezierCurve: C.Config.anim_CURVE_SMOOTH_SLIDE
                 }
             }
 
             Behavior on Layout.preferredHeight {
                 NumberAnimation {
-                    duration: C.Globals.anim_NORMAL
+                    duration: C.Config.anim_MEDIUM
                     easing.type: Easing.BezierSpline
-                    easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
+                    easing.bezierCurve: C.Config.anim_CURVE_SMOOTH_SLIDE
                 }
             }
         }
@@ -71,7 +71,7 @@ WrapperMouseArea {
         NumberAnimation {
             duration: 400
             easing.type: Easing.BezierSpline
-            easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
+            easing.bezierCurve: C.Config.anim_CURVE_SMOOTH_SLIDE
         }
     }
 }

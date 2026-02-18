@@ -7,12 +7,8 @@ import Quickshell.Hyprland
 import "../config" as C
 import "../commonwidgets" as CW
 
-OffsetMouseWrapper {
+WrapperItem {
     id: root
-
-    property real padding: height / 4
-    property real topInset: 0
-    property real bottomInset: 0
 
     readonly property HyprlandMonitor monitor: Hyprland.monitorFor(QsWindow.window?.screen)
     readonly property int activeWorkspace: monitor?.activeWorkspace?.id ?? 1
@@ -239,25 +235,6 @@ OffsetMouseWrapper {
     }
     property var windows: [window0, window1, window2, window3, window4, window5, window6, window7, window8, window9, window10, window11, window12, window13, window14, window15, window16, window17, window18, window19]
 
-    acceptedButtons: Qt.NoButton
-    onWheel: event => {
-        event.accepted = true;
-        let acc = scrollAccumulator - event.angleDelta.x - event.angleDelta.y;
-        const sign = Math.sign(acc);
-        acc = Math.abs(acc);
-
-        const offset = sign * Math.floor(acc / 120);
-        scrollAccumulator = sign * (acc % 120);
-
-        if (offset != 0) {
-            const currentWorkspace = root.activeWorkspace;
-            const targetWorkspace = currentWorkspace + offset;
-            const id = Math.max(baseWorkspace, Math.min(baseWorkspace + shownWorkspaces - 1, targetWorkspace));
-            if (id != currentWorkspace)
-                Hyprland.dispatch(`workspace ${id}`);
-        }
-    }
-
     Row {
         spacing: 0
 
@@ -283,8 +260,7 @@ OffsetMouseWrapper {
                 implicitHeight: parent.height
                 leftMargin: 0
                 rightMargin: 0
-                topMargin: root.topInset + root.padding
-                bottomMargin: root.bottomInset + root.padding
+                topMargin: root.topMargin
 
                 onPressed: Hyprland.dispatch(`workspace ${modelData.index + root.baseWorkspace}`)
 
@@ -298,7 +274,7 @@ OffsetMouseWrapper {
                         // visible: C.Config.settings.bar.workspaces.style != 0
                         visible: delegate.modelData.workspace ? 1 : 0
 
-                        text: root.windows[modelData.index + root.baseWorkspace - 1].value
+                        text: root.windows[modelData.index + root.baseWorkspace - 1]?.value
 
                         // text: C.Config.settings.bar.workspaces.style == 1 ? "" + modelData.index : C.Config.romanize(modelData.index)
                         anchors {
@@ -308,14 +284,13 @@ OffsetMouseWrapper {
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
                         font.pointSize: C.Config.fontSize.normal
-                        // font.pointSize: 18
-                        color: delegate.modelData.workspace?.active ? C.Config.theme.on_surface : delegate.modelData.workspace ? Qt.darker(C.Config.theme.outline, 1.4) : Qt.lighter(C.Config.theme.outline, 1.4)
+                        color: delegate.modelData.workspace?.active ? C.Config.colors.fg : C.Config.colors.blue7
 
                         Behavior on color {
                             ColorAnimation {
-                                duration: C.Globals.anim_SLOW
+                                duration: C.Config.anim_SLOW
                                 easing.type: Easing.BezierSpline
-                                easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
+                                easing.bezierCurve: C.Config.anim_CURVE_SMOOTH_SLIDE
                             }
                         }
                     }

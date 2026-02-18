@@ -33,7 +33,7 @@ Item {
         implicitWidth: root.contentWidth
         implicitHeight: mainLayout.implicitHeight
         radius: 16
-        color: C.Config.theme.background
+        color: C.Config.colors.bg_dark1
 
         x: root.implicitWidth * (1 - root.entryFactor)
 
@@ -79,7 +79,7 @@ Item {
                     visible: root.icon == ""
                     anchors.fill: parent
                     radius: 15
-                    color: Qt.lighter(C.Config.theme.background)
+                    color: C.Config.colors.bg
 
                     CW.FontIcon {
                         text: ""
@@ -111,6 +111,7 @@ Item {
                     Layout.fillWidth: false
                     implicitWidth: 130
                     Layout.bottomMargin: 0
+                    color: C.Config.colors.blue
                 }
 
                 CW.StyledText {
@@ -145,7 +146,7 @@ Item {
 
                 Rectangle {
                     radius: 16
-                    color: closeButtonMa.containsMouse ? Qt.lighter(Qt.lighter(Qt.lighter(C.Config.theme.background))) : Qt.lighter(Qt.lighter(C.Config.theme.background))
+                    color: closeButtonMa.containsMouse ? C.Config.colors.fg_gutter : C.Config.colors.bg
                     implicitWidth: 22
                     implicitHeight: 22
 
@@ -177,7 +178,7 @@ Item {
 
                 Rectangle {
                     radius: 16
-                    color: dismissButtonMa.containsMouse ? Qt.lighter(Qt.lighter(Qt.lighter(C.Config.theme.background))) : Qt.lighter(Qt.lighter(C.Config.theme.background))
+                    color: dismissButtonMa.containsMouse ? C.Config.colors.fg_gutter : C.Config.colors.bg
                     implicitWidth: 22
                     implicitHeight: 22
 
@@ -211,7 +212,7 @@ Item {
                 width: parent.width * root.trackedNotif.timePercentage
                 height: 2
                 radius: 2
-                color: Qt.darker(C.Config.theme.primary, 1.9)
+                color: C.Config.colors.blue7
             }
         }
     }

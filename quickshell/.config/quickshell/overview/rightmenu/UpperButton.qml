@@ -19,55 +19,54 @@ WrapperMouseArea {
     onClicked: () => {
         root.toggled();
     }
-    implicitHeight: 30
-    implicitWidth: 30
+    implicitHeight: containsMouse ? text.height : icon.height
+    implicitWidth: (containsMouse ? text.width : icon.width) + 10
     hoverEnabled: true
 
     Rectangle {
         anchors.fill: parent
-        color: active ? (root.containsMouse ? Qt.lighter(C.Config.theme.primary, 1.1) : C.Config.theme.primary) : C.Config.applySecondaryOpacity(root.containsMouse ? Qt.lighter(C.Config.theme.surface_container_high, 1.8) : C.Config.theme.surface_container_high)
+
+        color: active ? C.Config.colors.blue : (root.containsMouse ? Qt.lighter(C.Config.colors.bg) : C.Config.colors.bg)
         radius: 6
 
         CW.FontIcon {
-            anchors.fill: parent
+            id: icon
+            anchors.centerIn: parent
+            visible: !root.containsMouse
             text: root.icon
             font.pointSize: C.Config.fontSize.normal
-            color: active ? C.Config.theme.on_primary : C.Config.theme.on_surface
+            color: active ? C.Config.colors.bg : C.Config.colors.fg
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
         }
 
         CW.StyledText {
-            color: active ? C.Config.theme.on_primary : C.Config.theme.on_surface
+            id: text
+            anchors.centerIn: parent
+            color: active ? C.Config.colors.bg_dark : C.Config.colors.fg
             text: description
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            opacity: root.containsMouse ? 0.7 : 0
+            visible: root.containsMouse
 
-            anchors {
-                top: parent.top
-                horizontalCenter: parent.horizontalCenter
-            }
-
-            transform: Translate {
-                y: -15
-            }
-
-            Behavior on opacity {
+            Behavior on visible {
                 NumberAnimation {
-                    duration: C.Globals.anim_SLOW
+                    duration: text.visible ? 0 : C.Config.anim_MEDIUM
                     easing.type: Easing.BezierSpline
-                    easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
                 }
             }
         }
 
         Behavior on color {
             ColorAnimation {
-                duration: C.Globals.anim_MEDIUM
+                duration: C.Config.anim_MEDIUM
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
             }
+        }
+    }
+
+    Behavior on implicitWidth {
+        SmoothedAnimation {
+            duration: root.containsMouse ? C.Config.anim_FAST : C.Config.anim_MEDIUM
+            easing.type: Easing.BezierSpline
         }
     }
 }

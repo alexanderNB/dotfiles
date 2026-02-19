@@ -10,7 +10,25 @@ import Quickshell.Io
 PanelWindow {
     id: root
     visible: _visible || sticky
-    property bool _visible: false
+    property bool superHeldTimerFinished: false
+    property bool _visible: keyHandler.pressed && superHeldTimerFinished
+
+    GlobalShortcut {
+        id: keyHandler
+        name: "bar"
+
+        onPressed: {
+            root.superHeldTimerFinished = false;
+            superHeldTimer.restart();
+        }
+    }
+
+    Timer {
+        id: superHeldTimer
+        interval: 300
+        onTriggered: root.superHeldTimerFinished = true
+    }
+
     property bool sticky: Hyprland.monitorFor(screen).id == 1 || (UPower.displayDevice.percentage <= 0.15 && (UPower.displayDevice.state === UPowerDeviceState.Discharging))
     property real standardHeight: sticky ? C.Config.bar.height * 0.5 : 0
     implicitHeight: C.Config.bar.height
@@ -61,19 +79,6 @@ PanelWindow {
     WlrLayershell.namespace: "hyprland-shell:bar"
     WlrLayershell.layer: WlrLayer.Top
 
-    IpcHandler {
-        target: "bar"
-
-        function toggle() {
-            root._visible = !root._visible;
-        }
-        function close() {
-            root._visible = false;
-        }
-        function open() {
-            root._visible = true;
-        }
-    }
     // Background
     Rectangle {
         id: barBackground

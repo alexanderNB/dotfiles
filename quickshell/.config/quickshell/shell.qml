@@ -14,7 +14,6 @@ import "config" as C
 Scope {
     Component.onCompleted: {
         console.log("Shell initialized");
-        console.log(C.Config.fontSize.normal);
     }
 
     Variants {

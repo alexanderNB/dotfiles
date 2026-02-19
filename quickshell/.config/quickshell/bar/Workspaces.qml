@@ -274,7 +274,7 @@ WrapperItem {
                         // visible: C.Config.settings.bar.workspaces.style != 0
                         visible: delegate.modelData.workspace ? 1 : 0
 
-                        text: root.windows[modelData.index + root.baseWorkspace - 1]?.value
+                        text: root.windows[modelData.index + root.baseWorkspace - 1]?.value ?? ""
 
                         // text: C.Config.settings.bar.workspaces.style == 1 ? "" + modelData.index : C.Config.romanize(modelData.index)
                         anchors {

@@ -99,7 +99,6 @@ Item {
                             trackedNotif: modelData
                             hasDismiss: false
                             entryFactor: trackedNotif.entryFactor
-                            rightMargin: 15
                         }
                     }
 
@@ -143,7 +142,7 @@ Item {
                                 ColorAnimation {
                                     duration: 400
                                     easing.type: Easing.BezierSpline
-                                    easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
+                                    easing.bezierCurve: C.Config.anim_CURVE_SMOOTH_SLIDE
                                 }
                             }
                         }
@@ -156,7 +155,7 @@ Item {
                         visible: opacity != 0
                         Behavior on opacity {
                             NumberAnimation {
-                                duration: C.Globals.anim_FAST
+                                duration: C.Config.anim_FAST
                                 easing.type: Easing.Linear
                             }
                         }
@@ -164,13 +163,13 @@ Item {
                             Layout.alignment: Qt.AlignHCenter
                             text: "notifications_active"
                             iconSize: 64
-                            color: C.Config.theme.outline
+                            color: C.Config.colors.fg
                         }
                         CW.StyledText {
                             text: qsTr("No notifications")
                             font.pointSize: C.Config.fontSize.large
                             horizontalAlignment: Text.AlignHCenter
-                            color: C.Config.theme.outline
+                            color: C.Config.colors.fg
                         }
                     }
                 }
@@ -183,7 +182,7 @@ Item {
                     NumberAnimation {
                         duration: 250
                         easing.type: Easing.BezierSpline
-                        easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
+                        easing.bezierCurve: C.Config.anim_CURVE_SMOOTH_SLIDE
                     }
                 }
             }

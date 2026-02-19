@@ -62,7 +62,6 @@ WlrLayershell {
                 trackedNotif: modelData
                 entryFactor: trackedNotif.overlayEntryFactor
                 contentWidth: root.notifWidth
-                rightMargin: root.rightMargin
             }
         }
     }

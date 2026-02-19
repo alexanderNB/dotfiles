@@ -24,8 +24,8 @@ WrapperMouseArea {
 
         DeviceElement {
             Layout.fillWidth: true
-            label: root.device.name
-            active: root.device.connected
+            label: root.device?.name ?? "Unknown"
+            active: root.device?.connected ?? false
             additionalIcon: "flowchart"
             hovered: root.containsMouse
         }

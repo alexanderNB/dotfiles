@@ -10,7 +10,7 @@ import "../../../../state" as S
 WrapperRectangle {
     id: root
     required property BluetoothDevice device
-    readonly property bool stateChanging: device.state === BluetoothDeviceState.Connecting || device.state == BluetoothDeviceState.Disconnecting
+    readonly property bool stateChanging: device?.state === BluetoothDeviceState.Connecting || device?.state == BluetoothDeviceState.Disconnecting
 
     color: C.Config.colors.bg_highlight
     property int fontSize: C.Config.fontSize.small
@@ -27,21 +27,16 @@ WrapperRectangle {
         }
 
         CW.StyledText {
-            text: root.device.deviceName + (root.device.batteryAvailable ? `, ${root.device.battery * 100}% Battery` : "")
+            text: root.device ? (root.device.deviceName + (root.device.batteryAvailable ? `, ${root.device.battery * 100}% Battery` : "")) : "Unknown"
             fontSize: root.fontSize
         }
 
         RowLayout {
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-            Layout.fillWidth: true
-
+            Layout.preferredWidth: parent.width
             CW.StyledText {
                 Layout.alignment: Qt.AlignTop
                 Layout.topMargin: 2
-                text: root.device.connected ? "Connected" : (root.device.paired ? "Paired" : "Not Connected")
+                text: root.device ? (root.device.connected ? "Connected" : (root.device.paired ? "Paired" : "Not Connected")) : "Unknown"
                 fontSize: root.fontSize
             }
 
@@ -59,6 +54,9 @@ WrapperRectangle {
                     anchors.centerIn: parent
                     fontSize: root.fontSize
                     text: {
+                        if (!root.device)
+                            return "Unknown";
+
                         switch (root.device.state) {
                         case BluetoothDeviceState.Disconnected:
                             return (root.device.paired ? "Connect" : "Pair");

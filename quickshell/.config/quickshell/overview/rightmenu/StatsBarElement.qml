@@ -21,8 +21,8 @@ ColumnLayout {
 
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            font.pointSize: 11
-            color: C.Config.theme.on_surface
+            font.pointSize: C.Config.fontSize.tinySymbol
+            color: C.Config.colors.fg
         }
 
         Item {
@@ -34,8 +34,8 @@ ColumnLayout {
 
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            font.pointSize: 11
-            color: C.Config.theme.on_surface
+            font.pointSize: C.Config.fontSize.tiny
+            color: C.Config.colors.fg
         }
     }
 

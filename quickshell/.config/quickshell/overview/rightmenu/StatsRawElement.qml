@@ -14,14 +14,15 @@ RowLayout {
 
     property string icon: ""
     property string amount: "10"
+    property string color: C.Config.colors.fg
 
     CW.FontIcon {
         text: root.icon
 
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        font.pointSize: 10
-        color: C.Config.theme.on_surface
+        font.pointSize: C.Config.fontSize.tinySymbol
+        color: root.color
     }
 
     Text {
@@ -29,7 +30,7 @@ RowLayout {
 
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        font.pointSize: 11
-        color: C.Config.theme.on_surface
+        font.pointSize: C.Config.fontSize.tiny
+        color: root.color
     }
 }

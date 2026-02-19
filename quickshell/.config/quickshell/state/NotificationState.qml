@@ -25,11 +25,6 @@ Singleton {
         function clear() {
             root.trackedNotifs = [];
         }
-
-        function debug() {
-            print(root.dndEnabled);
-            print(root.trackedNotifs.length);
-        }
     }
 
     Component {
@@ -58,7 +53,6 @@ Singleton {
 
         onNotification: notif => {
             notif.tracked = true;
-            print(notif);
 
             const newNotif = notifComponent.createObject(root, {
                 notif

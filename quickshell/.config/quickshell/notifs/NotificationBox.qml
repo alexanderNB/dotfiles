@@ -23,9 +23,8 @@ Item {
     property real entryFactor: 1
 
     property real contentWidth: 360
-    property real rightMargin: 20
 
-    implicitWidth: box.implicitWidth + rightMargin
+    implicitWidth: box.implicitWidth
     implicitHeight: (box.implicitHeight + 5) * entryFactor
 
     Rectangle {
@@ -41,7 +40,7 @@ Item {
             id: mainLayout
 
             implicitHeight: contentLayout.implicitHeight
-            spacing: 5
+            spacing: 10
 
             anchors {
                 top: parent.top
@@ -60,18 +59,16 @@ Item {
 
                 Rectangle {
                     visible: root.icon != ""
-                    anchors {
-                        top: parent
-                        left: parent
-                        right: parent
-                        bottom: parent
-                    }
+                    anchors.fill: parent
                     radius: 15
                     color: "transparent"
 
-                    IconImage {
-                        implicitSize: coverItem.height
-                        source: Quickshell.iconPath(root.icon)
+                    LazyLoader {
+                        active: root.icon != ""
+                        IconImage {
+                            implicitSize: coverItem.height
+                            source: Quickshell.iconPath(root.icon)
+                        }
                     }
                 }
 
@@ -93,14 +90,13 @@ Item {
                 id: contentLayout
 
                 Layout.fillWidth: true
-                Layout.rightMargin: 15
-                Layout.leftMargin: 15
                 Layout.topMargin: 15
-                Layout.bottomMargin: 15
+                Layout.rightMargin: 10
+                Layout.bottomMargin: 10
                 spacing: 5
 
                 CW.StyledText {
-                    Layout.maximumWidth: contentLayout.width - buttonLayout.width
+                    Layout.maximumWidth: root.contentWidth - coverItem.width - coverItem.Layout.leftMargin - mainLayout.spacing - buttonLayout.width - buttonLayout.anchors.rightMargin
                     text: `${root.summary} - ${root.app}`
                     elide: Text.ElideRight
                     font.pointSize: C.Config.fontSize.large
@@ -191,7 +187,7 @@ Item {
                         ColorAnimation {
                             duration: 400
                             easing.type: Easing.BezierSpline
-                            easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
+                            easing.bezierCurve: C.Config.anim_CURVE_SMOOTH_SLIDE
                         }
                     }
                 }

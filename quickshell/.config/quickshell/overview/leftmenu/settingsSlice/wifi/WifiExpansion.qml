@@ -41,11 +41,7 @@ Rectangle {
         }
 
         RowLayout {
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-            Layout.fillWidth: true
+            Layout.preferredWidth: parent.width
             CW.StyledText {
                 Layout.alignment: Qt.AlignTop
                 Layout.topMargin: 2

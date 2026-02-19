@@ -42,7 +42,6 @@ Singleton {
     }
 
     function refreshWifi() {
-        console.log("Wifi refresh running twice");
         if (nmcliListProc.running)
             return;
 

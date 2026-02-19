@@ -10,31 +10,31 @@ WrapperMouseArea {
 
     property string text: ""
 
-    margin: 2
-    width: height
     hoverEnabled: true
+    implicitHeight: icon.implicitHeight
+    implicitWidth: icon.implicitHeight // Square
 
     Rectangle {
         id: bg
         anchors.fill: parent
 
-        color: root.containsMouse ? C.Config.applySecondaryOpacity(Qt.lighter(C.Config.theme.surface_container, 1.8)) : Qt.alpha(C.Config.theme.surface_container, 0)
+        // color: root.containsMouse ? C.Config.applySecondaryOpacity(Qt.lighter(C.Config.theme.surface_container, 1.8)) : Qt.alpha(C.Config.theme.surface_container, 0)
+        color: root.containsMouse ? Qt.darker(C.Config.colors.blue, 1.4) : C.Config.colors.blue
         radius: 8
-        implicitHeight: icon.implicitHeight
-        implicitWidth: icon.implicitHeight // Square
 
         CW.FontIcon {
             id: icon
             text: root.text
-            font.pointSize: C.Config.fontSize.normal
+            font.pointSize: C.Config.fontSize.smallSymbol
             anchors.centerIn: parent
+            color: C.Config.colors.bg
         }
 
         Behavior on color {
             ColorAnimation {
-                duration: C.Globals.anim_MEDIUM
+                duration: C.Config.anim_MEDIUM
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: C.Globals.anim_CURVE_SMOOTH_SLIDE
+                easing.bezierCurve: C.Config.anim_CURVE_SMOOTH_SLIDE
             }
         }
     }

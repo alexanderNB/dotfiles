@@ -76,7 +76,7 @@ Singleton {
             centerFontSize: root.fontSize.normal,
             sideFontSize: root.fontSize.normal,
             centerTopMargin: 10,
-            sideTopMargin: 5,
+            sideTopMargin: 0,
             sideSideMargin: 10,
             seperatorSize: 12
         })

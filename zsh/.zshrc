@@ -28,6 +28,7 @@ ZSH_THEME="random"
 # jonathan
 # crcandy
 # candy : has american clock, but smaller margins
+# junkfood
 
 
 # Set list of themes to pick from when loading at random

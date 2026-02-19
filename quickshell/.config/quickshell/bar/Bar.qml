@@ -12,7 +12,7 @@ PanelWindow {
     visible: _visible || sticky
     property bool _visible: false
     property bool sticky: Hyprland.monitorFor(screen).id == 1 || (UPower.displayDevice.percentage <= 0.15 && (UPower.displayDevice.state === UPowerDeviceState.Discharging))
-    property real standardHeight: sticky ? C.Config.bar.height : 0
+    property real standardHeight: sticky ? C.Config.bar.height * 0.5 : 0
     implicitHeight: C.Config.bar.height
 
     // TODO: Make gradients take C.Config.bar.color
@@ -41,11 +41,11 @@ PanelWindow {
             color: C.Config.bar.color
         }
         GradientStop {
-            position: 0.45
+            position: 0.5
             color: C.Config.bar.color
         }
         GradientStop {
-            position: 0.451
+            position: 0.501
             color: "transparent"
         }
     }

@@ -20,11 +20,14 @@ ZSH_THEME="random"
 
 ## Medium
 # dallas
+# gallois
 
 ## Maxi:
 # fino-time
 # rkj
 # jonathan
+# crcandy
+# candy : has american clock, but smaller margins
 
 
 # Set list of themes to pick from when loading at random

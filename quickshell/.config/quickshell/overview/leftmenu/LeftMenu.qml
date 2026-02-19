@@ -5,8 +5,9 @@ import Quickshell
 
 Item {
     id: root
+    property bool active
     PanelWindow {
-        visible: root.visible
+        visible: root.active
         // color: "#1F1F1F"
         color: "#000000"
         anchors.left: true

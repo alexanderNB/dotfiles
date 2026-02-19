@@ -15,15 +15,14 @@ import Quickshell.Widgets
 
 Item {
     id: root
-    visible: Hyprland.focusedWorkspace?.name === "overview"
-    // visible: true
+    property bool active: (Hyprland.focusedWorkspace?.name === "overview") ?? false
 
     RM.RightMenu {
-        visible: root.visible
+        active: root.active
     }
 
     LM.LeftMenu {
-        visible: root.visible
+        active: root.active
     }
 
     // P.LayerPopupDelegate {

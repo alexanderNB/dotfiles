@@ -37,9 +37,9 @@ Scope {
             }
 
             // TODO: Set up config
-            O.VolumeOSD {}
             //
-            OV.Overview {}
         }
     }
+    O.VolumeOSD {}
+    OV.Overview {}
 }

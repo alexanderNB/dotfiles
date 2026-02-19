@@ -11,12 +11,13 @@ import Quickshell.Widgets
 Item {
     id: root
     property bool idleInhibitEnabled: false
+    property bool active
 
     implicitWidth: 360 // notifs are 360
 
     PanelWindow {
         id: panelWindow
-        visible: root.visible
+        visible: root.active
         anchors.right: true
         anchors.top: true
         anchors.bottom: true

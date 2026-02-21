@@ -82,7 +82,7 @@ Singleton {
     Timer {
         repeat: true
         running: true
-        interval: 1000 * 10 // 10 mins
+        interval: 1000 * 60 * 10 // 10 mins
 
         onTriggered: {
             if (!cityProc.running)

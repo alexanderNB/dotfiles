@@ -21,6 +21,7 @@ ZSH_THEME="random"
 ## Medium
 # dallas
 # gallois
+# tonotdo
 
 ## Maxi:
 # fino-time
@@ -29,6 +30,7 @@ ZSH_THEME="random"
 # crcandy
 # candy : has american clock, but smaller margins
 # junkfood
+# simonoff
 
 
 # Set list of themes to pick from when loading at random

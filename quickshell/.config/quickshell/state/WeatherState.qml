@@ -14,13 +14,30 @@ Singleton {
     property string icon: "sunny"
     property string temp: "26°"
 
-    property bool isWeatherOverridden: false
     property string lastLocation: ""
+    property string fallbackLocation: "Copenhagen"
+
+    Process {
+        id: cityProc
+        running: true
+        command: ["sh", "-c", "curl -s ipinfo.io/city"]
+        stdout: SplitParser {
+            splitMarker: "\n"
+            onRead: data => {
+                root.lastLocation = data;
+            }
+        }
+        onRunningChanged: {
+            if (!running) {
+                weatherProc.running = true;
+            }
+        }
+    }
 
     Process {
         id: weatherProc
         running: false
-        command: ["sh", "-c", "curl -s \"wttr.in/" + "$(curl -s ipinfo.io/city)" + "?format=%c|%t|%C|%f|%m|%p|%l\""]
+        command: ["sh", "-c", "curl -s \"wttr.in/" + (lastLocation != "" ? lastLocation : fallbackLocation) + "?format=%c|%t|%C|%f|%m|%p|%l\""]
 
         stdout: SplitParser {
             splitMarker: ""
@@ -63,23 +80,13 @@ Singleton {
     }
 
     Timer {
-        running: location == "?"
-        interval: 100
-        repeat: true
-        onTriggered: {
-            if (!weatherProc.running)
-                weatherProc.running = true;
-        }
-    }
-
-    Timer {
         repeat: true
         running: true
-        interval: 1000 * 60 * 10 // 10 mins
+        interval: 1000 * 10 // 10 mins
 
         onTriggered: {
-            if (!weatherProc.running)
-                weatherProc.running = true;
+            if (!cityProc.running)
+                cityProc.running = true;
         }
     }
 }

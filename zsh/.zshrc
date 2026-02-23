@@ -17,6 +17,7 @@ ZSH_THEME="random"
 # cloud
 # philips
 # wuffers
+# michelebologna
 
 ## Medium
 # dallas

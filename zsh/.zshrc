@@ -18,6 +18,7 @@ ZSH_THEME="random"
 # philips
 # wuffers
 # michelebologna
+# af-magic
 
 ## Medium
 # dallas

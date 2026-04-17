@@ -3,7 +3,7 @@ return {
         -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
         "folke/tokyonight.nvim",
 
-        dependencies = { "https://github.com/HiPhish/rainbow-delimiters.nvim" },
+        -- dependencies = { "https://github.com/HiPhish/rainbow-delimiters.nvim" },
         priority = 1000, -- Make sure to load this before all the other start plugins.
         config = function()
             ---@diagnostic disable-next-line: missing-fields
@@ -29,7 +29,7 @@ return {
                     -- add any plugins here that you want to enable
                     -- for all possible plugins, see:
                     --   * https://github.com/folke/tokyonight.nvim/tree/main/lua/tokyonight/groups
-                    rainbow = true,
+                    -- rainbow = true,
                 },
             }
             vim.cmd.colorscheme "tokyonight-night"

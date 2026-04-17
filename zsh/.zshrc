@@ -8,29 +8,19 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="random"
+ZSH_THEME="awesomepanda"
 # Contenders:
 
 ## Minimal:
-# simple
 # awesomepanda
-# cloud
-# philips
-# wuffers
 
 ## Medium
-# dallas
 # gallois
 # tonotdo
 
 ## Maxi:
-# fino-time
-# rkj
 # jonathan
 # crcandy
-# candy : has american clock, but smaller margins
-# junkfood
-# simonoff
 
 
 # Set list of themes to pick from when loading at random
@@ -150,6 +140,7 @@ alias battery='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
 alias debug='~/.config/hypr/scripts/debug.sh'
 alias shutdown='hyprshutdown -p "systemctl poweroff"'
 alias reboot='hyprshutdown -p "systemctl reboot"'
+alias box='python ~/KK23Box/main.py'
 
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519gitlab
@@ -170,8 +161,7 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
     start-hyprland
 fi
 
-echo $RANDOM_THEME
-
+export PATH="$PATH:/home/alexander/.dotnet/tools"
 
 # Created by `pipx` on 2025-11-11 12:00:27
 export PATH="$PATH:/home/alexander/.local/bin"

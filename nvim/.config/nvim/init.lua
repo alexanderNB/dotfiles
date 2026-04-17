@@ -207,6 +207,7 @@ vim.keymap.set("n", "<leader>tt", "<cmd>lua Snacks.terminal.toggle()<CR>", { des
 vim.keymap.set("n", "<leader>d", '"_d', { desc = "Delete without yanking" })
 vim.keymap.set("n", "<leader>c", '"_c', { desc = "Change without yanking" })
 vim.keymap.set("x", "<leader>p", "P", { desc = "Paste without yanking" })
+vim.keymap.set("n", "U", "<C-r>", { desc = "Redo" })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`

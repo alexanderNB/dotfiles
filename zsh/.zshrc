@@ -141,11 +141,10 @@ alias debug='~/.config/hypr/scripts/debug.sh'
 alias shutdown='hyprshutdown -p "systemctl poweroff"'
 alias sleep='hyprshutdown -p "fah-client"'
 alias wakeup='pkill fah-client && start-hyprland'
-
-
 alias reboot='hyprshutdown -p "systemctl reboot"'
-alias box='python ~/KK23Box/main.py'
 alias kim='ssh kimvt@100.93.140.109 '
+alias pcbox='ssh archnb@pc "python ~/KK23Box/main.py"'
+alias box="python ~/KK23Box/main.py"
 
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519gitlab

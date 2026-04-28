@@ -140,7 +140,8 @@ alias battery='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
 alias debug='~/.config/hypr/scripts/debug.sh'
 alias shutdown='hyprshutdown -p "systemctl poweroff"'
 alias reboot='hyprshutdown -p "systemctl reboot"'
-alias box='python ~/KK23Box/main.py'
+alias pcbox='ssh archnb@pc "python ~/KK23Box/main.py"'
+alias box="python ~/KK23Box/main.py"
 
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519gitlab

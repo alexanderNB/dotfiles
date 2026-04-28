@@ -1,3 +1,0 @@
-return {
-    "BertrandSim/vim-multindent"
-}

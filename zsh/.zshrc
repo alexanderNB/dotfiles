@@ -142,9 +142,8 @@ alias shutdown='hyprshutdown -p "systemctl poweroff"'
 alias sleep='hyprshutdown -p "fah-client"'
 alias wakeup='pkill fah-client && start-hyprland'
 alias reboot='hyprshutdown -p "systemctl reboot"'
-alias kim='ssh kimvt@100.93.140.109 '
-alias pcbox='ssh archnb@pc "python ~/KK23Box/main.py"'
-alias box="python ~/KK23Box/main.py"
+alias kim='ssh kimvt@100.93.140.109'
+alias box='ssh main@anbhost "python ~/KK23Box/main.py"'
 
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519gitlab
@@ -162,7 +161,8 @@ export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude Steam --exclude Games
 eval "$(fzf --zsh)"
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-    start-hyprland
+    # start-hyprland
+    fah-client
 fi
 
 export PATH="$PATH:/home/alexander/.dotnet/tools"

@@ -6,13 +6,12 @@
 Terminal = "kitty"
 FileManager = "dolphin"
 Browser = "zen-browser"
-
+require("variables")
 
 ----------------
 --- SECTIONS ---
 ----------------
 
-require("variables")
 require("sections.general")
 require("sections.input")
 require("sections.keybinds")

@@ -1,2 +1,0 @@
-pkill Discord
-ELECTRON_OZONE_PLATFORM_HINT= discord

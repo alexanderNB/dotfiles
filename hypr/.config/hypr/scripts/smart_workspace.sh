@@ -1,1 +1,0 @@
-../../../../../.config/system_specific/hypr/scripts/smart_workspace.sh

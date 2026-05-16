@@ -1,7 +1,7 @@
 hl.config({
     general = {
-        border_size = 2,
-        gaps_in = 3,
+        border_size = 0,
+        gaps_in = 0,
         gaps_out = 0,
         gaps_workspaces = 50,
 
@@ -13,7 +13,7 @@ hl.config({
 
 
     decoration = {
-        rounding = 3,
+        rounding = 0,
         rounding_power = 2,
 
         active_opacity = 1,
@@ -29,12 +29,16 @@ hl.config({
         },
 
         blur = {
-            enabled   = false,
-            size      = 3,
-            passes    = 1,
-            vibrancy  = 0.1696,
+            enabled   = true,
+            size      = 100,
+            passes    = 2,
+            noise     = 0,
+            brightness = 25,
+            vibrancy  = 1,
         },
+
     },
+
 
     animations = {
         enabled = true
@@ -43,12 +47,47 @@ hl.config({
 
 })
 
-hl.workspace_rule({ workspace = "w[tv1]", gaps_out = 0, gaps_in = 0 })
-hl.workspace_rule({ workspace = "f[1]", gaps_out = 0, gaps_in = 0 })
-hl.window_rule({ match = { float = false, workspace = "w[tv1]" }, border_size = 0 })
-hl.window_rule({ match = { float = false, workspace = "w[tv1]" }, rounding = 0 })
-hl.window_rule({ match = { float = false, workspace = "f[1]" }, border_size = 0 })
-hl.window_rule({ match = { float = false, workspace = "f[1]" }, rounding = 0 })
+
+local flash_window_rule = hl.window_rule({
+    match = { focus = true },
+    opacity = 0.9,
+})
+flash_window_rule:set_enabled(false)
+
+
+local flash_timer = hl.timer(
+    function ()
+        flash_window_rule:set_enabled(false)
+    end, { timeout=250, type="repeat" })
+flash_timer:set_enabled(false)
+
+
+--- @param window HL.Window
+hl.on("window.active", function (window)
+    if #hl.get_workspace_windows(window.workspace) > 1 then
+        flash_window_rule:set_enabled(true)
+        flash_timer:set_enabled(true)
+    end
+end)
+
+--- @param monitor HL.Monitor
+hl.on("monitor.focused", function (monitor)
+    if #hl.get_workspace_windows(monitor.active_workspace) == 1 then
+        flash_window_rule:set_enabled(true)
+        flash_timer:set_enabled(true)
+    end
+end)
+
+hl.window_rule({ match = { tag="closing" }, no_blur = true })
+
+--- @param window HL.Window
+hl.on("window.close", function (window)
+    hl.dispatch(hl.dsp.window.tag({ tag="closing", window=window }))
+end)
+
+-- TODO: This doesn't work:
+hl.env("HYPRCURSOR_THEME", "hicolor")
+hl.env("HYPRCURSOR_SIZE", "48")
 
 hl.curve("easeOutQuint",   { type = "bezier", points = { {0.23, 1},    {0.32, 1}    } })
 hl.curve("easeInOutCubic", { type = "bezier", points = { {0.65, 0.05}, {0.36, 1}    } })
@@ -73,6 +112,6 @@ hl.animation({ leaf = "fadeLayersIn",  enabled = true,  speed = 1.79, bezier = "
 hl.animation({ leaf = "fadeLayersOut", enabled = true,  speed = 1.39, bezier = "almostLinear" })
 hl.animation({ leaf = "workspaces",    enabled = true,  speed = 1.94, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "workspacesIn",  enabled = false, speed = 1.21, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "workspacesOut", enabled = true,  speed = 1.94, bezier = "almostLinear", style = "fade" })
+hl.animation({ leaf = "workspacesOut", enabled = false,  speed = 1.94, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "zoomFactor",    enabled = true,  speed = 7,    bezier = "quick" })
 

@@ -159,8 +159,20 @@ hl.bind("SUPER + RIGHT", hl.dsp.window.move({ direction = "right" }))
 --- EXEC (SUPER + SHIFT) ---
 ----------------------------
 
+local open_and_execute = function (workspace, command)
+    if hl.get_monitor("-1").active_workspace.name == workspace then
+        hl.dispatch(hl.dsp.focus({ workspace = "name:" .. workspace, on_current_monitor=false }))
+    else
+        hl.dispatch(hl.dsp.focus({ workspace = "name:" .. workspace, on_current_monitor=true }))
+    end
+    if #hl.get_workspace_windows("name:" .. workspace) == 0 then
+        hl.dispatch(hl.dsp.exec_cmd(command, { workspace = "name:".. workspace .. " silent" }))
+    end
+end
+-- zen-browser -P Messenger --new-window www.messenger.com
+
 -- TODO: Screenshot
--- hl.bind("SUPER + SHIFT + TAB", )
+hl.bind("SUPER + SHIFT + TAB", hl.dsp.exec_cmd("hyprshot -m region --silent --clipboard-only"))
 
 -- hl.bind("SUPER + SHIFT + Q", )
 -- hl.bind("SUPER + SHIFT + Y", )
@@ -172,17 +184,10 @@ hl.bind("SUPER + SHIFT + F", hl.dsp.exec_cmd(FileManager))
 
 -- TODO: Overview
 -- hl.bind("SUPER + SHIFT + A", )
-
 hl.bind("SUPER + SHIFT + I", hl.dsp.exec_cmd("obsidian"))
-hl.bind("SUPER + SHIFT + S", function ()
-    hl.dispatch(hl.dsp.focus({workspace = "name:steam"}))
-    hl.dispatch(hl.dsp.exec_cmd("steam"))
-end)
+hl.bind("SUPER + SHIFT + S", function() open_and_execute("steam", "steam") end)
 hl.bind("SUPER + SHIFT + T", hl.dsp.exec_cmd(Terminal))
-hl.bind("SUPER + SHIFT + D", function ()
-    hl.dispatch(hl.dsp.focus({workspace = "name:discord"}))
-    hl.dispatch(hl.dsp.exec_cmd("discord"))
-end)
+hl.bind("SUPER + SHIFT + D", function() open_and_execute("discord", "discord") end)
 
 -- hl.bind("SUPER + SHIFT + ???", )
 -- hl.bind("SUPER + SHIFT + Z", )
@@ -211,16 +216,15 @@ hl.bind("SUPER + SHIFT + O", hl.dsp.layout("preselect right"))
 -- hl.bind("SUPER + SHIFT + enter", )
 
 -- hl.bind("SUPER + SHIFT + K", )
-hl.bind("SUPER + SHIFT + M", function ()
-    hl.dispatch(hl.dsp.focus({ workspace = "name:messenger" }))
-    -- hl.exec_cmd("zen-browser -P Messenger --new-window www.messenger.com", { workspace = "name:messenger" })
-end)
+hl.bind("SUPER + SHIFT + M", function () open_and_execute("messenger", "zen-browser -P Messenger --new-window www.messenger.com") end)
 -- hl.bind("SUPER + SHIFT + semicolon", )
 -- hl.bind("SUPER + SHIFT + X", )
 -- hl.bind("SUPER + SHIFT + Æ", )
 -- hl.bind("SUPER + SHIFT + Ø", )
 
---- EXTRA
+-------------
+--- EXTRA ---
+-------------
 hl.bind("SUPER_L", hl.dsp.global("quickshell:bar"), { transparent=true })
 hl.bind("SUPER + SUPER_L", hl.dsp.global("quickshell:bar"), { release=true, transparent=true })
 
@@ -242,3 +246,33 @@ for i = 0, 9, 1 do
         smartWorkspace(i+1, true)
     end)
 end
+
+-- hl.bind("SUPER + SHIFT + G", function ()
+--     local framerate = 50
+--     local birdspeed = 0
+--     local acceleration = 1/framerate
+--     local jump_height = 500/framerate
+--     local pipespeed = 200/framerate
+--
+--     local pos_x = 10
+--     local pos_y = 720-100
+--
+--
+--
+--     hl.exec_cmd("kitty", { float = true, size={ 200, 400 }, border_size = 2, move = { "monitor_w*0.5", "monitor_h - 400" }})
+--
+--     hl.exec_cmd("kitty", { float = true, size={ 200, 400 }, border_size = 2, move = { "monitor_w*0.5", 0 }})
+--
+--     hl.timer(function ()
+--         hl.exec_cmd("kitty", { float = true, size={ 200, 200 }, border_size = 2, move = { pos_x , pos_y }})
+--         hl.timer(function ()
+--             hl.bind("SPACE", function () birdspeed = -jump_height end)
+--             hl.timer(function ()
+--                 pos_x = pos_x + pipespeed
+--                 pos_y = pos_y - birdspeed
+--                 hl.dispatch(hl.dsp.window.move({ x=pos_x, y=pos_y, relative=false }))
+--                 birdspeed = birdspeed + acceleration
+--             end, { timeout = 1000/framerate, type="repeat" })
+--         end, { timeout = 100, type="oneshot" })
+--     end, { timeout=100, type="oneshot" })
+-- end)

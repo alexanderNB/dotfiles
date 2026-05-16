@@ -1,5 +1,7 @@
 hl.on("hyprland.start", function () 
-    hl.dispatch(hl.dsp.focus({ workspace = 1, on_current_monitor=false }))
+    hl.timer(function ()
+        hl.dispatch(hl.dsp.focus({ workspace = 1, on_current_monitor=false }))
+    end, { timeout=500, type="oneshot" })
     hl.exec_cmd(Terminal,   { workspace = "1 silent" })
     hl.exec_cmd("obsidian", { workspace = "2 silent" })
     hl.exec_cmd(Browser,    { workspace = "3 silent" })

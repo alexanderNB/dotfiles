@@ -161,8 +161,24 @@ export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude Steam --exclude Games
 eval "$(fzf --zsh)"
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-    # start-hyprland
-    fah-client
+    if [[ "$(pacman -Qq foldingathome)" -eq "foldingathome" ]] then
+        countdown() {
+            for i in {10..1}; do
+                echo -n "${i}... "
+                read -t1 && { return 1; }
+            done
+            echo 0
+        }
+
+        echo "Press enter within 10 seconds to start Hyprland:"
+        if countdown; then
+            fah-client
+        else
+            start-hyprland
+        fi
+    else
+        start-hyprland
+    fi
 fi
 
 export PATH="$PATH:/home/alexander/.dotnet/tools"

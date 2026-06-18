@@ -6,10 +6,10 @@
 Terminal = "kitty"
 FileManager = "dolphin"
 Browser = "zen-browser"
-if hl.get_active_monitor() == "eDP-1" then
-    System = "Laptop"
-else
+if #hl.get_monitors() == 2 then
     System = "PC"
+else
+    System = "Laptop"
 end
 
 
@@ -58,27 +58,27 @@ hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 
 
-local snake_dir = os.getenv("HOME") .. "/hyprsnake"
-
-package.path = table.concat({
-  package.path,
-  snake_dir .. "/?.lua",
-}, ";")
-
-Hyprsnake = require("hyprsnake")
-
--- Default options
-Hyprsnake.set_opts({
-    tick_speed = 200, -- less means faster
-    maps = { -- sintax for keys is the same as hyprland keybinds
-        turn_r = 'right',
-        turn_l = 'left',
-        exit = 'Escape'
-    },
-    grid_size = {32, 18}, -- explanation below
-    snake_color = "ffffff", -- RGB
-})
-
--- Set a bind to launch the game
-hl.bind("SUPER + SHIFT + G", function() Hyprsnake.launch() end)
-
+-- local snake_dir = os.getenv("HOME") .. "/hyprsnake"
+--
+-- package.path = table.concat({
+--   package.path,
+--   snake_dir .. "/?.lua",
+-- }, ";")
+--
+-- Hyprsnake = require("hyprsnake")
+--
+-- -- Default options
+-- Hyprsnake.set_opts({
+--     tick_speed = 200, -- less means faster
+--     maps = { -- sintax for keys is the same as hyprland keybinds
+--         turn_r = 'right',
+--         turn_l = 'left',
+--         exit = 'Escape'
+--     },
+--     grid_size = {32, 18}, -- explanation below
+--     snake_color = "ffffff", -- RGB
+-- })
+--
+-- -- Set a bind to launch the game
+-- hl.bind("SUPER + SHIFT + G", function() Hyprsnake.launch() end)
+--

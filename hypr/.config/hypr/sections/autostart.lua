@@ -11,7 +11,9 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("zen-browser -P Messenger --new-window www.messenger.com", { workspace = "name:messenger silent" })
     hl.exec_cmd("kitty -o background=black --execute btop", { workspace = "name:overview silent"})
 
-    hl.exec_cmd("hyprlock")
+    if System == "Labtop" then
+        hl.exec_cmd("hyprlock")
+    end
     hl.exec_cmd("QS_NO_RELOAD_POPUP=1 QML_DISABLE_DISK_CACHE=1 quickshell")
 
     hl.exec_cmd("hyprpaper")

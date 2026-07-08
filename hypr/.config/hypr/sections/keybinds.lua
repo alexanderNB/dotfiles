@@ -81,7 +81,7 @@ resize("SUPER + W", 0, -25)
 resize("SUPER + apostrophe", 25, 0)
 
 -- TODO: fullscreen
--- hl.bind("SUPER + aring", hl.dsp.fullscreen)
+hl.bind("SUPER + aring", hl.dsp.window.fullscreen({ mode="fullscreen", action="toggle" }))
 
 -- bind = $mainMod, H, resizeactive, -10000 0
 hl.bind("SUPER + N", hl.dsp.focus({ direction = "left"}))
@@ -225,8 +225,7 @@ hl.bind("SUPER + SHIFT + M", function () open_and_execute("messenger", "zen-brow
 -------------
 --- EXTRA ---
 -------------
-hl.bind("SUPER_L", hl.dsp.global("quickshell:bar"), { transparent=true })
-hl.bind("SUPER + SUPER_L", hl.dsp.global("quickshell:bar"), { release=true, transparent=true })
+hl.bind("SUPER_L", hl.dsp.global("quickshell:bar"), { ignore_mods=true, transparent=true })
 
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("amixer -q sset Master 2%+"))
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("amixer -q sset Master 2%-"))
@@ -235,7 +234,17 @@ hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 1%+"), { repea
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 1%-"), { repeating = true, locked = true })
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"))
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"))
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"))
+
+local play_pause = "playerctl play-pause"
+hl.bind("XF86AudioPlay", function ()
+    hl.dispatch(hl.dsp.exec_cmd(play_pause))
+    play_pause = "playerctl next"
+    hl.timer(function ()
+        play_pause = "playerctl play-pause"
+    end, { timeout=1000, type="oneshot"})
+end)
+
+
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"))
 
 for i = 0, 9, 1 do

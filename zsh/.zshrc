@@ -163,14 +163,14 @@ eval "$(fzf --zsh)"
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
     if [[ "$(pacman -Qq foldingathome)" -eq "foldingathome" ]] then
         countdown() {
-            for i in {10..1}; do
+            for i in {30..1}; do
                 echo -n "${i}... "
                 read -t1 && { return 1; }
             done
             echo 0
         }
 
-        echo "Press enter within 10 seconds to start Hyprland:"
+        echo "Press enter within 30 seconds to start Hyprland:"
         if countdown; then
             fah-client
         else

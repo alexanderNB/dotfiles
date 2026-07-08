@@ -57,7 +57,7 @@ else
 
     hl.config({
         render = {
-            cm_sdr_eotf = 2
+            cm_sdr_eotf = "0"
         }
     })
 

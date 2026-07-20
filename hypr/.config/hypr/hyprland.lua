@@ -6,11 +6,14 @@
 Terminal = "kitty"
 FileManager = "dolphin"
 Browser = "zen-browser"
-if #hl.get_monitors() == 2 then
+hl.notification.create({text=#hl.get_monitors(), duration=5000})
+
+if #hl.get_monitors() == 0 or #hl.get_monitors() == 2 then
     System = "PC"
 else
     System = "Laptop"
 end
+hl.notification.create({text=System, duration=5000})
 
 
 

@@ -12,13 +12,18 @@ end
 local resize = function (bind, x, y)
     local resize_timer = hl.timer(function ()
         hl.dispatch(hl.dsp.window.resize({ x = x, y = y, relative = true }))
+        if hl.is_key_down(string.lower(bind)) then
+            hl.notification.create({text="True", duration=5000})
+        else
+            hl.notification.create({text="False", duration=5000})
+        end
     end, { timeout = 10, type = "repeat" })
     resize_timer:set_enabled(false)
-    hl.bind(bind, function ()
+    hl.bind("SUPER + " .. bind, function ()
         resize_timer:set_enabled(true)
     end)
 
-    hl.bind(bind, function ()
+    hl.bind("SUPER + " .. bind, function ()
         resize_timer:set_enabled(false)
     end, { release = true, transparent = true })
 end
@@ -75,10 +80,10 @@ hl.bind("SUPER + Z", hl.dsp.layout("togglesplit"))
 
 
 -- hl.bind("SUPER + J", )
-resize("SUPER + L", -25, 0)
-resize("SUPER + U", 0, 25)
-resize("SUPER + W", 0, -25)
-resize("SUPER + apostrophe", 25, 0)
+resize("L", -25, 0)
+resize("U", 0, 25)
+resize("W", 0, -25)
+resize("apostrophe", 25, 0)
 
 -- TODO: fullscreen
 hl.bind("SUPER + aring", hl.dsp.window.fullscreen({ mode="fullscreen", action="toggle" }))

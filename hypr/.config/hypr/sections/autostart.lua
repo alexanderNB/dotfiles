@@ -1,4 +1,5 @@
-hl.on("hyprland.start", function () 
+hl.on("hyprland.start", function ()
+    hl.notification.create({text = System, timeout=5000})
     hl.timer(function ()
         hl.dispatch(hl.dsp.focus({ workspace = 1, on_current_monitor=false }))
     end, { timeout=500, type="oneshot" })
@@ -11,9 +12,9 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("zen-browser -P Messenger --new-window www.messenger.com", { workspace = "name:messenger silent" })
     hl.exec_cmd("kitty -o background=black --execute btop", { workspace = "name:overview silent"})
 
-    if System == "Labtop" then
-        hl.exec_cmd("hyprlock")
-    end
+    -- if System == "Laptop" then -- NOTE: This doesn't work as it runs before the monitors have been loaded, and hyprctl reload doesn't rerun hyprland.start.
+    --     hl.exec_cmd("hyprlock")
+    -- end
     hl.exec_cmd("QS_NO_RELOAD_POPUP=1 QML_DISABLE_DISK_CACHE=1 quickshell")
 
     hl.exec_cmd("hyprpaper")

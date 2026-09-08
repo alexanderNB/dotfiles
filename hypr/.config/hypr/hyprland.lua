@@ -6,15 +6,26 @@
 Terminal = "kitty"
 FileManager = "dolphin"
 Browser = "zen-browser"
-hl.notification.create({text=#hl.get_monitors(), duration=5000})
 
-if #hl.get_monitors() == 0 or #hl.get_monitors() == 2 then
-    System = "PC"
-else
+if #hl.get_monitors() == 0 then
+    System = ""
+elseif #hl.get_monitors() == 1 then
     System = "Laptop"
+else
+    System = "PC"
 end
-hl.notification.create({text=System, duration=5000})
-
+local system_timer = hl.timer(function ()
+    if #hl.get_monitors() == 0 then
+        return
+    end
+    -- if #hl.get_monitors() == 1 then
+    --     hl.exec_cmd("hyprlock")
+    -- end
+    hl.exec_cmd("hyprctl reload")
+end, { timeout=100, type="repeat" })
+if System then
+    system_timer:set_enabled(false)
+end
 
 
 ----------------

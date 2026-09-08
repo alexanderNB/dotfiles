@@ -161,7 +161,7 @@ export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude Steam --exclude Games
 eval "$(fzf --zsh)"
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-    if [[ "$(pacman -Qq foldingathome)" -eq "foldingathome" ]] then
+    if [[ "$(pacman -Qq | grep foldingathome)" = "foldingathome" ]] then
         countdown() {
             for i in {30..1}; do
                 echo -n "${i}... "

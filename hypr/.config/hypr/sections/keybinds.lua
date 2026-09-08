@@ -10,22 +10,20 @@ local smartWorkspace = function(workspace, takewith)
 end
 
 local resize = function (bind, x, y)
-    local resize_timer = hl.timer(function ()
+    local resize_timer
+    resize_timer = hl.timer(function ()
         hl.dispatch(hl.dsp.window.resize({ x = x, y = y, relative = true }))
         if hl.is_key_down(string.lower(bind)) then
             hl.notification.create({text="True", duration=5000})
         else
             hl.notification.create({text="False", duration=5000})
+            resize_timer:set_enabled(false)
         end
     end, { timeout = 10, type = "repeat" })
     resize_timer:set_enabled(false)
     hl.bind("SUPER + " .. bind, function ()
         resize_timer:set_enabled(true)
     end)
-
-    hl.bind("SUPER + " .. bind, function ()
-        resize_timer:set_enabled(false)
-    end, { release = true, transparent = true })
 end
 
 local workspaceMap = {
@@ -96,10 +94,10 @@ hl.bind("SUPER + O", hl.dsp.focus({ direction = "right"}))
 -- bind = $mainMod, return, resizeactive, 10000 0
 --
 -- bind = $mainMod, K, resizeactive, 0 10000
-resize("SUPER + M", -10, 0)
-resize("SUPER + comma", 0, 10)
-resize("SUPER + X", 0, -10)
-resize("SUPER + ae", 10, 0)
+resize("M", -10, 0)
+resize("comma", 0, 10)
+resize("X", 0, -10)
+resize("ae", 10, 0)
 -- TODO:
 -- bind = $mainMod, oslash, exec, sh ~/.config/hypr/scripts/reorder.sh
 

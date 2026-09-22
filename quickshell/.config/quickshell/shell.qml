@@ -41,5 +41,5 @@ Scope {
         }
     }
     O.VolumeOSD {}
-    OV.Overview {}
+    // OV.Overview {}
 }

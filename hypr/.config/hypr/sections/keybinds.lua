@@ -14,9 +14,7 @@ local resize = function (bind, x, y)
     resize_timer = hl.timer(function ()
         hl.dispatch(hl.dsp.window.resize({ x = x, y = y, relative = true }))
         if hl.is_key_down(string.lower(bind)) then
-            hl.notification.create({text="True", duration=5000})
         else
-            hl.notification.create({text="False", duration=5000})
             resize_timer:set_enabled(false)
         end
     end, { timeout = 10, type = "repeat" })
